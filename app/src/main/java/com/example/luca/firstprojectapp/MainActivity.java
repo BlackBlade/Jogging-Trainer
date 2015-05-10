@@ -3,15 +3,14 @@ package com.example.luca.firstprojectapp;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.sql.SQLException;
 
-
+//diddiiiiii
 public class MainActivity extends ActionBarActivity implements ShowMessageFragment.IOnActivityCallback {
 
     private DatabaseManager databaseManager;
