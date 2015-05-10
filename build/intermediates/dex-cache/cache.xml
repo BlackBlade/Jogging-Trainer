@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/luca/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-7fa7382bfeafe332c80e6db355141360b07ca105.jar" />
+    </item>
+    <item
+        jar="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-1772b799c31ce295194233ce093734a64cd6bd48.jar" />
+    </item>
+    <item
+        jar="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/pre-dexed/debug/classes-bc7a0b968c2e4864685267ddbe4357ad607d71e1.jar" />
+    </item>
+    <item
+        jar="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/home/luca/AndroidStudioProjects/FirstProjectApp/app/build/intermediates/pre-dexed/debug/classes-16f9d95590a3d5d7960cfd77919ec62551479e8a.jar" />
+    </item>
+
+</items>
