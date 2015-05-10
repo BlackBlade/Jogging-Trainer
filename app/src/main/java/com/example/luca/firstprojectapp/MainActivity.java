@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import java.sql.SQLException;
 
-
+//ddiidididi di di
 public class MainActivity extends ActionBarActivity implements ShowMessageFragment.IOnActivityCallback {
 
     private DatabaseManager databaseManager;
