@@ -8,4 +8,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView"
         android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prova2"
+        android:textSize="25dp"
+        android:paddingTop="100dp"/>
+
+
 </LinearLayout>
