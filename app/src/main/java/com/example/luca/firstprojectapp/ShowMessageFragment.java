@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+
 import java.util.Calendar;
 
 /**
@@ -50,10 +52,4 @@ public class ShowMessageFragment extends Fragment implements DatabaseManager.IOn
 
     }
 
-    public interface IOnActivityCallback{
-
-        public Context getContext();
-
-        public DatabaseManager getDatabaseManager();
-    }
 }

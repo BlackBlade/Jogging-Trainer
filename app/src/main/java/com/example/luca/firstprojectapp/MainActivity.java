@@ -9,10 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+
 import java.sql.SQLException;
 
 //ddiidididi di di
-public class MainActivity extends Activity implements ShowMessageFragment.IOnActivityCallback {
+public class MainActivity extends Activity implements IOnActivityCallback {
 
     private DatabaseManager databaseManager;
 
@@ -22,11 +24,14 @@ public class MainActivity extends Activity implements ShowMessageFragment.IOnAct
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        //SlideMenuFragment fragment = new SlideMenuFragment();
+        //adding slide fragment and main fragment to layout
         FragmentManager manager = getFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
-        //trans.add(R.id.container,fragment,"fragment_slide");
-
+        ShowMessageFragment frag = new ShowMessageFragment();
+        trans.add(R.id.container,frag,"prova"); //TODO change fragment tags!!!
+        SlideMenuFragment fragment = new SlideMenuFragment();
+        trans.add(R.id.container,fragment,"fragment_slide");
+        trans.commit();
 
         databaseManager = new DatabaseManager(this);
         try {
@@ -34,15 +39,6 @@ public class MainActivity extends Activity implements ShowMessageFragment.IOnAct
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-        ShowMessageFragment frag = new ShowMessageFragment();
-        //FragmentManager manager = getFragmentManager();
-       // FragmentTransaction trans = manager.beginTransaction();
-        trans.add(R.id.container,frag,"prova");
-        SlideMenuFragment fragment = new SlideMenuFragment();
-        trans.add(R.id.container,fragment,"fragment_slide");
-        trans.commit();
 
     }
 
