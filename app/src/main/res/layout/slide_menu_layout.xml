@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/drawerLayout">
 
     <!-- The navigation drawer -->
     <RelativeLayout
@@ -51,7 +52,7 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <!-- List of Actions (pages) -->
+        <!-- List of pages -->
         <ListView
             android:id="@+id/navList"
             android:layout_width="280dp"

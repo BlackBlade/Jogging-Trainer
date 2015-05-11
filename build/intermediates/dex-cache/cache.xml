@@ -16,6 +16,13 @@
         <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-bbc6b3868c0ecb258666d1fb80af150339f870cd.jar" />
     </item>
     <item
+        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-3a9330f7708b4d1e88950220852ba9d197a8ecb8.jar" />
+    </item>
+    <item
         jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -23,11 +30,11 @@
         <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-8ebd6d4190daa6b0d43915a3617535ae8f4a1cb8.jar" />
     </item>
     <item
-        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-3a9330f7708b4d1e88950220852ba9d197a8ecb8.jar" />
+        sha1="37bf8de5b4f9e7e93006db783b9b3168e32e38e9">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-fd10e2139553f60af9200b57fd5c6b0b08ab289f.jar" />
     </item>
 
 </items>
