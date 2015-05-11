@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class MainActivity extends Activity implements IOnActivityCallback {
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
-        ShowMessageFragment frag = new ShowMessageFragment();
+        StatisticsFragment frag = new StatisticsFragment();
         trans.add(R.id.container,frag,"prova"); //TODO change fragment tags!!!
         SlideMenuFragment fragment = new SlideMenuFragment();
         trans.add(R.id.container,fragment,"fragment_slide");
