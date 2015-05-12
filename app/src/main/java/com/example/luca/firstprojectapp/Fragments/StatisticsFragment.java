@@ -3,6 +3,7 @@ package com.example.luca.firstprojectapp.Fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.example.luca.firstprojectapp.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -61,7 +63,6 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
         //TODO implement method to fill graph
     }
 
-    //TODO trovare un modo per plottare il grafo... La soluzione non sembra essere semplice
     /**
      * Inits the graph setting horizontal and vertical bounds
      * In this case vertical bounds are setted to initial weight graph
@@ -69,54 +70,34 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
      */
     private void initGraph(GraphView graph){
         if(graph != null){
-            //StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-            //staticLabelsFormatter.setHorizontalLabels(new String[]{"1","5","10",
-            //"15","20","25","31"});
-            //staticLabelsFormatter.setVerticalLabels(new String[]{"0","10","20","30","40","50","60","70",
-              //      "80","90","100","110","120","130","140","150"});
-            //graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-            Calendar calendar = Calendar.getInstance();
-            Date d1 = calendar.getTime();
-            calendar.add(Calendar.DATE, 1);
-            Date d2 = calendar.getTime();
-            calendar.add(Calendar.DATE, 1);
-            Date d3 = calendar.getTime();
+        //ora il grafo è preciso, basta scegliere dei valori equidistanti!
+            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+            staticLabelsFormatter.setHorizontalLabels(new String[]{"1", "16", "31"});
+            staticLabelsFormatter.setVerticalLabels(new String[]{"30", "60", "90", "120", "150"});
+            graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-            /*
+            graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(1.0);
             graph.getViewport().setMaxX(31.0);
 
             graph.getViewport().setYAxisBoundsManual(true);
-            graph.getViewport().setMinY(0.0);
+            graph.getViewport().setMinY(30.0);
             graph.getViewport().setMaxY(150.0);
-            */
+
+
             //TODO add dynamic series
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                    new DataPoint(d1,38.0),
-                    new DataPoint(d2,75.0),
-                    new DataPoint(d3,75.0)
+                    new DataPoint(10.0,60.0),
+                    new DataPoint(16.0,75.0),
+                    new DataPoint(20.0,150.0)
 
             });
 
             graph.addSeries(series);
 
-            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(listener.getContext()));
-            graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
-
-            d1.setSeconds(0);
-            d1.setDate(1);
-            d1.setSeconds(0);
-            d3.setDate(31);
-            // set manual x bounds to have nice steps
-            graph.getViewport().setMinX(d1.getTime());
-            graph.getViewport().setMaxX(d3.getTime());
-            graph.getViewport().setXAxisBoundsManual(true);
-
-            graph.getViewport().setMinY(0.0);
-            graph.getViewport().setMaxY(150.0);
-            graph.getViewport().setYAxisBoundsManual(true);
         }
     }
 }
