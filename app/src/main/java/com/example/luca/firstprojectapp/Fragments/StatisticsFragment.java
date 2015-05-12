@@ -73,11 +73,12 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
 
         //ora il grafo è preciso, basta scegliere dei valori equidistanti!
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-            staticLabelsFormatter.setHorizontalLabels(new String[]{"1", "16", "31"});
+            staticLabelsFormatter.setHorizontalLabels(new String[]{"", "Days"});
             staticLabelsFormatter.setVerticalLabels(new String[]{"30", "60", "90", "120", "150"});
+            graph.getGridLabelRenderer().setNumHorizontalLabels(2);
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-            graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+            graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
 
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(1.0);
