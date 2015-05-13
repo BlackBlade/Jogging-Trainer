@@ -3,6 +3,7 @@ package com.example.luca.firstprojectapp.Fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,9 +14,14 @@ import com.example.luca.firstprojectapp.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by luca on 11/05/15
@@ -29,7 +35,7 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.message_layout,container,false); //TODO edit layout
+        final View view = inflater.inflate(R.layout.statistics_layout,container,false); //TODO edit layout
 
         //setting graph bounds
         graphView = (GraphView) view.findViewById(R.id.graph);
@@ -64,23 +70,35 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
      */
     private void initGraph(GraphView graph){
         if(graph != null){
+
+        //ora il grafo è preciso, basta scegliere dei valori equidistanti!
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-            staticLabelsFormatter.setHorizontalLabels(new String[]{"1","2","3","4","5","6","7","8","9","10",
-            "11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28",
-            "29","30","31"});
-            staticLabelsFormatter.setVerticalLabels(new String[]{"10","20","30","40","50","60","70",
-                    "80","90","100","110","120","130","140","150"});
+            staticLabelsFormatter.setHorizontalLabels(new String[]{"", "Days"});
+            staticLabelsFormatter.setVerticalLabels(new String[]{"30", "60", "90", "120", "150"});
+            graph.getGridLabelRenderer().setNumHorizontalLabels(2);
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+            graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
+
+            graph.getViewport().setXAxisBoundsManual(true);
+            graph.getViewport().setMinX(1.0);
+            graph.getViewport().setMaxX(31.0);
+
+            graph.getViewport().setYAxisBoundsManual(true);
+            graph.getViewport().setMinY(30.0);
+            graph.getViewport().setMaxY(150.0);
+
 
             //TODO add dynamic series
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                    new DataPoint(0,1),
-                    new DataPoint(1,5),
-                    new DataPoint(31,3)
+                    new DataPoint(10.0,60.0),
+                    new DataPoint(16.0,75.0),
+                    new DataPoint(20.0,150.0)
 
             });
 
             graph.addSeries(series);
+
         }
     }
 }
