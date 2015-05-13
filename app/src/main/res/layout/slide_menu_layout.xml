@@ -10,8 +10,8 @@
     android:id="@+id/drawerLayout">
 
 
-    <include android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout"/>
+  <!--  <include android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>-->
 
     <!-- The navigation drawer -->
     <RelativeLayout

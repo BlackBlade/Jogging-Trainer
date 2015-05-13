@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
     private DatabaseManager databaseManager;
+    private   Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,9 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("My Jogging Trainer");
         //getSupportActionBar().setTitle("My Jogging Trainer");
 
 
