@@ -25,6 +25,10 @@ public class MainActivity extends Activity implements IOnActivityCallback {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
+
+
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();

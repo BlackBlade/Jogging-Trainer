@@ -2,16 +2,20 @@ package com.example.luca.firstprojectapp;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.luca.firstprojectapp.Interfaces.NewActivity;
 
 import java.util.ArrayList;
 
@@ -22,19 +26,33 @@ public class SlideMenuFragment extends Fragment {
 
     private DrawerLayout drawerLayout;
     ArrayList<NavItem> list = new ArrayList<>();
+    private ListView myList;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.slide_menu_layout,container,false);
-        list.add(new NavItem("Profilo",R.drawable.abc_btn_check_material));
+
+        list.add(new NavItem("Profilo", R.drawable.abc_btn_check_material));
         list.add(new NavItem("Activity",R.drawable.abc_btn_check_material));
         list.add(new NavItem("Statistics",R.drawable.abc_btn_check_material));
+
         drawerLayout = (DrawerLayout) view.findViewById(R.id.drawerLayout);
-        ListView myList = (ListView) view.findViewById(R.id.navList);
+
+        myList = (ListView) view.findViewById(R.id.navList);
         DrawerListAdapter adapter = new DrawerListAdapter(view.getContext(),list);
         myList.setAdapter(adapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               if (position==0){
+                   Intent intent = new Intent(getActivity().getBaseContext(),NewActivity.class);
+                   startActivity(intent);
+               }
+            }
+        });
         return view;
     }
 
