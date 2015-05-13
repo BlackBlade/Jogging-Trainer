@@ -4,5 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+    
+    <style name="AppTheme.Base" parente="Theme.AppCompat">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">#61BA46</item>
+        <item name="colorPrimaryDark">#448231</item>
+        <item name="colorAccent">#00599C</item>
+    </style>
 
 </resources>
