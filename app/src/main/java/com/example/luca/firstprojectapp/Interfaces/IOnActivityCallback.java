@@ -13,4 +13,6 @@ public interface IOnActivityCallback {
     public Context getContext();
 
     public DatabaseManager getDatabaseManager();
+
+    public void swapFragment(int position);
 }
