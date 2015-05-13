@@ -1,13 +1,13 @@
 package com.example.luca.firstprojectapp;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
@@ -15,18 +15,19 @@ import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import java.sql.SQLException;
 
 //ddiidididi di di
-public class MainActivity extends Activity implements IOnActivityCallback {
+public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
     private DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("My Jogging Trainer");
 
 
         //adding slide fragment and main fragment to layout
