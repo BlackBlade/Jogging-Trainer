@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luca.firstprojectapp.DatabaseManager;
+import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.jjoe64.graphview.GraphView;
@@ -30,6 +30,9 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        container.removeAllViews();
+
         final View view = inflater.inflate(R.layout.statistics_layout,container,false); //TODO edit layout
 
         //setting graph bounds

@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
+import com.example.luca.firstprojectapp.Fragments.SlideMenuFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
@@ -35,7 +38,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         FragmentManager manager = getFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
         StatisticsFragment frag = new StatisticsFragment();
-        trans.add(R.id.container,frag,getString(R.string.Statistics)); //TODO change fragment tags!!!
+        trans.add(R.id.fragmentContainer,frag,getString(R.string.Statistics)); //TODO change fragment tags!!!
         SlideMenuFragment fragment = new SlideMenuFragment();
         trans.add(R.id.container,fragment,"fragment_slide");
         trans.commit();
@@ -89,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             case 0:
                 //esempio!!
                 if(manager.findFragmentByTag(getString(R.string.ShowMessage)) == null) {
-                    transaction.replace(R.id.container, new ShowMessageFragment(), getString(R.string.ShowMessage));
+                    transaction.replace(R.id.fragmentContainer, new ShowMessageFragment(), getString(R.string.ShowMessage));
                     transaction.commit();
                 }
                 break;
@@ -97,7 +100,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 //altro esempio! questo metodo va implementato e modificato ad hoc durante l'aggiunta
                 //di fragment nuovi!
                 if(manager.findFragmentByTag(getString(R.string.Statistics)) == null) {
-                    transaction.replace(R.id.container, new StatisticsFragment(), getString(R.string.Statistics));
+                    transaction.replace(R.id.fragmentContainer, new StatisticsFragment(), getString(R.string.Statistics));
                     transaction.commit();
                 }
                 break;

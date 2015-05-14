@@ -1,9 +1,8 @@
-package com.example.luca.firstprojectapp;
+package com.example.luca.firstprojectapp.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
-import com.example.luca.firstprojectapp.Interfaces.NewActivity;
+import com.example.luca.firstprojectapp.R;
 
 import java.util.ArrayList;
 
@@ -35,6 +34,7 @@ public class SlideMenuFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.slide_menu_layout,container,false);
 
         list.add(new NavItem("Profile", R.drawable.abc_btn_check_material));
