@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
@@ -36,9 +37,26 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
         final View view = inflater.inflate(R.layout.statistics_layout,container,false); //TODO edit layout
 
         //setting graph bounds
-        graphView = (GraphView) view.findViewById(R.id.graph);
+        graphView = (GraphView) view.findViewById(R.id.weightGraph);
         initGraph(graphView);
 
+        //funziona, bisogna fare tab.setup prima di aggiungere, senno nullpointer
+        TabHost tab = (TabHost) view.findViewById(R.id.tabHost);
+        tab.setup();
+        TabHost.TabSpec ts = tab.newTabSpec("tag1"); //TODO modificare i tag in maniera sensata
+        ts.setContent(R.id.weightLayout);
+        ts.setIndicator("Weight Indicator");
+        tab.addTab(ts);
+
+        ts = tab.newTabSpec("tag2");
+        ts.setContent(R.id.caloriesLayout);
+        ts.setIndicator("Calories Indicator");
+        tab.addTab(ts);
+
+        ts = tab.newTabSpec("tag3");
+        ts.setContent(R.id.performanceLayout);
+        ts.setIndicator("Performance");
+        tab.addTab(ts);
 
         return view;
 
