@@ -13,7 +13,7 @@ import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
 import java.sql.SQLException;
-
+//please
 //ddiidididi di di
 public class MainActivity extends Activity implements IOnActivityCallback {
 
@@ -43,7 +43,6 @@ public class MainActivity extends Activity implements IOnActivityCallback {
 
     }
 
-//culo
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
