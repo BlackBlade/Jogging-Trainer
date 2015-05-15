@@ -44,8 +44,8 @@ public class DatabaseManager {
                 */
     }
 
-    public void querySelect(String query, IOnCursorCallback caller){
-        new GetAsyncSelectStatement(query).execute(caller);
+    public void querySelect(String query, IOnCursorCallback caller, int position){
+        new GetAsyncSelectStatement(query, position).execute(caller);
 
     }
 
@@ -53,9 +53,11 @@ public class DatabaseManager {
 
         private IOnCursorCallback call;
         private String execQuery;
+        private int position;
 
-        public GetAsyncSelectStatement(String query){
+        public GetAsyncSelectStatement(String query,int newPosition){
             execQuery = query;
+            position = newPosition;
 
         }
 
@@ -71,7 +73,7 @@ public class DatabaseManager {
 
         @Override
         protected void onPostExecute(Cursor cur){
-            call.fillView(cur);
+            call.fillView(cur,position);
 
         }
     }
@@ -81,7 +83,7 @@ public class DatabaseManager {
      */
     public interface IOnCursorCallback {
 
-        public void fillView(Cursor cur);
+        public void fillView(Cursor cur,int position);
 
     }
 }

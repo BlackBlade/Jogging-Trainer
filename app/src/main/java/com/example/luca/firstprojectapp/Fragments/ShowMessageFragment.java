@@ -44,7 +44,7 @@ public class ShowMessageFragment extends Fragment implements DatabaseManager.IOn
     }
 
     @Override
-    public void fillView(Cursor cur) { //TODO adapter da fare a mano, con il tutorial, evitando la classe deprecata
+    public void fillView(Cursor cur,int position) { //TODO adapter da fare a mano, con il tutorial, evitando la classe deprecata
         /*
         list.setAdapter(new SimpleCursorAdapter(listener.getContext(),R.layout.list_item,cur,
                 new String[]{SqlLiteHelper.COLUMN_STRING}, new int[]{R.id.textView}));
