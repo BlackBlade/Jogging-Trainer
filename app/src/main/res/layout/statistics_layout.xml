@@ -1,79 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TabHost
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/tabHost"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_material_light"
+        android:id = "@+id/tabs"
+        android:elevation="2dp">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+        </com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout>
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"></TabWidget>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight= "1">
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <LinearLayout
-                    android:id="@+id/weightLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
-
-                    <com.jjoe64.graphview.GraphView
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:id="@+id/weightGraph"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-
-                    </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/caloriesLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
-
-                    <com.jjoe64.graphview.GraphView
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:id="@+id/caloriesGraph"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-                    </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/performanceLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
-
-                    <com.jjoe64.graphview.GraphView
-                        android:layout_width="wrap_content"
-                        android:layout_height="200dp"
-                        android:id="@+id/performanceGraph"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-
-                    </LinearLayout>
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+    </android.support.v4.view.ViewPager>
 
 
-</RelativeLayout>
+</LinearLayout>

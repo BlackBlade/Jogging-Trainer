@@ -1,7 +1,8 @@
 package com.example.luca.firstprojectapp;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -35,12 +36,10 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
 
         //adding slide fragment and main fragment to layout
-        FragmentManager manager = getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
         StatisticsFragment frag = new StatisticsFragment();
         trans.add(R.id.fragmentContainer,frag,getString(R.string.Statistics)); //TODO change fragment tags!!!
-        SlideMenuFragment fragment = new SlideMenuFragment();
-        trans.add(R.id.container,fragment,"fragment_slide");
         trans.commit();
 
         databaseManager = new DatabaseManager(this);
@@ -86,7 +85,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
     @Override
     public void swapFragment(int position) {
-        FragmentManager manager = getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         switch (position){
             case 0:
@@ -105,5 +104,10 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 }
                 break;
         }
+    }
+
+    @Override
+    public FragmentManager getMySupportFragmentManager(){
+        return getSupportFragmentManager();
     }
 }
