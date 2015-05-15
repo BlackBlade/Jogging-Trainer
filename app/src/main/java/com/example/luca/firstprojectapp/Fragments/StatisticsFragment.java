@@ -32,7 +32,7 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    private static final CharSequence Titles[] = {"Weight","Calories","Performance"};
+    private static final CharSequence Titles[] = {"Weight","Calories","Perf."};
     private static final int Numboftabs = 3;
 
     @Nullable
@@ -57,7 +57,7 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.primary_dark_material_dark);
+                return getResources().getColor(R.color.currTab);
             }
         });
 

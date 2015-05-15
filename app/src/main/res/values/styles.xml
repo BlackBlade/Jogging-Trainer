@@ -6,12 +6,13 @@
         <item name="windowActionBar">false</item>
     </style>
 
-   <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+   <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
        <item name="android:windowNoTitle">true</item>
        <item name="windowActionBar">false</item>
        <item name="colorPrimary">#61BA46</item>
        <item name="colorPrimaryDark">#448231</item>
        <item name="colorAccent">#00599C</item>
+       <item name="android:textColorPrimary">#FFFFFF</item>
    </style>
 
 </resources>

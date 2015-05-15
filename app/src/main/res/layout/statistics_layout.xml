@@ -3,22 +3,33 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_material_light"
-        android:id = "@+id/tabs"
-        android:elevation="2dp">
+        android:foreground="?android:windowContentOverlay">
 
-        </com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout>
+        <com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id = "@+id/tabs"
+            android:elevation="2dp">
+            </com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_height="match_parent"
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_weight= "1">
+        android:layout_height="wrap_content"
+        android:foreground="?android:windowContentOverlay">
 
-    </android.support.v4.view.ViewPager>
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight= "1">
+
+        </android.support.v4.view.ViewPager>
+    </FrameLayout>
 
 </LinearLayout>
