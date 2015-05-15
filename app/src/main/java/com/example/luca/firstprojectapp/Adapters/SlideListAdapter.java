@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.luca.firstprojectapp.NavItem;
 import com.example.luca.firstprojectapp.R;
 
 import java.util.ArrayList;

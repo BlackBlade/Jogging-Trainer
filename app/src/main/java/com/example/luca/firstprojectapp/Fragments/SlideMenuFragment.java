@@ -67,7 +67,7 @@ public class SlideMenuFragment extends Fragment {
     }
 
     //class for the item in the slider menu. This class represents a single item in the list
-    class NavItem {
+    public class NavItem {
         String mTitle;
         int mIcon;
 
@@ -78,7 +78,7 @@ public class SlideMenuFragment extends Fragment {
     }
 
     //adapter for populating the listview
-    class DrawerListAdapter extends BaseAdapter {
+   public class DrawerListAdapter extends BaseAdapter {
 
         Context mContext;
         ArrayList<NavItem> mNavItems;

@@ -1,33 +1,44 @@
 package com.example.luca.firstprojectapp;
 
-import android.support.v4.app.FragmentManager;
-
-import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.example.luca.firstprojectapp.Adapters.NavItem;
+import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
-import com.example.luca.firstprojectapp.Fragments.SlideMenuFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
     private DatabaseManager databaseManager;
-    private   Toolbar toolbar;
+    private Toolbar toolbar;
+    private SlideListAdapter adapter; //the adapter for the listview
+    private ArrayList<NavItem> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        list.add(new NavItem("Profile", R.drawable.abc_btn_check_material));
+        list.add(new NavItem("Activity",R.drawable.abc_btn_check_material));
+        list.add(new NavItem("Statistics",R.drawable.abc_btn_check_material));
+        ListView myList = (ListView) findViewById(R.id.navList);
+        adapter = new SlideListAdapter(getContext(),list);
+        myList.setAdapter(adapter);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
