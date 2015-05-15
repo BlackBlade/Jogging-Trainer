@@ -14,19 +14,20 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:src="@drawable/ic_launcher"
         />
 
     <TextView
         android:id="@+id/Titolo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:gravity="center_vertical"
-        android:textColor="#69F0AE"
+        android:textColor="#000000"
         android:text="Line 1"
-        android:textStyle="bold"
+        android:typeface="normal"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/icon"
+      android:layout_toRightOf="@+id/icon"
         android:layout_toEndOf="@+id/icon" />
 
 
