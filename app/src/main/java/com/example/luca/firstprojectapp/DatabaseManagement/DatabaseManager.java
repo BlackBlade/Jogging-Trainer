@@ -1,4 +1,4 @@
-package com.example.luca.firstprojectapp;
+package com.example.luca.firstprojectapp.DatabaseManagement;
 
 import android.content.Context;
 import android.database.Cursor;
