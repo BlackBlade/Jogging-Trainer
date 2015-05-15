@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         setTitle("My Jogging Trainer");
         //getSupportActionBar().setTitle("My Jogging Trainer");
 
-
+//a caso
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
