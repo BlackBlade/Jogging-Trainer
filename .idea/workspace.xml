@@ -1516,7 +1516,11 @@
       <created>1431715546075</created>
       <updated>1431715546075</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Redefined layout and added icons to the item in the slide list.">
+      <created>1431715692672</created>
+      <updated>1431715692672</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
