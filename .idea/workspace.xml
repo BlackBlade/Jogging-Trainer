@@ -38,10 +38,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f28ac6ec-f4c3-4b90-9256-58fd235f0cde" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/graphview_4_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Jogging-Trainer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1511,7 +1508,11 @@
       <created>1431711438940</created>
       <updated>1431711438940</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Redefined layout and added icons to the item in the slide list.">
+      <created>1431715318379</created>
+      <updated>1431715318379</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
