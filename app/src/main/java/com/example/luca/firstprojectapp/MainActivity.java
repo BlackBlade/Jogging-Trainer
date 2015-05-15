@@ -33,9 +33,9 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list.add(new NavItem("Profile", R.drawable.abc_btn_check_material));
-        list.add(new NavItem("Activity",R.drawable.abc_btn_check_material));
-        list.add(new NavItem("Statistics",R.drawable.abc_btn_check_material));
+        list.add(new NavItem("Profile", R.drawable.ic_launcher));
+        list.add(new NavItem("Activity",R.drawable.ic_launcher));
+        list.add(new NavItem("Statistics",R.drawable.ic_launcher));
         ListView myList = (ListView) findViewById(R.id.navList);
         adapter = new SlideListAdapter(getContext(),list);
         myList.setAdapter(adapter);
@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         setTitle("My Jogging Trainer");
         //getSupportActionBar().setTitle("My Jogging Trainer");
 
-
+//a caso
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
