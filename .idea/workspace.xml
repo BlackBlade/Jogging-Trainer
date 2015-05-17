@@ -1363,7 +1363,11 @@
       <created>1431874609986</created>
       <updated>1431874609986</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Modified the colors of the layout (now permanently) and added the listener to the listview in the slider menu.">
+      <created>1431874716374</created>
+      <updated>1431874716374</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
