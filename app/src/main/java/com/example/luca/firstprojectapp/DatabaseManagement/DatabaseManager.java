@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 
 /**
@@ -34,14 +35,13 @@ public class DatabaseManager {
     here we have methods for db management.
     NOTE: for string insertion you must put the ' String ' or won't work
      */
-    //example method, further methods must be created following this pattern!
-    //see execSQL for documentation
-    public void createMessage(String message){
-        /*
-        database.execSQL("insert into " + SqlLiteHelper.TABLE_PLANNING + " (" + SqlLiteHelper.COLUMN_STRING
-                +") values ("
-                +" ' "+ message +" ' );");
-                */
+
+    public void insertWeightChange(Calendar cal, double weight){
+
+        database.execSQL("insert into " + SqlLiteHelper.TABLE_WEIGHT + "(" + SqlLiteHelper.COLUMN_ID
+                + ", " + SqlLiteHelper.COLUMN_WEIGHT + ") values ("
+                + cal.getTimeInMillis()
+                + ", " + weight + ");");
     }
 
     public void querySelect(String query, IOnCursorCallback caller, int position){
