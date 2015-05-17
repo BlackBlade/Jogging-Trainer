@@ -57,17 +57,24 @@
         <RelativeLayout
             android:id="@+id/profileBox"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:background="#087D73"
             android:padding="8dp"
             android:alpha="255">
 
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_launcher"
+                android:layout_marginTop="15dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="42dp"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/avatar"
                 android:orientation="vertical" >
 
                 <TextView
@@ -75,8 +82,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Profilo"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -87,7 +94,7 @@
                     android:layout_marginTop="4dp"
                     android:text="Nome/Cognome"
                     android:textColor="#000000"
-                    android:textSize="12sp" />
+                    android:textSize="15dp" />
             </LinearLayout>
         </RelativeLayout>
 
