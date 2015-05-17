@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
@@ -95,10 +96,9 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
         first.set(Calendar.SECOND,0);
         first.set(Calendar.MILLISECOND,0);
 
+        //TODO modificare la condizione di select. Magari selezionando dal mese precedente fino a quello corrente
         listener.getDatabaseManager().querySelect("select " + SqlLiteHelper.COLUMN_ID +
-                "," + SqlLiteHelper.COLUMN_WEIGHT + " from " + SqlLiteHelper.TABLE_WEIGHT +
-                " where " + SqlLiteHelper.COLUMN_ID + " between " + first.getTimeInMillis() +
-                " and " + cal.getTimeInMillis()
+                "," + SqlLiteHelper.COLUMN_WEIGHT + " from " + SqlLiteHelper.TABLE_WEIGHT
                 ,this,1);
     }
 
@@ -106,11 +106,20 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
     public void fillView(Cursor cur, int position) {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
 
+        Toast.makeText(listener.getContext(),cur.getCount()+"",Toast.LENGTH_SHORT).show();
+
+        Calendar cal = Calendar.getInstance();
 
         while(cur.moveToNext()){
-            series.appendData(new DataPoint(cur.getDouble(0),cur.getDouble(1)),false,1000000);
+
+            cal.setTimeInMillis(cur.getLong(0));
+            series.appendData(new DataPoint(cal.get(Calendar.DAY_OF_MONTH),cur.getLong(1)),false,1000000);
+
+            //Toast.makeText(listener.getContext(),cal.get(Calendar.DAY_OF_MONTH)+""+cur.getLong(1),Toast.LENGTH_SHORT).show();
 
         }
+
+        //Toast.makeText(listener.getContext(),cal.get(Calendar.DAY_OF_MONTH)+"",Toast.LENGTH_SHORT).show();
 
         cur.close();
 

@@ -21,6 +21,7 @@ import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
@@ -67,7 +68,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
