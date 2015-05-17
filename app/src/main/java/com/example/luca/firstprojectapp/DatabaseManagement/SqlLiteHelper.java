@@ -32,12 +32,16 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     //strings relative to table stats
     public static final String TABLE_STATS = "stats";
 
+    //strings relative to table weight
+    public static final String TABLE_WEIGHT = "weight";
+    public static final String COLUMN_WEIGHT = "actualWeight";
+
     public static final String COLUMN_CALORIES = "calories";
     public static final String COLUMN_DISTANCE = "distance";
     public static final String COLUMN_TIME = "time";
 
-    private static final String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "JoggingTrainerDatabase.db";
+    private static final int DATABASE_VERSION = 2;
 
     /*
     here we put database creation query string
@@ -57,6 +61,10 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
             + "(" + COLUMN_ID + " integer primary key autoincrement,"
             + COLUMN_DATE_PLANNING +" integer not null);";
 
+    private static final String DATABASE_CREATE_WEIGHT = "create table " + TABLE_WEIGHT
+            + "(" + COLUMN_ID + " integer primary key, "
+            + COLUMN_WEIGHT + " integer not null);";
+
 
     public SqlLiteHelper(Context context){
 
@@ -68,6 +76,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         db.execSQL(DATABASE_CREATE_STATS);
         db.execSQL(DATABASE_CREATE_PLANNING);
         db.execSQL(DATABASE_CREATE_ROUTE);
+        db.execSQL(DATABASE_CREATE_WEIGHT);
 
     }
 
@@ -76,6 +85,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLANNING);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
         onCreate(db);
 
     }
