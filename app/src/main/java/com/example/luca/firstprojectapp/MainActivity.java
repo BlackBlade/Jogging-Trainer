@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.luca.firstprojectapp.Adapters.NavItem;
@@ -39,6 +41,12 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         ListView myList = (ListView) findViewById(R.id.navList);
         adapter = new SlideListAdapter(getContext(),list);
         myList.setAdapter(adapter);
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                swapFragment(position);
+            }
+        });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

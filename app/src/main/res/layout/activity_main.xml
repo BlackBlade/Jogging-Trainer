@@ -27,10 +27,10 @@
             android:elevation="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1B5E20"
+            android:background="#087D73"
             android:minHeight="?attr/actionBarSize"
             app:theme="@style/AppTheme.Base"
-            app:popupTheme="@style/AppTheme.Base" />
+            app:popupTheme="@style/AppTheme.ActionBar.Popup" /> <!--android background #1B5E20 -->
     </FrameLayout>
 
     <LinearLayout
@@ -58,7 +58,7 @@
             android:id="@+id/profileBox"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#388E3C"
+            android:background="#087D73"
             android:padding="8dp"
             android:alpha="255">
 
