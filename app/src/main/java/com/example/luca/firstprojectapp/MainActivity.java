@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,13 +16,13 @@ import android.widget.ListView;
 import com.example.luca.firstprojectapp.Adapters.NavItem;
 import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.Fragments.ProfileFragment;
 import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
@@ -45,7 +46,11 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DrawerLayout layout = (DrawerLayout) findViewById(R.id.DrawerLayout);
+                layout.closeDrawers();
                 swapFragment(position);
+
+
             }
         });
 
@@ -102,26 +107,41 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         return this.databaseManager;
     }
 
+    /**
+     * This method swaps the fragment inside the fragment container.
+     * @param position the new fragment position
+     */
     @Override
     public void swapFragment(int position) {
         FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+
         switch (position){
-            case 0:
-                //esempio!!
-                if(manager.findFragmentByTag(getString(R.string.ShowMessage)) == null) {
-                    transaction.replace(R.id.fragmentContainer, new ShowMessageFragment(), getString(R.string.ShowMessage));
+
+            case 0: //PROFILE
+                if(manager.findFragmentByTag(getString(R.string.Profile))==null){
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragmentContainer,new ProfileFragment(), getString(R.string.Profile));
                     transaction.commit();
                 }
-                break;
+
             case 1:
                 //altro esempio! questo metodo va implementato e modificato ad hoc durante l'aggiunta
                 //di fragment nuovi!
                 if(manager.findFragmentByTag(getString(R.string.Statistics)) == null) {
+                    FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new StatisticsFragment(), getString(R.string.Statistics));
                     transaction.commit();
                 }
                 break;
+            case 2:
+                //esempio!!
+                if(manager.findFragmentByTag(getString(R.string.ShowMessage)) == null) {
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragmentContainer, new ShowMessageFragment(), getString(R.string.ShowMessage));
+                    transaction.commit();
+                }
+                break;
+
         }
     }
 
