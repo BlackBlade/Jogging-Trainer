@@ -9,6 +9,7 @@
         android:id="@+id/monthPerformance"
         android:layout_gravity="center_horizontal"
         android:textSize="40dp"
+        android:gravity="center"
         android:layout_margin="10dp"/>
 
     <com.jjoe64.graphview.GraphView
