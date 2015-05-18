@@ -8,7 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
@@ -42,6 +43,35 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
         //setting graph
         graphView = (GraphView) view.findViewById(R.id.graphWeight);
         initGraph(graphView);
+
+        Button buttonPrevious = (Button) view.findViewById(R.id.buttonPreviousWeight);
+        Button buttonNext = (Button) view.findViewById(R.id.buttonNextWeight);
+        final TextView label = (TextView) view.findViewById(R.id.monthWeight);
+        label.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+
+        buttonPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (calendar.get(Calendar.MONTH) != 0) {
+                    graphView.removeAllSeries();
+                    calendar.add(Calendar.MONTH, -1);
+                    selectStatement(calendar);
+                    label.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+                }
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(calendar.get(Calendar.MONTH) != 11){
+                    graphView.removeAllSeries();
+                    calendar.add(Calendar.MONTH,1);
+                    selectStatement(calendar);
+                    label.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+                }
+            }
+        });
 
         return view;
     }
@@ -90,41 +120,45 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
     private void selectStatement(Calendar cal){
 
         Calendar first = (Calendar) cal.clone();
-        first.set(Calendar.DAY_OF_MONTH,0);
+        first.set(Calendar.DAY_OF_MONTH,1);
         first.set(Calendar.HOUR_OF_DAY,0);
         first.set(Calendar.MINUTE,0);
-        first.set(Calendar.SECOND,0);
         first.set(Calendar.MILLISECOND,0);
 
-        //TODO modificare la condizione di select. Magari selezionando dal mese precedente fino a quello corrente
         listener.getDatabaseManager().querySelect("select " + SqlLiteHelper.COLUMN_ID +
                 "," + SqlLiteHelper.COLUMN_WEIGHT + " from " + SqlLiteHelper.TABLE_WEIGHT
+                + " where " + SqlLiteHelper.COLUMN_ID + " between " + first.getTimeInMillis()
+                + " and " + cal.getTimeInMillis()
                 ,this,1);
     }
 
     @Override
     public void fillView(Cursor cur, int position) {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-
-        Toast.makeText(listener.getContext(),cur.getCount()+"",Toast.LENGTH_SHORT).show();
+        LineGraphSeries<DataPoint> seriesAverage = new LineGraphSeries<>();
 
         Calendar cal = Calendar.getInstance();
+
+        long sum = 0;
 
         while(cur.moveToNext()){
 
             cal.setTimeInMillis(cur.getLong(0));
             series.appendData(new DataPoint(cal.get(Calendar.DAY_OF_MONTH),cur.getLong(1)),false,1000000);
-
-            //Toast.makeText(listener.getContext(),cal.get(Calendar.DAY_OF_MONTH)+""+cur.getLong(1),Toast.LENGTH_SHORT).show();
+            sum += cur.getLong(1);
 
         }
 
-        //Toast.makeText(listener.getContext(),cal.get(Calendar.DAY_OF_MONTH)+"",Toast.LENGTH_SHORT).show();
-
+        //average line, if data is present
+        if(cur.getCount() != 0) {
+            seriesAverage.appendData(new DataPoint(1, sum / cur.getCount()), false, 50);
+            seriesAverage.appendData(new DataPoint(31, sum / cur.getCount()), false, 50);
+        }
         cur.close();
 
         if(!series.isEmpty()) {
             graphView.addSeries(series);
+            graphView.addSeries(seriesAverage);
         }
 
     }
