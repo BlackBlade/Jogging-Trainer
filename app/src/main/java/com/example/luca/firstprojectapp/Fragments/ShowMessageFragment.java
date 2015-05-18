@@ -1,8 +1,7 @@
-package com.example.luca.firstprojectapp;
+package com.example.luca.firstprojectapp.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,12 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
+import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
-
-import java.util.Calendar;
+import com.example.luca.firstprojectapp.R;
 
 /**
  * Created by luca on 05/05/15.
@@ -29,6 +26,9 @@ public class ShowMessageFragment extends Fragment implements DatabaseManager.IOn
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        container.removeAllViews();
+
         final View view = inflater.inflate(R.layout.message_layout,container,false);
         list = (ListView) view.findViewById(R.id.listView);
         //listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_PLANNING,this);

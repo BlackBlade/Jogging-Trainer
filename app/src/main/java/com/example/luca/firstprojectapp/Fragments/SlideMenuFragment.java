@@ -1,5 +1,6 @@
-package com.example.luca.firstprojectapp;
+package com.example.luca.firstprojectapp.Fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -8,10 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+import com.example.luca.firstprojectapp.R;
 
 import java.util.ArrayList;
 
@@ -21,21 +26,44 @@ import java.util.ArrayList;
 public class SlideMenuFragment extends Fragment {
 
     private DrawerLayout drawerLayout;
-    ArrayList<NavItem> list = new ArrayList<>();
+    private ArrayList<NavItem> list = new ArrayList<>();
+    private ListView myList;
+    private IOnActivityCallback listener;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.slide_menu_layout,container,false);
-        list.add(new NavItem("Profilo",R.drawable.abc_btn_check_material));
+
+        list.add(new NavItem("Profile", R.drawable.abc_btn_check_material));
         list.add(new NavItem("Activity",R.drawable.abc_btn_check_material));
         list.add(new NavItem("Statistics",R.drawable.abc_btn_check_material));
+
         drawerLayout = (DrawerLayout) view.findViewById(R.id.drawerLayout);
-        ListView myList = (ListView) view.findViewById(R.id.navList);
+
+        myList = (ListView) view.findViewById(R.id.navList);
         DrawerListAdapter adapter = new DrawerListAdapter(view.getContext(),list);
         myList.setAdapter(adapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               listener.swapFragment(position);
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof  IOnActivityCallback){
+            listener = (IOnActivityCallback) activity;
+        } else {
+            throw new UnsupportedOperationException("Wrong input view during attach");
+        }
     }
 
     //class for the item in the slider menu. This class represents a single item in the list

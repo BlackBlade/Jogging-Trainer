@@ -3,25 +3,20 @@ package com.example.luca.firstprojectapp.Fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luca.firstprojectapp.DatabaseManager;
+import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by luca on 11/05/15
@@ -35,6 +30,9 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        container.removeAllViews();
+
         final View view = inflater.inflate(R.layout.statistics_layout,container,false); //TODO edit layout
 
         //setting graph bounds

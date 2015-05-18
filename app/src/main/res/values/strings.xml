@@ -2,4 +2,8 @@
     <string name="app_name">My personal trainer</string>
     <string name="action_settings">Settings</string>
 
+    <!-- those strings specify fragment names -->
+    <string name="ShowMessage">showMessageFragment</string>
+    <string name="Statistics">statistics</string>
+
 </resources>
