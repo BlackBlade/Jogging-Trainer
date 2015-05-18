@@ -55,6 +55,7 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
                 if (calendar.get(Calendar.MONTH) != 0) {
                     graphView.removeAllSeries();
                     calendar.add(Calendar.MONTH, -1);
+                    calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                     selectStatement(calendar);
                     label.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
                 }
@@ -67,6 +68,7 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
                 if(calendar.get(Calendar.MONTH) != 11){
                     graphView.removeAllSeries();
                     calendar.add(Calendar.MONTH,1);
+                    calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                     selectStatement(calendar);
                     label.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
                 }
