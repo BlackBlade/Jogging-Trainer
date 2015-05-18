@@ -1,6 +1,7 @@
 package com.example.luca.firstprojectapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
+    private int EDIT_CODE = 1;
     private DatabaseManager databaseManager;
     private Toolbar toolbar;
     private SlideListAdapter adapter; //the adapter for the listview
@@ -148,5 +150,22 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     @Override
     public FragmentManager getMySupportFragmentManager(){
         return getSupportFragmentManager();
+    }
+
+    @Override
+    public void manageUserProfile() {
+
+        Intent edit = new Intent(MainActivity.this,EditProfileActivity.class);
+        startActivityForResult(edit,EDIT_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data!=null && requestCode == EDIT_CODE){
+            //shared preferences
+            //setResult(code, intent)
+            //finish
+        }
     }
 }

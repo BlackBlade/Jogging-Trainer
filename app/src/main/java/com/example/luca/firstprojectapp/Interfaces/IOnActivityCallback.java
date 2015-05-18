@@ -30,4 +30,6 @@ public interface IOnActivityCallback {
     public void swapFragment(int position);
 
     public FragmentManager getMySupportFragmentManager();
+
+    public void manageUserProfile();
 }
