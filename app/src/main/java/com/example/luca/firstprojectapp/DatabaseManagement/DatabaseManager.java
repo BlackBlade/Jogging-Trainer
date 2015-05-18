@@ -43,6 +43,15 @@ public class DatabaseManager {
                 + cal.getTimeInMillis()
                 + ", " + weight + ");");
     }
+    
+    public void insertStats(Calendar cal, double calories, long meters, long duration){
+        database.execSQL("insert into " + SqlLiteHelper.TABLE_STATS
+                + "(" + SqlLiteHelper.COLUMN_ID + ", " + SqlLiteHelper.COLUMN_CALORIES + ", "
+                + SqlLiteHelper.COLUMN_DISTANCE + ", " + SqlLiteHelper.COLUMN_TIME + ") values ("
+                + cal.getTimeInMillis() + ", " + calories + ", " + meters + ", " + duration + ");"
+        );
+
+    }
 
     public void querySelect(String query, IOnCursorCallback caller, int position){
         new GetAsyncSelectStatement(query, position).execute(caller);

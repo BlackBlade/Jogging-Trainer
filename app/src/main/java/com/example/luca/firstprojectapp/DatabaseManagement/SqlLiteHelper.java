@@ -29,12 +29,13 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_DATE_PLANNING = "dateplanning";
 
-    //strings relative to table stats
-    public static final String TABLE_STATS = "stats";
-
     //strings relative to table weight
     public static final String TABLE_WEIGHT = "weight";
+
     public static final String COLUMN_WEIGHT = "actualWeight";
+
+    //strings relative to table stats
+    public static final String TABLE_STATS = "stats";
 
     public static final String COLUMN_CALORIES = "calories";
     public static final String COLUMN_DISTANCE = "distance";
