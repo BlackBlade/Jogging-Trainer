@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 
 /**
@@ -34,18 +35,26 @@ public class DatabaseManager {
     here we have methods for db management.
     NOTE: for string insertion you must put the ' String ' or won't work
      */
-    //example method, further methods must be created following this pattern!
-    //see execSQL for documentation
-    public void createMessage(String message){
-        /*
-        database.execSQL("insert into " + SqlLiteHelper.TABLE_PLANNING + " (" + SqlLiteHelper.COLUMN_STRING
-                +") values ("
-                +" ' "+ message +" ' );");
-                */
+
+    public void insertWeightChange(Calendar cal, double weight){
+
+        database.execSQL("insert into " + SqlLiteHelper.TABLE_WEIGHT + "(" + SqlLiteHelper.COLUMN_ID
+                + ", " + SqlLiteHelper.COLUMN_WEIGHT + ") values ("
+                + cal.getTimeInMillis()
+                + ", " + weight + ");");
+    }
+    
+    public void insertStats(Calendar cal, double calories, long meters, long duration){
+        database.execSQL("insert into " + SqlLiteHelper.TABLE_STATS
+                + "(" + SqlLiteHelper.COLUMN_ID + ", " + SqlLiteHelper.COLUMN_CALORIES + ", "
+                + SqlLiteHelper.COLUMN_DISTANCE + ", " + SqlLiteHelper.COLUMN_TIME + ") values ("
+                + cal.getTimeInMillis() + ", " + calories + ", " + meters + ", " + duration + ");"
+        );
+
     }
 
-    public void querySelect(String query, IOnCursorCallback caller){
-        new GetAsyncSelectStatement(query).execute(caller);
+    public void querySelect(String query, IOnCursorCallback caller, int position){
+        new GetAsyncSelectStatement(query, position).execute(caller);
 
     }
 
@@ -53,9 +62,11 @@ public class DatabaseManager {
 
         private IOnCursorCallback call;
         private String execQuery;
+        private int position;
 
-        public GetAsyncSelectStatement(String query){
+        public GetAsyncSelectStatement(String query,int newPosition){
             execQuery = query;
+            position = newPosition;
 
         }
 
@@ -71,7 +82,7 @@ public class DatabaseManager {
 
         @Override
         protected void onPostExecute(Cursor cur){
-            call.fillView(cur);
+            call.fillView(cur,position);
 
         }
     }
@@ -81,7 +92,7 @@ public class DatabaseManager {
      */
     public interface IOnCursorCallback {
 
-        public void fillView(Cursor cur);
+        public void fillView(Cursor cur,int position);
 
     }
 }

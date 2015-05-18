@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_marginTop="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:id="@+id/graph"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:windowContentOverlay">
+
+        <com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id = "@+id/tabs"
+            android:elevation="2dp">
+            </com.example.luca.firstprojectapp.SlidingTab.SlidingTabLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:windowContentOverlay">
 
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight= "1">
 
-</RelativeLayout>
+        </android.support.v4.view.ViewPager>
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.luca.firstprojectapp.Interfaces;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
@@ -27,4 +28,8 @@ public interface IOnActivityCallback {
      * @param position the new fragment position
      */
     public void swapFragment(int position);
+
+    public FragmentManager getMySupportFragmentManager();
+
+    public void manageUserProfile();
 }

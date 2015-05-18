@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeContainer">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/ic_launcher"
+        android:layout_gravity="center"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Luca"
+        android:id="@+id/name"
+        android:textColor="#000000"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Longobardi"
+            android:id="@+id/surname"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Age:"
+            android:id="@+id/ageLabel"
+            android:layout_weight="0.01"
+            android:textColor="#087D73"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="22"
+        android:id="@+id/age"
+        android:textColor="#000000"
+        android:layout_weight="0.3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Sex:"
+            android:id="@+id/sexLabel"
+            android:layout_weight="0.01"
+            android:textColor="#087D73"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Man"
+        android:id="@+id/sex"
+        android:textColor="#000000"
+        android:layout_weight="0.3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Weight:"
+            android:id="@+id/weightLabel"
+            android:layout_weight="0.01"
+            android:textColor="#087D73"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="64"
+        android:id="@+id/weight"
+        android:textColor="#000000"
+        android:layout_weight="0.3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Height:"
+            android:id="@+id/heightLabel"
+            android:layout_weight="0.01"
+            android:textColor="#087D73"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="1.78"
+        android:id="@+id/height"
+    android:textColor="#000000"
+    android:layout_weight="1"/>
+
+    </LinearLayout>
+    </LinearLayout>
+
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Edit profile"
+    android:id="@+id/editButton"
+    android:layout_marginBottom="5dp"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentBottom="true"
+    android:textColor="#000000"
+        />
+
+
+
+    </RelativeLayout>
+
