@@ -2,11 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Mary\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.0/classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-0442bd78cc99fb96baf2630e8ab3c613db1c00cc.jar" />
+        sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2">
+        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/classes-1a269b4560539e42ffaf162dd28c77835449f909.jar" />
+    </item>
+    <item
+        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.github.traex.calendarlistview/library/1.2.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b2531394af2a992f6192726b9b338a229b493c01">
+        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/classes-a49d6ad8feed55e776f97f8f7bf73d217d528c9d.jar" />
     </item>
 
 </items>
