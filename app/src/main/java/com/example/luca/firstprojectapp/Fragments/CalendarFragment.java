@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.andexert.calendarlistview.library.DatePickerController;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
@@ -22,11 +23,11 @@ import com.andexert.calendarlistview.library.SimpleMonthAdapter;
 /**
  * Created by MatteoOrzes on 18/05/2015.
  */
-public class CalendarFragment extends Fragment implements DatabaseManager.IOnCursorCallback/*, DatePickerController*/{
+public class CalendarFragment extends Fragment implements DatabaseManager.IOnCursorCallback, DatePickerController{
 
     private IOnActivityCallback listener;
-    //private DayPickerView dayPickerView;
-    private CalendarView calendarView;
+    private DayPickerView dayPickerView;
+
 
 
 
@@ -35,17 +36,16 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         container.removeAllViews();
 
-        final View view = inflater.inflate(R.layout.statistics_layout,container,false);
+        final View view = inflater.inflate(R.layout.calendar_layout,container,false);
 
+        dayPickerView = (DayPickerView) view.findViewById(R.id.pickerView);
 
-        calendarView = (CalendarView) view.findViewById(R.id.calendarView);
-        //dayPickerView = (DayPickerView) view.findViewById(R.id.pickerView);
-
-        //dayPickerView.setController(this);
+        dayPickerView.setController(this);
 
         return view;
 
     }
+
 
     @Override
     public void fillView(Cursor cur, int position) {
@@ -63,7 +63,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                     "IOnActivityCallback");
         }
     }
-/*
+
     @Override
     public int getMaxYear() {
         return 2016;
@@ -81,5 +81,5 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         Log.e("Date range selected", selectedDays.getFirst().toString() + " --> " + selectedDays.getLast().toString());
     }
-*/
+
 }
