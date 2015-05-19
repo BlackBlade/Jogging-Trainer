@@ -1,11 +1,14 @@
 package com.example.luca.firstprojectapp.Fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 
 import com.andexert.calendarlistview.library.DatePickerController;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
@@ -19,9 +22,12 @@ import com.andexert.calendarlistview.library.SimpleMonthAdapter;
 /**
  * Created by MatteoOrzes on 18/05/2015.
  */
-public class CalendarFragment extends Fragment implements DatabaseManager.IOnCursorCallback, DatePickerController{
+public class CalendarFragment extends Fragment implements DatabaseManager.IOnCursorCallback/*, DatePickerController*/{
 
     private IOnActivityCallback listener;
+    //private DayPickerView dayPickerView;
+    private CalendarView calendarView;
+
 
 
     @Override
@@ -31,33 +37,49 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         final View view = inflater.inflate(R.layout.statistics_layout,container,false);
 
-        //calendarView = view.findViewById(R.id.pickerView);
+
+        calendarView = (CalendarView) view.findViewById(R.id.calendarView);
+        //dayPickerView = (DayPickerView) view.findViewById(R.id.pickerView);
+
+        //dayPickerView.setController(this);
 
         return view;
 
     }
 
-    public void fillView(Cursor cur) {
-        //implement that later
-    }
-
     @Override
     public void fillView(Cursor cur, int position) {
-
+        //later
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof IOnActivityCallback){
+            listener = (IOnActivityCallback) activity;
+
+        } else {
+            throw new UnsupportedOperationException("Wrong container, activity must implement" +
+                    "IOnActivityCallback");
+        }
+    }
+/*
     @Override
     public int getMaxYear() {
-        return 0;
+        return 2016;
     }
 
     @Override
-    public void onDayOfMonthSelected(int i, int i2, int i3) {
-
+    public void onDayOfMonthSelected(int year, int month, int day)
+    {
+        Log.e("Day Selected", day + " / " + month + " / " + year);
     }
 
     @Override
-    public void onDateRangeSelected(SimpleMonthAdapter.SelectedDays<SimpleMonthAdapter.CalendarDay> calendarDaySelectedDays) {
+    public void onDateRangeSelected(SimpleMonthAdapter.SelectedDays<SimpleMonthAdapter.CalendarDay> selectedDays)
+    {
 
+        Log.e("Date range selected", selectedDays.getFirst().toString() + " --> " + selectedDays.getLast().toString());
     }
+*/
 }

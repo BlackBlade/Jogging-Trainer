@@ -6,5 +6,6 @@
     <string name="ShowMessage">showMessageFragment</string>
     <string name="Statistics">statistics</string>
     <string name="Profile">profile</string>
+    <string name="Calendar">calendar</string>
 
 </resources>
