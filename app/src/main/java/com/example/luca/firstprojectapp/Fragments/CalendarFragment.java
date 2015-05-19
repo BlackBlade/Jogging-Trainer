@@ -31,7 +31,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         final View view = inflater.inflate(R.layout.statistics_layout,container,false);
 
-        //calendarView = view.findViewById(R.id.calendar);
+        //calendarView = view.findViewById(R.id.pickerView);
 
         return view;
 
