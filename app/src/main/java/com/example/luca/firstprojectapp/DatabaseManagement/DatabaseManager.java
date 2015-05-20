@@ -43,7 +43,7 @@ public class DatabaseManager {
                 + cal.getTimeInMillis()
                 + ", " + weight + ");");
     }
-    
+
     public void insertStats(Calendar cal, double calories, long meters, long duration){
         database.execSQL("insert into " + SqlLiteHelper.TABLE_STATS
                 + "(" + SqlLiteHelper.COLUMN_ID + ", " + SqlLiteHelper.COLUMN_CALORIES + ", "

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
@@ -95,15 +96,28 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
 
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
             staticLabelsFormatter.setHorizontalLabels(new String[]{"", "Days"});
+            staticLabelsFormatter.setVerticalLabels(new String[]{"Low","Med","High"});
             graph.getGridLabelRenderer().setNumHorizontalLabels(2);
-            graph.getGridLabelRenderer().setNumVerticalLabels(5);
+            graph.getGridLabelRenderer().setNumVerticalLabels(3);
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
+            
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
+
+            //style
+            graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.gridColor));
+            graph.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.labelsColor));
+            graph.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.labelsColor));
+            graph.getViewport().setBackgroundColor(getResources().getColor(R.color.graphBackground));
+
+
 
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(1.0);
             graph.getViewport().setMaxX(31.0);
+
+            graph.getViewport().setYAxisBoundsManual(true);
+            graph.getViewport().setMinY(0.1);
+            graph.getViewport().setMaxY(24.0);
 
             selectStatement(calendar);
 
@@ -134,21 +148,20 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
 
         Calendar cal = Calendar.getInstance();
 
-        long sum = 0;
+        double sum = 0;
 
         while(cur.moveToNext()){
 
             /*
-            first column returns time in milliseconds. We do /1000*60 to convert in minutes.
+            first column returns time in milliseconds. We do /1000*60*60 to convert in hours.
             second column returns distance in meters. We do /1000 to convert in kilometers.
-            Performance in calculated with (Time in minutes * Distance in kilometers)
+            Performance in calculated with (Distance in kilometers / Time in hours)
              */
             cal.setTimeInMillis(cur.getLong(0));
             series.appendData(new DataPoint(cal.get(Calendar.DAY_OF_MONTH),
-                    (cur.getLong(1)/(1000*60)) * (cur.getLong(2)/1000)),false,1000000);
+                    ((double)cur.getLong(2) / 1000) / ((double)cur.getLong(1)/(1000 * 60 * 60))),false,1000000);
 
-            sum += (cur.getLong(1)/(1000*60)) * (cur.getLong(2)/1000);
-
+            sum +=  ((double)cur.getLong(2) / 1000) / ((double)cur.getLong(1)/(1000 * 60 * 60));
         }
 
         //average line, if data is present
@@ -159,6 +172,10 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
         cur.close();
 
         if(!series.isEmpty()) {
+            series.setThickness(4);
+            series.setColor(getResources().getColor(R.color.lineColor));
+            seriesAverage.setThickness(2);
+            seriesAverage.setColor(getResources().getColor(R.color.averageColor));
             graphView.addSeries(series);
             graphView.addSeries(seriesAverage);
         }
