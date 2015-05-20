@@ -9,6 +9,13 @@
         <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-cf5f5988c52d85eae2bb4979c9a73d739020597e.jar" />
     </item>
     <item
+        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.squareup\android-times-square\1.5.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="49a161d665861cd093b0b0ba2bfcfe791f1330ef">
+        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-cdf350fbb076d66d287294c52f92834fe9073a1e.jar" />
+    </item>
+    <item
         jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.traex.calendarlistview\library\1.2.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
