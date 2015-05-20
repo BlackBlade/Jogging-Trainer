@@ -79,15 +79,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             e.printStackTrace();
         }
 
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH,-5);
-
-        databaseManager.insertStats(cal,3000,1,1);
-
-        cal.add(Calendar.DAY_OF_MONTH,-10);
-
-        databaseManager.insertStats(cal,10000,1,1);
-
     }
 
     @Override
