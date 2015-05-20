@@ -42,6 +42,18 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
 
         Date today = new Date();
         calendarView.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(Date date) {
+                // aprire nuova activity per modifica del peso e conferma.
+            }
+
+            @Override
+            public void onDateUnselected(Date date) {
+                // cancellazione di dati non più utiizzati da db.
+            }
+        });
+
 
         return view;
 
