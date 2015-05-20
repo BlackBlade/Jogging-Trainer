@@ -107,7 +107,7 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
 
             //style
-            graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.labelsColor));
+            graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.gridColor));
             graph.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.labelsColor));
             graph.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.labelsColor));
             graph.getViewport().setBackgroundColor(getResources().getColor(R.color.graphBackground));
@@ -167,8 +167,8 @@ public class StatisticsTabOne extends Fragment implements DatabaseManager.IOnCur
         cur.close();
 
         if(!series.isEmpty()) {
-            series.setThickness(2);
-            series.setColor(getResources().getColor(R.color.labelsColor));
+            series.setThickness(4);
+            series.setColor(getResources().getColor(R.color.lineColor));
             seriesAverage.setThickness(2);
             seriesAverage.setColor(getResources().getColor(R.color.averageColor));
             graphView.addSeries(series);

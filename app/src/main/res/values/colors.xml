@@ -6,5 +6,6 @@
     <color name="graphBackground">#33E0FFFF</color>
     <color name="labelsColor">#BF000000</color>
     <color name="averageColor">#73FF0000</color>
+    <color name="lineColor">#6495ED</color>
 
 </resources>

@@ -100,11 +100,11 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
             graph.getGridLabelRenderer().setNumHorizontalLabels(2);
             graph.getGridLabelRenderer().setNumVerticalLabels(3);
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
+            
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
 
             //style
-            graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.labelsColor));
+            graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.gridColor));
             graph.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.labelsColor));
             graph.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.labelsColor));
             graph.getViewport().setBackgroundColor(getResources().getColor(R.color.graphBackground));
@@ -116,7 +116,7 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
             graph.getViewport().setMaxX(31.0);
 
             graph.getViewport().setYAxisBoundsManual(true);
-            graph.getViewport().setMinY(0.0);
+            graph.getViewport().setMinY(0.1);
             graph.getViewport().setMaxY(24.0);
 
             selectStatement(calendar);
@@ -172,8 +172,8 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
         cur.close();
 
         if(!series.isEmpty()) {
-            series.setThickness(2);
-            series.setColor(getResources().getColor(R.color.labelsColor));
+            series.setThickness(4);
+            series.setColor(getResources().getColor(R.color.lineColor));
             seriesAverage.setThickness(2);
             seriesAverage.setColor(getResources().getColor(R.color.averageColor));
             graphView.addSeries(series);
