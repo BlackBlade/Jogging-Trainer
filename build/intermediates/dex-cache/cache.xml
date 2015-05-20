@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.0/classes.jar"
+        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/classes-1a269b4560539e42ffaf162dd28c77835449f909.jar" />
+        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-cf5f5988c52d85eae2bb4979c9a73d739020597e.jar" />
     </item>
     <item
-        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.github.traex.calendarlistview/library/1.2.3/classes.jar"
+        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.traex.calendarlistview\library\1.2.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="b2531394af2a992f6192726b9b338a229b493c01">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/classes-a49d6ad8feed55e776f97f8f7bf73d217d528c9d.jar" />
+        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-94b470024c1dfd94907c4a2a3ae3e03989d74563.jar" />
     </item>
 
 </items>
