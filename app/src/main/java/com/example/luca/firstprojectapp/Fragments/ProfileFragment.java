@@ -21,7 +21,7 @@ public class ProfileFragment extends Fragment {
     private IOnActivityCallback listener;
     CallbackManager callbackManager;
 
-
+//
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
