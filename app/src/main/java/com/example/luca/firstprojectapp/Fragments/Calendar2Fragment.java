@@ -5,6 +5,7 @@ package com.example.luca.firstprojectapp.Fragments;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.EditWeightnPlanActivity;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.squareup.timessquare.CalendarPickerView;
@@ -24,6 +26,11 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
 
     private IOnActivityCallback listener;
     private CalendarPickerView calendarView;
+    static final int EDIT_WEIGHT_PLAN = 1;
+    static final int DATE_SELECTED = 2;
+    static final int DATE_UNSELECTED = 3;
+    static final int DATE_STILL_SELECTED = 4;
+    static final int DATE_NO_MORE_SELECTED = 5;
 
 
 
@@ -45,12 +52,22 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                // aprire nuova activity per modifica del peso e conferma.
+                Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
+                if (date != null){
+                    intent.putExtra("Date",date.getTime());
+                }
+                intent.putExtra("Code",DATE_SELECTED);
+                startActivityForResult(intent, EDIT_WEIGHT_PLAN);
             }
 
             @Override
             public void onDateUnselected(Date date) {
-                // cancellazione di dati non più utiizzati da db.
+                Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
+                if (date != null){
+                    intent.putExtra("Date",date.getTime());
+                }
+                intent.putExtra("Code",DATE_UNSELECTED);
+                startActivityForResult(intent, EDIT_WEIGHT_PLAN);
             }
         });
 
@@ -59,6 +76,16 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
+            //la data resta selezionata dopo che le informazioni di peso sono state modificate.
+        }
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
+            // la data non è piu selezionata.
+        }
+    }
 
     @Override
     public void fillView(Cursor cur, int position) {
