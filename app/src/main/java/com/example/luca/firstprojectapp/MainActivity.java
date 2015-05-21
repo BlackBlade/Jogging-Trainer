@@ -160,11 +160,12 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 }
                 break;
             case 4:
-                if(manager.findFragmentByTag("map") == null){
+                if(manager.findFragmentByTag("strange") == null){
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragmentContainer,new ActivityFragment(),"map");
+                    transaction.replace(R.id.fragmentContainer,new ActivityFragment(), "strange");
                     transaction.commit();
                 }
+                break;
 
         }
     }
