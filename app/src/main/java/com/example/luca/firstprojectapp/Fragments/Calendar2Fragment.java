@@ -52,22 +52,26 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
+                /*
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_SELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                */
             }
 
             @Override
             public void onDateUnselected(Date date) {
+                /*
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_UNSELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                */
             }
         });
 
@@ -80,7 +84,7 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
-            //la data resta selezionata dopo che le informazioni di peso sono state modificate.
+            calendarView.selectDate(new Date(/*inserire il tempo in millisecondi*/));
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
             // la data non è piu selezionata.
