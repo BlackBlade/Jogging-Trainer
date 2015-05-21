@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\MatteoOrzes\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-8421e054171348812dcabb5761c0c2e3bee6cb25.jar" />
+    </item>
+    <item
         jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -21,6 +28,13 @@
         revision="21.1.2"
         sha1="b2531394af2a992f6192726b9b338a229b493c01">
         <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-94b470024c1dfd94907c4a2a3ae3e03989d74563.jar" />
+    </item>
+    <item
+        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.1.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a78bfd2ec508b123ee7c03f4006ba7996ef9a8dc">
+        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-fe3215975c4027aca7bd311965558e3d84a41c3a.jar" />
     </item>
 
 </items>

@@ -100,7 +100,7 @@ public class StatisticsTabThree extends Fragment implements DatabaseManager.IOnC
             graph.getGridLabelRenderer().setNumHorizontalLabels(2);
             graph.getGridLabelRenderer().setNumVerticalLabels(3);
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-            
+
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
 
             //style
