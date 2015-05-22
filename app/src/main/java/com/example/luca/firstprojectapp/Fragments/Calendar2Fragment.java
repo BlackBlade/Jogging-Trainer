@@ -49,6 +49,9 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
 
         Date today = new Date();
         calendarView.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+
+        //recuperare da db lista delle date selezionate in precedenza e precedere a riselezionarle.
+
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
@@ -84,7 +87,7 @@ public class Calendar2Fragment extends Fragment implements DatabaseManager.IOnCu
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
-            calendarView.selectDate(new Date(/*inserire il tempo in millisecondi*/));
+            //calendarView.selectDate(new Date(/*inserire il tempo in millisecondi*/));
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
             // la data non è piu selezionata.
