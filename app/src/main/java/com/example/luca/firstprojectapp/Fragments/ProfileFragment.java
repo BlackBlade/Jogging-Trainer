@@ -11,18 +11,23 @@ import android.widget.Button;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 
 /**
  * Created by Mary on 17/05/2015.
  */
 public class ProfileFragment extends Fragment {
     private IOnActivityCallback listener;
+    CallbackManager callbackManager;
 
+//
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         container.removeAllViews();
-
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         View view = inflater.inflate(R.layout.profile_fragment_layout,container, false);
         Button edit = (Button) view.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {

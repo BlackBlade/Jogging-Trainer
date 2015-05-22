@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.example.luca.firstprojectapp.Adapters.NavItem;
 import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
 import com.example.luca.firstprojectapp.Fragments.Calendar1Fragment;
 import com.example.luca.firstprojectapp.Fragments.Calendar2Fragment;
 import com.example.luca.firstprojectapp.Fragments.CalendarFragment;
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
         list.add(new NavItem("Calendar",R.drawable.ic_launcher));
+        list.add(new NavItem("Activity",R.drawable.ic_launcher));
         ListView myList = (ListView) findViewById(R.id.navList);
         adapter = new SlideListAdapter(getContext(),list);
         myList.setAdapter(adapter);
@@ -154,6 +156,13 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 if(manager.findFragmentByTag(getString(R.string.Calendar)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new Calendar2Fragment(), getString(R.string.Calendar));
+                    transaction.commit();
+                }
+                break;
+            case 4:
+                if(manager.findFragmentByTag("strange") == null){
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragmentContainer,new ActivityFragment(), "strange");
                     transaction.commit();
                 }
                 break;
