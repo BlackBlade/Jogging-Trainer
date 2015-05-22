@@ -1,32 +1,35 @@
 package com.example.luca.firstprojectapp.Fragments;
 
+/**
+ * Created by MatteoOrzes on 20/05/2015.
+ */
+
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
-import android.widget.Toast;
-
-import com.andexert.calendarlistview.library.DatePickerController;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
-import com.andexert.calendarlistview.library.DayPickerView;
-import com.andexert.calendarlistview.library.SimpleMonthAdapter;
+import com.squareup.timessquare.CalendarPickerView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
-// need to include library for datepicker
-/**
- * Created by MatteoOrzes on 18/05/2015.
- */
-public class CalendarFragment extends Fragment implements DatabaseManager.IOnCursorCallback, DatePickerController{
+public class CalendarFragment extends Fragment implements DatabaseManager.IOnCursorCallback {
 
     private IOnActivityCallback listener;
-    private DayPickerView dayPickerView;
+    private CalendarPickerView calendarView;
+    static final int EDIT_WEIGHT_PLAN = 1;
+    static final int DATE_SELECTED = 2;
+    static final int DATE_UNSELECTED = 3;
+    static final int DATE_STILL_SELECTED = 4;
+    static final int DATE_NO_MORE_SELECTED = 5;
 
 
 
@@ -38,14 +41,53 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         final View view = inflater.inflate(R.layout.calendar_layout,container,false);
 
-        dayPickerView = (DayPickerView) view.findViewById(R.id.pickerView);
+        calendarView = (CalendarPickerView) view.findViewById(R.id.calendar_view);
 
-        dayPickerView.setController(this);
+        this.initializeCalendar();
+
+        //recuperare da db lista delle date selezionate in precedenza e precedere a riselezionarle.
+
+        calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(Date date) {
+                /*
+                Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
+                if (date != null){
+                    intent.putExtra("Date",date.getTime());
+                }
+                intent.putExtra("Code",DATE_SELECTED);
+                startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                */
+            }
+
+            @Override
+            public void onDateUnselected(Date date) {
+                /*
+                Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
+                if (date != null){
+                    intent.putExtra("Date",date.getTime());
+                }
+                intent.putExtra("Code",DATE_UNSELECTED);
+                startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                */
+            }
+        });
+
 
         return view;
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
+            //calendarView.selectDate(new Date(/*inserire il tempo in millisecondi*/));
+        }
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
+            // la data non è piu selezionata.
+        }
+    }
 
     @Override
     public void fillView(Cursor cur, int position) {
@@ -64,22 +106,10 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         }
     }
 
-    @Override
-    public int getMaxYear() {
-        return 2016;
+    private void initializeCalendar(){
+        Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+        Date today = new Date();
+        calendarView.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
     }
-
-    @Override
-    public void onDayOfMonthSelected(int year, int month, int day)
-    {
-        Log.e("Day Selected", day + " / " + month + " / " + year);
-    }
-
-    @Override
-    public void onDateRangeSelected(SimpleMonthAdapter.SelectedDays<SimpleMonthAdapter.CalendarDay> selectedDays)
-    {
-
-        Log.e("Date range selected", selectedDays.getFirst().toString() + " --> " + selectedDays.getLast().toString());
-    }
-
 }

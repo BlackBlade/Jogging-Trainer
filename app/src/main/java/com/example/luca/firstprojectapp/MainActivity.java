@@ -18,8 +18,6 @@ import com.example.luca.firstprojectapp.Adapters.NavItem;
 import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
-import com.example.luca.firstprojectapp.Fragments.Calendar1Fragment;
-import com.example.luca.firstprojectapp.Fragments.Calendar2Fragment;
 import com.example.luca.firstprojectapp.Fragments.CalendarFragment;
 import com.example.luca.firstprojectapp.Fragments.ProfileFragment;
 import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
@@ -155,7 +153,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 //esempio!!
                 if(manager.findFragmentByTag(getString(R.string.Calendar)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragmentContainer, new Calendar2Fragment(), getString(R.string.Calendar));
+                    transaction.replace(R.id.fragmentContainer, new CalendarFragment(), getString(R.string.Calendar));
                     transaction.commit();
                 }
                 break;
