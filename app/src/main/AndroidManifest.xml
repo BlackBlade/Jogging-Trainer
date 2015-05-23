@@ -35,7 +35,7 @@
             android:name=".EditProfileActivity"
             android:label="@string/app_name">
         </activity>
-        <!-- Facebook Activity-->
+        <!-- Facebook Activity for login or share-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

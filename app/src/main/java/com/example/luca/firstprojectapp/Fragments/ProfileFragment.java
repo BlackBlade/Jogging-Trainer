@@ -13,6 +13,7 @@ import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.login.widget.LoginButton;
 
 /**
  * Created by Mary on 17/05/2015.
@@ -20,6 +21,7 @@ import com.facebook.FacebookSdk;
 public class ProfileFragment extends Fragment {
     private IOnActivityCallback listener;
     CallbackManager callbackManager;
+    LoginButton loginButton;
 
 //
     @Nullable
@@ -36,6 +38,9 @@ public class ProfileFragment extends Fragment {
                 listener.manageUserProfile();
             }
         });
+        loginButton = (LoginButton) view.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("user_friends");
+        loginButton.setFragment(this);
         return view;
     }
 
