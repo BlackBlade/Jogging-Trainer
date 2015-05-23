@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
 import com.example.luca.firstprojectapp.EditWeightnPlanActivity;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
@@ -29,12 +31,12 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     private IOnActivityCallback listener;
     private CalendarPickerView calendarView;
     private List<Date> selectedDates;
-    private Button confermaDate;
     static final int EDIT_WEIGHT_PLAN = 1;
     static final int DATE_SELECTED = 2;
     static final int DATE_UNSELECTED = 3;
     static final int DATE_STILL_SELECTED = 4;
     static final int DATE_NO_MORE_SELECTED = 5;
+    private static final String Query ="select * from " + SqlLiteHelper.TABLE_PLANNING;
 
 
 
@@ -49,17 +51,9 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         calendarView = (CalendarPickerView) view.findViewById(R.id.calendar_view);
 
         //recuperare selectedDates dal DB.
+        listener.getDatabaseManager().querySelect(Query,this,1); //chiama metodo su db e poi fill view.
 
         this.initializeCalendar();
-
-        confermaDate = (Button) view.findViewById(R.id.confirmDates);
-
-        confermaDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedDates = calendarView.getSelectedDates();
-            }
-        });
 
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
@@ -92,16 +86,21 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
-            calendarView.selectDate(new Date(data.getLongExtra("Date",0)), true); // seleziona la data e scrolla i calendario fino a visualizzarla
+            Toast.makeText(listener.getContext(),"culo",Toast.LENGTH_SHORT).show();
+            //calendarView.selectDate(new Date(data.getLongExtra("Date",0)), true); // seleziona la data e scrolla i calendario fino a visualizzarla
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
+            Toast.makeText(listener.getContext(),"culo",Toast.LENGTH_SHORT).show();
             this.initializeCalendar(); // in EditWeightnPlan mi assicurerò di rimuovere la data da selectedDates e quindi non apparirà una volta reinizializzato il calendario
         }
     }
 
     @Override
     public void fillView(Cursor cur, int position) {
-        //later
+        while(cur.moveToNext()){
+            Date date = new Date(cur.getLong(0));
+            selectedDates.add(date);
+        }
     }
 
     @Override
@@ -130,11 +129,4 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
             }
         }
     }
-
-
-
-    // Ogni volta che si abbandona il fragment bisogna salvare nel db o nelle shared preferences il risutato di
-    // selectedDates, ovvero calendar.getSelectedDates();
-    // questo fornisce una lista contenente tutte le date selezionate/accese, sarà quindi possibile alla riapertura di tale
-    // fragment riselezionare tutte le date presenti in tale lista. (effettuato da initializeCalendar).
 }

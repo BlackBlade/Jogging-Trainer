@@ -3,13 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm Dates"
-        android:id="@+id/confirmDates"
-        android:layout_gravity="center_horizontal" />
-
     <com.squareup.timessquare.CalendarPickerView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
