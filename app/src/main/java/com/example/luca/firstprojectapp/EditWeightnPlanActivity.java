@@ -8,9 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
-
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -82,6 +80,10 @@ public class EditWeightnPlanActivity extends ActionBarActivity {
     private void eliminaData(){
         // eliminare dal database le informazioni relative alla data selezionata.
         // checkare che  data nel calendario non sia più selezionata. (effettuare in CalendarFragment)
+        Intent intent = new Intent();
+        intent.putExtra("Date", date.getTime());
+        setResult(DATE_NO_MORE_SELECTED, intent);
+        finish();
     }
 
     public DatabaseManager getDatabaseManager() {

@@ -46,31 +46,25 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         this.initializeCalendar();
 
-        //recuperare da db lista delle date selezionate in precedenza e precedere a riselezionarle.
-
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_SELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
-
             }
 
             @Override
             public void onDateUnselected(Date date) {
-
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_UNSELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
-
             }
         });
 
@@ -83,10 +77,10 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
-            calendarView.selectDate(new Date(data.getLongExtra("Date",0)));
+            calendarView.selectDate(new Date(data.getLongExtra("Date",0)), true); // seleziona la data e scrolla i calendario fino a visualizzarla
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
-            // la data non è piu selezionata. ??
+            // ?? la data non è piu selezionata. ??
             //nel caso in cui la libreria non permetta la deselezione procderò reinizializzando i lcalendario con la lista delle date presenti.
         }
     }
@@ -108,10 +102,21 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         }
     }
 
+    /**
+     * Used in order to initialize a new calendar.
+     */
     private void initializeCalendar(){
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 1);
         Date today = new Date();
         calendarView.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        //recuperare da db lista delle date selezionate in precedenza e precedere a riselezionarle.
     }
+
+
+
+    // Ogni volta che si abbandona il fragment bisogna salvare nel db o nelle shared preferences il risutato di
+    // calendar.getSelectedDates();
+    // questo fornisce una lista contenente tutte le date selezionate/accese, sarà quindi necessario alla riapertura di tale
+    // fragment riselezionare tutte le date presenti in tale lista.
 }
