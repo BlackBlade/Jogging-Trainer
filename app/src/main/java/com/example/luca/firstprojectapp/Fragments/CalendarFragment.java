@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.EditWeightnPlanActivity;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.squareup.timessquare.CalendarPickerView;
@@ -50,26 +51,26 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                /*
+
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_SELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
-                */
+
             }
 
             @Override
             public void onDateUnselected(Date date) {
-                /*
+
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_UNSELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
-                */
+
             }
         });
 
