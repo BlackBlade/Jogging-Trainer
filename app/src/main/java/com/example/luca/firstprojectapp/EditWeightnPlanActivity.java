@@ -24,7 +24,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     private SharedPreferences pref;
     private DatabaseManager databaseManager;
-    private EditText pesoEditText, commentoEditText;
+    private EditText pesoEditText;
     private Button Conferma;
     private Date date;
 
@@ -36,7 +36,6 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         pref = getSharedPreferences("com.example.luca.firstprojectapp", Context.MODE_PRIVATE);
 
         pesoEditText = (EditText) findViewById(R.id.editPeso);
-        commentoEditText = (EditText) findViewById(R.id.editCommento);
         Conferma = (Button) findViewById((R.id.confermaPeso));
         Conferma.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +62,6 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         //inserire nel database le nuove informazioni o quelle opportunamente modificate
         // checkare che la data nel calendario resti selezionata. (effettuare in CalendarFragment)
         Intent intent = new Intent();
-        intent.putExtra("Date", date.getTime());
         setResult(RESULT_OK, intent);
         finish();
     }

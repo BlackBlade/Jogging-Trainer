@@ -14,16 +14,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
 import com.example.luca.firstprojectapp.EditWeightnPlanActivity;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.squareup.timessquare.CalendarPickerView;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,9 +34,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     static final int EDIT_WEIGHT_PLAN = 1;
     static final int DATE_SELECTED = 2;
     static final int DATE_UNSELECTED = 3;
-    static final int DATE_STILL_SELECTED = 4;
-    static final int DATE_NO_MORE_SELECTED = 5;
-    private static final String Query ="select * from " + SqlLiteHelper.TABLE_PLANNING;
+    private static final String QueryAllDates ="select * from " + SqlLiteHelper.TABLE_PLANNING;
 
 
 
@@ -57,7 +51,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         selectedDates = new ArrayList<Date>();
 
         //recuperare selectedDates dal DB.
-        listener.getDatabaseManager().querySelect(Query,this,1); //chiama metodo su db e poi fill view.
+        listener.getDatabaseManager().querySelect(QueryAllDates,this,1); //chiama metodo su db e poi fill view.
 
         this.initializeCalendar();
 
@@ -69,11 +63,11 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         .setMessage("Edit Weight or Plan Activity?")
                         .setPositiveButton("EditWeight", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                calendarView.selectDate(date); // la data non deve essere selezionata.
                                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                                 if (date != null){
                                     intent.putExtra("Date",date.getTime());
                                 }
-                                intent.putExtra("Code",DATE_UNSELECTED);
                                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
                             }
                         })
@@ -98,7 +92,6 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                                     calendarView.selectDate(new Date(date.getTime())); //era gia selezionata e deve rimanerlo.
                                     intent.putExtra("Date",date.getTime());
                                 }
-                                intent.putExtra("Code",DATE_SELECTED);
                                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
                             }
                         })
@@ -118,6 +111,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,6 +122,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
             // in EditWeightnPlan mi assicurerò di rimuovere la data da selectedDates e quindi non apparirà una volta reinizializzato il calendario
         }
     }
+    */
 
     @Override
     public void fillView(Cursor cur, int position) {
@@ -156,8 +151,13 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     private void initializeCalendar(){
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 1);
+        Calendar first = Calendar.getInstance();
+        first.set(Calendar.MONTH,Calendar.JANUARY);
+        first.set(Calendar.DAY_OF_MONTH,1);
+        Date firstday = first.getTime();
         Date today = new Date();
-        calendarView.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        calendarView.init(firstday, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        //calendarView.fo
         if(selectedDates!=null){
             for (Date date:selectedDates){
                 calendarView.selectDate(date);
