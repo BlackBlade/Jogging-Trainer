@@ -33,7 +33,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -48,15 +48,11 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Conferma data"
-                android:id="@+id/confirmDate" />
+                android:text="Conferma Peso"
+                android:id="@+id/confermaPeso"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancella Data"
-                android:id="@+id/removeDate"
-                android:layout_gravity="bottom" />
         </LinearLayout>
 
     <LinearLayout

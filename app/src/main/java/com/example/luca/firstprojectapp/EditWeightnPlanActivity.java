@@ -22,12 +22,10 @@ import java.util.Date;
  */
 public class EditWeightnPlanActivity extends ActionBarActivity implements IOnActivityCallback, DatabaseManager.IOnCursorCallback {
 
-    static final int DATE_STILL_SELECTED = 4;
-    static final int DATE_NO_MORE_SELECTED = 5;
     private SharedPreferences pref;
     private DatabaseManager databaseManager;
     private EditText pesoEditText, commentoEditText;
-    private Button confermaData, rimuoviData;
+    private Button Conferma;
     private Date date;
 
     @Override
@@ -39,8 +37,13 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
         pesoEditText = (EditText) findViewById(R.id.editPeso);
         commentoEditText = (EditText) findViewById(R.id.editCommento);
-        confermaData = (Button) findViewById(R.id.confirmDate);
-        rimuoviData = (Button) findViewById(R.id.removeDate);
+        Conferma = (Button) findViewById((R.id.confermaPeso));
+        Conferma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                salvaPeso();
+            }
+        });
 
         date = new Date(getIntent().getLongExtra("Date", 0));
         if(date == null){
@@ -52,42 +55,19 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             String Query = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
                     + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "=" + getIntent().getLongExtra("Date",0));
             //chiama query su db
-
         }
-
-        confermaData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salvaData();
-            }
-        });
-
-        rimuoviData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                eliminaData();
-            }
-        });
     }
 
 
-    private void salvaData(){
+    private void salvaPeso(){
         //inserire nel database le nuove informazioni o quelle opportunamente modificate
         // checkare che la data nel calendario resti selezionata. (effettuare in CalendarFragment)
         Intent intent = new Intent();
         intent.putExtra("Date", date.getTime());
-        setResult(DATE_STILL_SELECTED, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
-    private void eliminaData(){
-        // eliminare dal database le informazioni relative alla data selezionata.
-        // checkare che  data nel calendario non sia più selezionata. (effettuare in CalendarFragment)
-        Intent intent = new Intent();
-        intent.putExtra("Date", date.getTime());
-        setResult(DATE_NO_MORE_SELECTED, intent);
-        finish();
-    }
 
     @Override
     public Context getContext() {
@@ -117,7 +97,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     public void fillView(Cursor cur, int position) {
         while(cur.moveToNext()){
             pesoEditText.setText(cur.getLong(0)+"");
-            //setta allo stess omodo il commento.
+            //setta allo stesso modo il commento.
         }
     }
 }
