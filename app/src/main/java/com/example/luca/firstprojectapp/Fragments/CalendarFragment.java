@@ -5,6 +5,8 @@ package com.example.luca.firstprojectapp.Fragments;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -57,23 +59,68 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
-            public void onDateSelected(Date date) {
+            public void onDateSelected(final Date date) {
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("JoggingTrainer")
+                        .setMessage("Edit Weight or Cancel Activity?")
+                        .setPositiveButton("EditWeight", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
+                                if (date != null){
+                                    intent.putExtra("Date",date.getTime());
+                                }
+                                intent.putExtra("Code",DATE_SELECTED);
+                                startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                            }
+                        })
+                        .setNegativeButton("RemoveActivity", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // rimuovere l'attività dal db.
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                /*
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_SELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                */
             }
 
             @Override
-            public void onDateUnselected(Date date) {
+            public void onDateUnselected(final Date date) {
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("JoggingTrainer")
+                        .setMessage("Edit Weight or Plan Activity?")
+                        .setPositiveButton("EditWeight", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
+                                if (date != null){
+                                    intent.putExtra("Date",date.getTime());
+                                }
+                                intent.putExtra("Code",DATE_UNSELECTED);
+                                startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                            }
+                        })
+                        .setNegativeButton("PlanActivity", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // inserire l'attività nel db.
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+                /*
                 Intent intent = new Intent(view.getContext(), EditWeightnPlanActivity.class);
                 if (date != null){
                     intent.putExtra("Date",date.getTime());
                 }
                 intent.putExtra("Code",DATE_UNSELECTED);
                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
+                */
             }
         });
 
