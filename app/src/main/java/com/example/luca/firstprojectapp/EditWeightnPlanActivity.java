@@ -1,6 +1,7 @@
 package com.example.luca.firstprojectapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -18,10 +19,13 @@ import java.util.Date;
  */
 public class EditWeightnPlanActivity extends ActionBarActivity {
 
+    static final int DATE_STILL_SELECTED = 4;
+    static final int DATE_NO_MORE_SELECTED = 5;
     private SharedPreferences pref;
     private DatabaseManager databaseManager;
     private EditText pesoEditText, commentoEditText;
     private Button confermaData, rimuoviData;
+    private Date date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,13 @@ public class EditWeightnPlanActivity extends ActionBarActivity {
         confermaData = (Button) findViewById(R.id.confirmDate);
         rimuoviData = (Button) findViewById(R.id.removeDate);
 
-        Date date = new Date(getIntent().getLongExtra("Date", 0));
+        date = new Date(getIntent().getLongExtra("Date", 0));
         if(date == null){
             finish();
+        }
+
+        if(getIntent().getIntExtra("Code",0)==2){ // la data era gia stata selezionata in precedenza.
+            // settare nei campi testuali le informazioni gia presenti nel database.
         }
 
         confermaData.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +71,17 @@ public class EditWeightnPlanActivity extends ActionBarActivity {
 
 
     private void salvaData(){
-
+        //inserire nel database le nuove informazioni o quelle opportunamente modificate
+        // checkare che la data nel calendario resti selezionata. (effettuare in CalendarFragment)
+        Intent intent = new Intent();
+        intent.putExtra("Date", date.getTime());
+        setResult(DATE_STILL_SELECTED, intent);
+        finish();
     }
 
     private void eliminaData(){
-
+        // eliminare dal database le informazioni relative alla data selezionata.
+        // checkare che  data nel calendario non sia più selezionata. (effettuare in CalendarFragment)
     }
 
     public DatabaseManager getDatabaseManager() {

@@ -83,10 +83,11 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
-            //calendarView.selectDate(new Date(/*inserire il tempo in millisecondi*/));
+            calendarView.selectDate(new Date(data.getLongExtra("Date",0)));
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
-            // la data non è piu selezionata.
+            // la data non è piu selezionata. ??
+            //nel caso in cui la libreria non permetta la deselezione procderò reinizializzando i lcalendario con la lista delle date presenti.
         }
     }
 
