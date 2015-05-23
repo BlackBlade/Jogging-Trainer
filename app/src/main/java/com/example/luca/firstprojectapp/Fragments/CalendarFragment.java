@@ -124,8 +124,10 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         nextYear.add(Calendar.YEAR, 1);
         Date today = new Date();
         calendarView.init(today, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
-        for (Date date:selectedDates){
-            calendarView.selectDate(date);
+        if(selectedDates!=null){
+            for (Date date:selectedDates){
+                calendarView.selectDate(date);
+            }
         }
     }
 
