@@ -32,8 +32,6 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     private CalendarPickerView calendarView;
     private List<Date> selectedDates;
     static final int EDIT_WEIGHT_PLAN = 1;
-    static final int DATE_SELECTED = 2;
-    static final int DATE_UNSELECTED = 3;
     private static final String QueryAllDates ="select * from " + SqlLiteHelper.TABLE_PLANNING;
 
 
@@ -48,9 +46,11 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         calendarView = (CalendarPickerView) view.findViewById(R.id.calendar_view);
 
+        //calendarView.scrollToDate(new Date()); this should scroll to the current day.
+
         selectedDates = new ArrayList<Date>();
 
-        //recuperare selectedDates dal DB.
+        //recupera selectedDates dal DB.
         listener.getDatabaseManager().querySelect(QueryAllDates,this,1); //chiama metodo su db e poi fill view.
 
         this.initializeCalendar();
@@ -111,19 +111,6 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
     }
 
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_STILL_SELECTED) {
-            //calendarView.selectDate(new Date(data.getLongExtra("Date",0)), true); // seleziona la data e scrolla il calendario fino a visualizzarla
-        }
-        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == DATE_NO_MORE_SELECTED) {
-            // in EditWeightnPlan mi assicurerò di rimuovere la data da selectedDates e quindi non apparirà una volta reinizializzato il calendario
-        }
-    }
-    */
-
     @Override
     public void fillView(Cursor cur, int position) {
         selectedDates.clear();
@@ -155,9 +142,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         first.set(Calendar.MONTH,Calendar.JANUARY);
         first.set(Calendar.DAY_OF_MONTH,1);
         Date firstday = first.getTime();
-        Date today = new Date();
         calendarView.init(firstday, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
-        //calendarView.fo
         if(selectedDates!=null){
             for (Date date:selectedDates){
                 calendarView.selectDate(date);
