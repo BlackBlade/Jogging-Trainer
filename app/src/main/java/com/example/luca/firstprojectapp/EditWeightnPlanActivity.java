@@ -3,19 +3,24 @@ package com.example.luca.firstprojectapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
+import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+
 import java.sql.SQLException;
 import java.util.Date;
 
 /**
  * Created by MatteoOrzes on 20/05/2015.
  */
-public class EditWeightnPlanActivity extends ActionBarActivity {
+public class EditWeightnPlanActivity extends ActionBarActivity implements IOnActivityCallback, DatabaseManager.IOnCursorCallback {
 
     static final int DATE_STILL_SELECTED = 4;
     static final int DATE_NO_MORE_SELECTED = 5;
@@ -31,12 +36,6 @@ public class EditWeightnPlanActivity extends ActionBarActivity {
         setContentView(R.layout.editweight_layout);
 
         pref = getSharedPreferences("com.example.luca.firstprojectapp", Context.MODE_PRIVATE);
-        databaseManager = new DatabaseManager(this);
-        try {
-            databaseManager.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         pesoEditText = (EditText) findViewById(R.id.editPeso);
         commentoEditText = (EditText) findViewById(R.id.editCommento);
@@ -50,6 +49,10 @@ public class EditWeightnPlanActivity extends ActionBarActivity {
 
         if(getIntent().getIntExtra("Code",0)==2){ // la data era gia stata selezionata in precedenza.
             // settare nei campi testuali le informazioni gia presenti nel database.
+            String Query = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
+                    + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "=" + getIntent().getLongExtra("Date",0));
+            //chiama query su db
+
         }
 
         confermaData.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +89,35 @@ public class EditWeightnPlanActivity extends ActionBarActivity {
         finish();
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
     public DatabaseManager getDatabaseManager() {
         return this.databaseManager;
     }
 
+    @Override
+    public void swapFragment(int position) {
+        // NOPE.
+    }
+
+    @Override
+    public FragmentManager getMySupportFragmentManager() {
+        return null;
+    }
+
+    @Override
+    public void manageUserProfile() {
+
+    }
+
+    @Override
+    public void fillView(Cursor cur, int position) {
+        while(cur.moveToNext()){
+            pesoEditText.setText(cur.getLong(0)+"");
+            //setta allo stess omodo il commento.
+        }
+    }
 }
