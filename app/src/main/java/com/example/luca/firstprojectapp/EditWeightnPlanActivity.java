@@ -42,7 +42,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
         date = new Date(getIntent().getLongExtra("Date", 0));
         if(getIntent().getLongExtra("Date", 0) == 0){
-            Toast.makeText(this,"data non valida",Toast.LENGTH_LONG);
+            Toast.makeText(this,"data non valida",Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -50,6 +50,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         String QueryPeso = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
                            + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "="
                            + getIntent().getLongExtra("Date",0));
+
         databaseManager.syncQuerySelect(QueryPeso,this,1);
         */
     }
