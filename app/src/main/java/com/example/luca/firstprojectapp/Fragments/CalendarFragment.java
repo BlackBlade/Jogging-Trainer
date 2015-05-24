@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
@@ -58,7 +59,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         listener.getDatabaseManager().syncQuerySelect(QueryAllDates, this, 1); //chiama metodo su db e poi fill view.
 
         //recupera highlitedDates dal DB
-        listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates,this,2);
+        listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates, this,2);
 
         this.initializeCalendar(today);
 
@@ -81,13 +82,15 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         })
                         .setNegativeButton("PlanActivity", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                //inserire data nel db.
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTimeInMillis(date.getTime());
+                                listener.getDatabaseManager().insertPlan(cal);
+                                Toast.makeText(view.getContext(),"Attività Pianificata",Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }
-
             @Override
             public void onDateUnselected(final Date date) { // chiamato quando una data viene deselezionata dall'utente
                 new AlertDialog.Builder(view.getContext())
@@ -107,7 +110,10 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         })
                         .setNegativeButton("RemoveActivity", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // rimuovere l'attività dal db.
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTimeInMillis(date.getTime());
+                                listener.getDatabaseManager().deletePlan(cal);
+                                Toast.makeText(view.getContext(),"Attività cancellata",Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -122,12 +128,14 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
             if(data.getIntExtra("Code", 0) == 3){
+                Toast.makeText(listener.getContext(),"Peso Aggiornato",Toast.LENGTH_SHORT);
                 highlitedDates.add(new Date(data.getLongExtra("Date",0)));
                 calendarView.highlightDates(highlitedDates);
             }
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
             if(data.getIntExtra("Code", 0) == 4){
+                Toast.makeText(listener.getContext(),"Peso eliminato",Toast.LENGTH_SHORT);
                 highlitedDates.remove(new Date(data.getLongExtra("Date",0)));
                 calendarView.highlightDates(highlitedDates);
             }

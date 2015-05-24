@@ -6,13 +6,18 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
+import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -23,6 +28,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     private DatabaseManager databaseManager;
     private EditText pesoEditText;
     private Date date;
+    private Boolean previouslySetted=true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,15 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         setContentView(R.layout.editweight_layout);
 
         databaseManager = new DatabaseManager(this);
+        try{
+            databaseManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("My Jogging Trainer");
 
         pesoEditText = (EditText) findViewById(R.id.editPeso);
         Button confirm = (Button) findViewById((R.id.confermaPeso));
@@ -54,14 +69,15 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             finish();
         }
 
-        /*
+
         String QueryPeso = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
                            + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "="
                            + getIntent().getLongExtra("Date",0));
 
         databaseManager.syncQuerySelect(QueryPeso,this,1);
-        */
-        if(pesoEditText.getText().toString().equals("")){
+
+        if(pesoEditText.getText().toString().matches("")){
+            previouslySetted=false;
             remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
         }
     }
@@ -69,9 +85,15 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     private void salvaPeso(){
         Intent intent = new Intent();
-        if (!pesoEditText.getText().toString().equals("")){
-            //String QuerySalvaPeso = new String();   //TO DO
-            //databaseManager.syncQuerySelect(QuerySalvaPeso,this,1);
+        if (!pesoEditText.getText().toString().matches("")){
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(date.getTime());
+            double peso = Double.valueOf(pesoEditText.getText().toString());
+            if(previouslySetted){
+                databaseManager.updateWeightChange(cal, peso);
+            } else{
+                databaseManager.insertWeightChange(cal, peso);
+            }
             intent.putExtra("Date",date.getTime());
             intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
         }
@@ -80,8 +102,9 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     }
 
     private void rimuoviPeso(){
-        //String QueryRimuoviPeso = new String();   //TO DO
-        //databaseManager.syncQuerySelect(QueryRimuoviPeso,this,2);
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date.getTime());
+        databaseManager.deleteWeightChange(cal);
         Intent intent = new Intent();
         intent.putExtra("Date",date.getTime());
         intent.putExtra("Code",4); //un peso è stato effettivamente tolto.
