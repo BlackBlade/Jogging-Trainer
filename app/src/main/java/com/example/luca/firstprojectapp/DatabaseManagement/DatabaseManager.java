@@ -63,6 +63,17 @@ public class DatabaseManager {
 
     }
 
+    public void insertPlan(Calendar cal){
+        database.execSQL("insert into " + SqlLiteHelper.TABLE_PLANNING + "(" + SqlLiteHelper.COLUMN_ID
+                 + ") values ("
+                + cal.getTimeInMillis() + ");");
+    }
+
+    public void deletePlan(Calendar cal){
+        database.execSQL("delete from " + SqlLiteHelper.TABLE_PLANNING + " where "
+                + SqlLiteHelper.COLUMN_ID + "=" + cal.getTimeInMillis() + ";");
+    }
+
     public void querySelect(String query, IOnCursorCallback caller, int position){
         new GetAsyncSelectStatement(query, position).execute(caller);
 
