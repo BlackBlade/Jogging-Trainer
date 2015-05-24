@@ -58,9 +58,9 @@ public class DatabaseManager {
 
     }
 
-    public void syncQuerySelect(String query, IOnCursorCallback caller, int position){
-        Cursor newCur = database.rawQuery(query, new String[]{});
-        caller.fillView(newCur,position);
+    public Cursor syncQuerySelect(String query, IOnCursorCallback caller, int position){
+        return database.rawQuery(query, new String[]{});
+
     }
 
     protected class GetAsyncSelectStatement extends AsyncTask<IOnCursorCallback,Void,Cursor>{
