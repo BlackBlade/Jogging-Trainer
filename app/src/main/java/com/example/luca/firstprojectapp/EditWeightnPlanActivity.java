@@ -66,7 +66,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             //databaseManager.syncQuerySelect(QuerySalvaPeso,this,1);
 
             intent.putExtra("Date",date.getTime());
-            //intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
+            intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
         }
         setResult(RESULT_OK, intent);
         finish();

@@ -112,19 +112,18 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
     }
 
-    /*
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_WEIGHT_PLAN && resultCode== Activity.RESULT_OK){
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
             if(data.getIntExtra("Code",0) == 3){
                 List<Date> highlitedDates = new ArrayList<>();
-                highlitedDates.add(new Date(data.getLongExtra("Code",0)));
+                highlitedDates.add(new Date(data.getLongExtra("Date",0)));
                 calendarView.highlightDates(highlitedDates);
             }
         }
     }
-    */
+
 
     @Override
     public void fillView(Cursor cur, int position) {
