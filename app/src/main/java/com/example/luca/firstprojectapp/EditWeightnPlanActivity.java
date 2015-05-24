@@ -28,7 +28,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     private DatabaseManager databaseManager;
     private EditText pesoEditText;
     private Date date;
-    private Boolean previouslySetted=true;
+    private Boolean previouslySetted;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         });
 
         Button remove = (Button) findViewById((R.id.rimuoviPeso));
-        confirm.setOnClickListener(new View.OnClickListener() {
+        remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rimuoviPeso();
@@ -70,14 +70,16 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             finish();
         }
 
-
+        /*
         String QueryPeso = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
                            + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "="
                            + getIntent().getLongExtra("Date",0));
 
-        databaseManager.syncQuerySelect(QueryPeso,this,1);
+        databaseManager.syncQuerySelect(QueryPeso,this,1);  //NON funziona
 
-        if(pesoEditText.getText().toString().matches("")){
+        */
+        previouslySetted = true;
+        if(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null){
             Toast.makeText(this,"Inserire nuovo Peso",Toast.LENGTH_SHORT).show();
             previouslySetted=false;
             remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
@@ -87,10 +89,10 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     private void salvaPeso(){
         Intent intent = new Intent();
-        if (!pesoEditText.getText().toString().matches("")){
+        if (!(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null)){
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(date.getTime());
-            double peso = Double.valueOf(pesoEditText.getText().toString());
+            double peso = Double.parseDouble(pesoEditText.getText().toString());
             if(previouslySetted){
                 databaseManager.updateWeightChange(cal, peso);
             } else{
@@ -146,9 +148,6 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
                 while(cur.moveToNext()){
                     pesoEditText.setText(cur.getLong(0)+"");
                 }break;
-            case 2:
-                //nothing
-                break;
             default:break;
         }
     }

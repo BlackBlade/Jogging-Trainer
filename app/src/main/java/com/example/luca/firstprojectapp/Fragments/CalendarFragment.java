@@ -126,16 +126,16 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
             if(data.getIntExtra("Code", 0) == 3){
-                Toast.makeText(listener.getContext(),"Peso Aggiornato",Toast.LENGTH_SHORT);
+                Toast.makeText(listener.getContext(),"Peso Aggiornato",Toast.LENGTH_SHORT).show();
                 highlitedDates.add(new Date(data.getLongExtra("Date",0)));
                 calendarView.highlightDates(highlitedDates);
             }
         }
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
             if(data.getIntExtra("Code", 0) == 4){
-                Toast.makeText(listener.getContext(),"Peso eliminato",Toast.LENGTH_SHORT);
+                Toast.makeText(listener.getContext(),"Peso Eliminato",Toast.LENGTH_SHORT).show();
                 highlitedDates.remove(new Date(data.getLongExtra("Date",0)));
-                calendarView.highlightDates(highlitedDates);
+                this.initializeCalendar();
             }
         }
     }
