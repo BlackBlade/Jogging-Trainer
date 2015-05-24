@@ -46,14 +46,14 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
 
         calendarView = (CalendarPickerView) view.findViewById(R.id.calendar_view);
 
-        //calendarView.scrollToDate(new Date()); this should scroll to the current day.
-
         selectedDates = new ArrayList<Date>();
 
-        //recupera selectedDates dal DB.
-        listener.getDatabaseManager().querySelect(QueryAllDates,this,1); //chiama metodo su db e poi fill view.
+        Date today = new Date();
 
-        this.initializeCalendar();
+        //recupera selectedDates dal DB.
+        listener.getDatabaseManager().syncQuerySelect(QueryAllDates, this, 1); //chiama metodo su db e poi fill view.
+
+        this.initializeCalendar(today);
 
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
@@ -73,7 +73,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         })
                         .setNegativeButton("PlanActivity", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // inserire l'attività nel db.
+
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -91,6 +91,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                                 if (date != null){
                                     calendarView.selectDate(new Date(date.getTime())); //era gia selezionata e deve rimanerlo.
                                     intent.putExtra("Date",date.getTime());
+                                    intent.putExtra("Code",2);
                                 }
                                 startActivityForResult(intent, EDIT_WEIGHT_PLAN);
                             }
@@ -110,6 +111,20 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         return view;
 
     }
+
+    /*
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode== Activity.RESULT_OK){
+            if(data.getIntExtra("Code",0) == 3){
+                List<Date> highlitedDates = new ArrayList<>();
+                highlitedDates.add(new Date(data.getLongExtra("Code",0)));
+                calendarView.highlightDates(highlitedDates);
+            }
+        }
+    }
+    */
 
     @Override
     public void fillView(Cursor cur, int position) {
@@ -135,7 +150,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     /**
      * Used in order to initialize a new calendar.
      */
-    private void initializeCalendar(){
+    private void initializeCalendar(Date today){
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 1);
         Calendar first = Calendar.getInstance();
