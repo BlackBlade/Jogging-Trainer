@@ -14,6 +14,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
 import com.example.luca.firstprojectapp.EditWeightnPlanActivity;
@@ -31,8 +33,10 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     private IOnActivityCallback listener;
     private CalendarPickerView calendarView;
     private List<Date> selectedDates;
+    private List<Date> highlitedDates;
     static final int EDIT_WEIGHT_PLAN = 1;
     private static final String QueryAllDates ="select * from " + SqlLiteHelper.TABLE_PLANNING;
+    private static final String QueryHighlitedDates ="select * from " + SqlLiteHelper.TABLE_WEIGHT;
 
 
 
@@ -47,11 +51,15 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         calendarView = (CalendarPickerView) view.findViewById(R.id.calendar_view);
 
         selectedDates = new ArrayList<Date>();
+        highlitedDates = new ArrayList<Date>();
 
         Date today = new Date();
 
         //recupera selectedDates dal DB.
         listener.getDatabaseManager().syncQuerySelect(QueryAllDates, this, 1); //chiama metodo su db e poi fill view.
+
+        //recupera highlitedDates dal DB
+        listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates,this,2);
 
         this.initializeCalendar(today);
 
@@ -73,7 +81,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         })
                         .setNegativeButton("PlanActivity", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                //inserire data nel db.
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -99,7 +107,6 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         .setNegativeButton("RemoveActivity", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // rimuovere l'attività dal db.
-                                //automaticamente deselezionata dopo il tap sul calendario.
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -116,35 +123,13 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
-            if(data.getIntExtra("Code",0) == 3){
-                List<Date> highlitedDates = new ArrayList<>();
+            if(data.getIntExtra("Code", 0) == 3){
                 highlitedDates.add(new Date(data.getLongExtra("Date",0)));
                 calendarView.highlightDates(highlitedDates);
             }
         }
     }
 
-
-    @Override
-    public void fillView(Cursor cur, int position) {
-        selectedDates.clear();
-        while(cur.moveToNext()){
-            Date date = new Date(cur.getLong(0));
-            selectedDates.add(date);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if(activity instanceof IOnActivityCallback){
-            listener = (IOnActivityCallback) activity;
-
-        } else {
-            throw new UnsupportedOperationException("Wrong container, activity must implement" +
-                    "IOnActivityCallback");
-        }
-    }
 
     /**
      * Used in order to initialize a new calendar.
@@ -161,6 +146,41 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
             for (Date date:selectedDates){
                 calendarView.selectDate(date);
             }
+        }
+        if(highlitedDates!=null){
+            calendarView.highlightDates(highlitedDates);
+        }
+    }
+
+    @Override
+    public void fillView(Cursor cur, int position) {
+        switch(position){
+            case 1:
+                selectedDates.clear();
+                while(cur.moveToNext()){
+                    Date date = new Date(cur.getLong(0));
+                    selectedDates.add(date);
+                } break;
+            case 2:
+                highlitedDates.clear();
+                while(cur.moveToNext()){
+                    Date date = new Date(cur.getLong(0));
+                    highlitedDates.add(date);
+                } break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof IOnActivityCallback){
+            listener = (IOnActivityCallback) activity;
+
+        } else {
+            throw new UnsupportedOperationException("Wrong container, activity must implement" +
+                    "IOnActivityCallback");
         }
     }
 }

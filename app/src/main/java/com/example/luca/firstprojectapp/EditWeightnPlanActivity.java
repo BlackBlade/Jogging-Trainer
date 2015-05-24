@@ -61,10 +61,9 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     private void salvaPeso(){
         Intent intent = new Intent();
-        if (!pesoEditText.getText().toString().equals(null)){
+        if (!pesoEditText.getText().toString().equals(null)){  // CONTROLLO NON ESATTO
             //String QuerySalvaPeso = new String();   //TO DO
             //databaseManager.syncQuerySelect(QuerySalvaPeso,this,1);
-
             intent.putExtra("Date",date.getTime());
             intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
         }
