@@ -47,6 +47,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         setTitle("My Jogging Trainer");
 
         pesoEditText = (EditText) findViewById(R.id.editPeso);
+
         Button confirm = (Button) findViewById((R.id.confermaPeso));
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +56,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             }
         });
 
-        Button remove = (Button) findViewById((R.id.removeWeight));
+        Button remove = (Button) findViewById((R.id.rimuoviPeso));
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +78,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         databaseManager.syncQuerySelect(QueryPeso,this,1);
 
         if(pesoEditText.getText().toString().matches("")){
+            Toast.makeText(this,"Inserire nuovo Peso",Toast.LENGTH_SHORT).show();
             previouslySetted=false;
             remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
         }

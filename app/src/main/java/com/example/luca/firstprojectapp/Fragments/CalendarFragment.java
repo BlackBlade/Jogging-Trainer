@@ -53,15 +53,13 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         selectedDates = new ArrayList<Date>();
         highlitedDates = new ArrayList<Date>();
 
-        Date today = new Date();
-
         //recupera selectedDates dal DB.
         listener.getDatabaseManager().syncQuerySelect(QueryAllDates, this, 1); //chiama metodo su db e poi fill view.
 
         //recupera highlitedDates dal DB
-        listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates, this,2);
+        listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates, this, 2);  //chiama metodo su db e poi fill view.
 
-        this.initializeCalendar(today);
+        this.initializeCalendar();
 
         calendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
@@ -146,7 +144,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     /**
      * Used in order to initialize a new calendar.
      */
-    private void initializeCalendar(Date today){
+    private void initializeCalendar(){
         Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.YEAR, 1);
         Calendar first = Calendar.getInstance();
@@ -154,11 +152,13 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         first.set(Calendar.DAY_OF_MONTH,1);
         Date firstday = first.getTime();
         calendarView.init(firstday, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+        Toast.makeText(listener.getContext(),selectedDates.toString(),Toast.LENGTH_LONG).show();  // just to check
         if(selectedDates!=null){
             for (Date date:selectedDates){
                 calendarView.selectDate(date);
             }
         }
+        Toast.makeText(listener.getContext(),highlitedDates.toString(),Toast.LENGTH_LONG).show();   //just to check
         if(highlitedDates!=null){
             calendarView.highlightDates(highlitedDates);
         }
