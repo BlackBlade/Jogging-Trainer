@@ -2,12 +2,17 @@ package com.example.luca.firstprojectapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,17 +23,16 @@ import com.example.luca.firstprojectapp.Adapters.NavItem;
 import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
-import com.example.luca.firstprojectapp.Fragments.Calendar1Fragment;
-import com.example.luca.firstprojectapp.Fragments.Calendar2Fragment;
 import com.example.luca.firstprojectapp.Fragments.CalendarFragment;
 import com.example.luca.firstprojectapp.Fragments.ProfileFragment;
 import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
@@ -43,7 +47,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        printHashKey();
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
@@ -83,6 +87,24 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             e.printStackTrace();
         }
 
+    }
+
+    public void printHashKey(){
+        // Add code to print out the key hash
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.example.luca.firstprojectapp",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
     }
 
     @Override
@@ -155,7 +177,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 //esempio!!
                 if(manager.findFragmentByTag(getString(R.string.Calendar)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragmentContainer, new Calendar2Fragment(), getString(R.string.Calendar));
+                    transaction.replace(R.id.fragmentContainer, new CalendarFragment(), getString(R.string.Calendar));
                     transaction.commit();
                 }
                 break;
