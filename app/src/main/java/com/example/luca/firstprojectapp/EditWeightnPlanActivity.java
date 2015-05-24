@@ -40,6 +40,14 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             }
         });
 
+        Button remove = (Button) findViewById((R.id.removeWeight));
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rimuoviPeso();
+            }
+        });
+
         date = new Date(getIntent().getLongExtra("Date", 0));
         if(getIntent().getLongExtra("Date", 0) == 0){
             Toast.makeText(this,"data non valida",Toast.LENGTH_LONG).show();
@@ -53,6 +61,9 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
         databaseManager.syncQuerySelect(QueryPeso,this,1);
         */
+        if(pesoEditText.getText().toString().equals("")){
+            remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
+        }
     }
 
 
@@ -64,6 +75,16 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             intent.putExtra("Date",date.getTime());
             intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
         }
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void rimuoviPeso(){
+        //String QueryRimuoviPeso = new String();   //TO DO
+        //databaseManager.syncQuerySelect(QueryRimuoviPeso,this,2);
+        Intent intent = new Intent();
+        intent.putExtra("Date",date.getTime());
+        intent.putExtra("Code",4); //un peso è stato effettivamente tolto.
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -95,8 +116,15 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     @Override
     public void fillView(Cursor cur, int position) {
-        while(cur.moveToNext()){
-            pesoEditText.setText(cur.getLong(0)+"");
+        switch(position){
+            case 1:
+                while(cur.moveToNext()){
+                    pesoEditText.setText(cur.getLong(0)+"");
+                }break;
+            case 2:
+                //nothing
+                break;
+            default:break;
         }
     }
 }

@@ -126,6 +126,12 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                 calendarView.highlightDates(highlitedDates);
             }
         }
+        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
+            if(data.getIntExtra("Code", 0) == 4){
+                highlitedDates.remove(new Date(data.getLongExtra("Date",0)));
+                calendarView.highlightDates(highlitedDates);
+            }
+        }
     }
 
 
