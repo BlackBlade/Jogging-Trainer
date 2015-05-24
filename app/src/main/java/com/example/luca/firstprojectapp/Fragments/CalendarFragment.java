@@ -5,7 +5,7 @@ package com.example.luca.firstprojectapp.Fragments;
  */
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.AlertDialog;;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
@@ -67,6 +66,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
             @Override
             public void onDateSelected(final Date date) { // chiamato quando una data viene selezionata dall'utente
                 new AlertDialog.Builder(view.getContext())
+                        .setCancelable(false)
                         .setTitle("JoggingTrainer")
                         .setMessage("Edit Weight or Plan Activity?")
                         .setPositiveButton("EditWeight", new DialogInterface.OnClickListener() {
@@ -91,6 +91,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
             @Override
             public void onDateUnselected(final Date date) { // chiamato quando una data viene deselezionata dall'utente
                 new AlertDialog.Builder(view.getContext())
+                        .setCancelable(false)
                         .setTitle("JoggingTrainer")
                         .setMessage("Edit Weight or Cancel Activity?")
                         .setPositiveButton("EditWeight", new DialogInterface.OnClickListener() {
@@ -113,10 +114,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                         .show();
             }
         });
-
-
         return view;
-
     }
 
 
@@ -155,13 +153,13 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     @Override
     public void fillView(Cursor cur, int position) {
         switch(position){
-            case 1:
+            case 1: // Query per selezionare tutte le date con attività pianificata.
                 selectedDates.clear();
                 while(cur.moveToNext()){
                     Date date = new Date(cur.getLong(0));
                     selectedDates.add(date);
                 } break;
-            case 2:
+            case 2: // Query per selezionare tutte le date con peso inserito.
                 highlitedDates.clear();
                 while(cur.moveToNext()){
                     Date date = new Date(cur.getLong(0));
