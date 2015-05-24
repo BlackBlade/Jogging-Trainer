@@ -66,8 +66,22 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
             + "(" + COLUMN_ID + " integer primary key, "
             + COLUMN_WEIGHT + " integer not null);";
 
+    //single Instance, to ensure the singleton property
+    private static SqlLiteHelper sInstance;
 
-    public SqlLiteHelper(Context context){
+    public static synchronized SqlLiteHelper getsInstance(Context context){
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if(sInstance == null){
+            sInstance = new SqlLiteHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+
+    private SqlLiteHelper(Context context){
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

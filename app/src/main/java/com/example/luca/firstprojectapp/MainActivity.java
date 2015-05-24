@@ -80,6 +80,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         trans.add(R.id.fragmentContainer,frag,getString(R.string.Statistics)); //TODO change fragment tags!!!
         trans.commit();
 
+        //init manager
         databaseManager = new DatabaseManager(this);
         try {
             databaseManager.open();

@@ -19,7 +19,7 @@ public class DatabaseManager {
     private SqlLiteHelper dbHelper;
 
     public DatabaseManager(Context context){
-        dbHelper = new SqlLiteHelper(context);
+        dbHelper = SqlLiteHelper.getsInstance(context);
 
     }
 
