@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.luca.firstprojectapp.DownloadImageTask;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.facebook.AccessToken;
@@ -45,7 +46,8 @@ public class ProfileFragment extends Fragment {
     private ProfileTracker profileTracker;
     private TextView nameText;
     private TextView surnameText;
-    ImageView profilePic;
+    private ImageView profilePic;
+    private DownloadImageTask download;
 
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -153,10 +155,12 @@ public class ProfileFragment extends Fragment {
         if(profile != null){
             nameText.setText(profile.getFirstName());
             surnameText.setText(profile.getLastName());
+            download = new DownloadImageTask(profilePic,profile);
+            //String userId = profile.getId();
+            download.execute(""+profile.getProfilePictureUri(100,100));
            /* URL imgUrl = null;
             try {
-                imgUrl = new URL("http://graph.facebook.com/"+profile.getId()+"/picture?type=small");
-                Log.d("ProfileId",profile.getId());
+                imgUrl = new URL("https://graph.facebook.com/" + userId + "/picture?type=large");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -165,10 +169,8 @@ public class ProfileFragment extends Fragment {
                 in = (InputStream) imgUrl.getContent();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            Bitmap  bitmap = BitmapFactory.decodeStream(in);
-             profilePic.setImageBitmap(bitmap);*/
-
+            }*/
+           //Bitmap  bitmap = BitmapFactory.decodeStream(in);
         }
     }
 
