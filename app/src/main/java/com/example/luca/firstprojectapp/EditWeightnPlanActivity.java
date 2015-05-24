@@ -2,7 +2,6 @@ package com.example.luca.firstprojectapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -13,9 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
-import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
-import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -23,7 +20,6 @@ import java.util.Date;
  */
 public class EditWeightnPlanActivity extends ActionBarActivity implements IOnActivityCallback, DatabaseManager.IOnCursorCallback {
 
-    private SharedPreferences pref;
     private DatabaseManager databaseManager;
     private EditText pesoEditText;
     private Date date;
