@@ -19,7 +19,7 @@ public class DatabaseManager {
     private SqlLiteHelper dbHelper;
 
     public DatabaseManager(Context context){
-        dbHelper = new SqlLiteHelper(context);
+        dbHelper = SqlLiteHelper.getsInstance(context);
 
     }
 
@@ -55,6 +55,11 @@ public class DatabaseManager {
 
     public void querySelect(String query, IOnCursorCallback caller, int position){
         new GetAsyncSelectStatement(query, position).execute(caller);
+
+    }
+
+    public Cursor syncQuerySelect(String query, IOnCursorCallback caller, int position){
+        return database.rawQuery(query, new String[]{});
 
     }
 
