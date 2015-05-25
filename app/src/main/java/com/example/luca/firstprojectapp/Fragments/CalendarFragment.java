@@ -129,17 +129,22 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
-            if(data.getIntExtra("Code", 0) == 3){
-                Toast.makeText(listener.getContext(),"Peso Aggiornato",Toast.LENGTH_SHORT).show();
-                highlitedDates.add(new Date(data.getLongExtra("Date",0)));
-                calendarView.highlightDates(highlitedDates);
-            }
-        }
-        if (requestCode == EDIT_WEIGHT_PLAN && resultCode == Activity.RESULT_OK){
-            if(data.getIntExtra("Code", 0) == 4){
-                Toast.makeText(listener.getContext(),"Peso Eliminato",Toast.LENGTH_SHORT).show();
-                highlitedDates.remove(new Date(data.getLongExtra("Date",0)));
-                this.initializeCalendar();
+            switch(data.getIntExtra("Code",0)){
+                case 3:
+                    Toast.makeText(listener.getContext(),"Peso Inserito",Toast.LENGTH_SHORT).show();
+                    highlitedDates.add(new Date(data.getLongExtra("Date",0)));
+                    calendarView.highlightDates(highlitedDates);
+                    break;
+                case 4:
+                    Toast.makeText(listener.getContext(),"Peso Eliminato",Toast.LENGTH_SHORT).show();
+                    highlitedDates.remove(new Date(data.getLongExtra("Date",0)));
+                    this.initializeCalendar();
+                    break;
+                case 5:
+                    Toast.makeText(listener.getContext(),"Peso Aggiornato",Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -156,13 +161,13 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         first.set(Calendar.DAY_OF_MONTH,1);
         Date firstday = first.getTime();
         calendarView.init(firstday, nextYear.getTime()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
-        Toast.makeText(listener.getContext(),selectedDates.toString(),Toast.LENGTH_LONG).show();  // just to check
+        //Toast.makeText(listener.getContext(),selectedDates.toString(),Toast.LENGTH_LONG).show();  // just to check
         if(selectedDates!=null){
             for (Date date:selectedDates){
                 calendarView.selectDate(date, true);
             }
         }
-        Toast.makeText(listener.getContext(),highlitedDates.toString(),Toast.LENGTH_LONG).show();   //just to check
+        //Toast.makeText(listener.getContext(),highlitedDates.toString(),Toast.LENGTH_LONG).show();   //just to check
         if(highlitedDates!=null){
             calendarView.highlightDates(highlitedDates);
         }

@@ -101,18 +101,19 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             if ((peso>=MIN_PESO)&&(peso<=MAX_PESO)){
                 if(previouslySetted){
                     databaseManager.updateWeightChange(cal, peso);
+                    intent.putExtra("Code",5);   // un peso è stato modificato.
                 }else{
                     databaseManager.insertWeightChange(cal, peso);
+                    intent.putExtra("Code",3);   //un peso è stato effettivamente inizializzato.
                 }
                 intent.putExtra("Date",date.getTime());
-                intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
                 setResult(RESULT_OK, intent);
                 finish();
             } else{
-                Toast.makeText(this,"Peso inserito non valido. (Peso deve essere compreso fra 30 e 150)",Toast.LENGTH_SHORT);
+                Toast.makeText(this,"Peso inserito non valido. (Peso deve essere compreso fra 30 e 150)",Toast.LENGTH_SHORT).show();
             }
         } else{
-            Toast.makeText(this,"Nessun Peso è stato inserito.",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Nessun Peso è stato inserito.",Toast.LENGTH_SHORT).show();
         }
     }
 
