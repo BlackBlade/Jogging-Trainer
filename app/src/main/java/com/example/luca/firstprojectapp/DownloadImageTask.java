@@ -39,7 +39,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             e.printStackTrace();
         }
 
-        
+
         return mIcon11;
     }
 
