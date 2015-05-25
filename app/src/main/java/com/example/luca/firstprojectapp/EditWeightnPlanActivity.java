@@ -78,11 +78,12 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         databaseManager.syncQuerySelect(QueryPeso,this,1);  //NON funziona
 
         */
+
         previouslySetted = true;
         if(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null){
             Toast.makeText(this,"Inserire nuovo Peso",Toast.LENGTH_SHORT).show();
             previouslySetted=false;
-            remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
+            //remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
         }
     }
 
@@ -106,14 +107,16 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     }
 
     private void rimuoviPeso(){
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(date.getTime());
-        databaseManager.deleteWeightChange(cal);
-        Intent intent = new Intent();
-        intent.putExtra("Date",date.getTime());
-        intent.putExtra("Code",4); //un peso è stato effettivamente tolto.
-        setResult(RESULT_OK, intent);
-        finish();
+        if (previouslySetted) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(date.getTime());
+            databaseManager.deleteWeightChange(cal);
+            Intent intent = new Intent();
+            intent.putExtra("Date", date.getTime());
+            intent.putExtra("Code", 4); //un peso è stato effettivamente tolto.
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
 
