@@ -33,6 +33,8 @@ package com.example.luca.firstprojectapp.SlidingTab;
         import android.widget.LinearLayout;
         import android.widget.TextView;
 
+        import com.example.luca.firstprojectapp.R;
+
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
  * the user's scroll progress.
@@ -215,6 +217,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
             tabTitleView.setText(adapter.getPageTitle(i));
             tabView.setOnClickListener(tabClickListener);
+            tabTitleView.setTextColor(getResources().getColor(R.color.gridColor));
             String desc = mContentDescriptions.get(i, null);
             if (desc != null) {
                 tabView.setContentDescription(desc);

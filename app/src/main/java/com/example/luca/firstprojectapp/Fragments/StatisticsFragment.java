@@ -51,9 +51,10 @@ public class StatisticsFragment extends Fragment implements DatabaseManager.IOnC
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.currTab);
+                return getResources().getColor(R.color.gridColor);
             }
         });
+        tabs.setBackgroundColor(getResources().getColor(R.color.currTab));
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
