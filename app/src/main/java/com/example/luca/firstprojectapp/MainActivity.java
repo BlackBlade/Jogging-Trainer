@@ -100,6 +100,10 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                String keyStorePass = System.getenv("KSTOREPWD");
+                String keyPass = System.getenv("KEYPWD");
+                Log.d("KeyStorePass: ",keyStorePass+"");
+                Log.d("KeyPass: ",keyPass+"");
             }
         } catch (PackageManager.NameNotFoundException e) {
 

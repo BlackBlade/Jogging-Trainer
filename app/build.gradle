@@ -11,6 +11,16 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("myreleasekey.keystore")
+            storePassword "frankedwin3"
+            keyAlias "MyReleaseKey"
+            keyPassword "frankedwin3"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
