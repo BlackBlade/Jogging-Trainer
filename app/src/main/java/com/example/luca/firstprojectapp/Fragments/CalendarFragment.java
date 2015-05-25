@@ -54,10 +54,12 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         highlitedDates = new ArrayList<Date>();
 
         //recupera selectedDates dal DB.
-        listener.getDatabaseManager().syncQuerySelect(QueryAllDates, this, 1); //chiama metodo su db e poi fill view.
+        Cursor cur = listener.getDatabaseManager().syncQuerySelect(QueryAllDates, this, 1); //chiama metodo su db e poi fill view.
+        this.fillView(cur, 1);
 
         //recupera highlitedDates dal DB
-        listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates, this, 2);  //chiama metodo su db e poi fill view.
+        Cursor cur1 = listener.getDatabaseManager().syncQuerySelect(QueryHighlitedDates, this, 2);  //chiama metodo su db e poi fill view.
+        this.fillView(cur1, 2);
 
         this.initializeCalendar();
 
@@ -83,6 +85,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                                 Calendar cal = Calendar.getInstance();
                                 cal.setTimeInMillis(date.getTime());
                                 listener.getDatabaseManager().insertPlan(cal);
+                                selectedDates.add(date);
                                 Toast.makeText(view.getContext(),"Attività Pianificata",Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -111,6 +114,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
                                 Calendar cal = Calendar.getInstance();
                                 cal.setTimeInMillis(date.getTime());
                                 listener.getDatabaseManager().deletePlan(cal);
+                                selectedDates.remove(date);
                                 Toast.makeText(view.getContext(),"Attività cancellata",Toast.LENGTH_SHORT).show();
                             }
                         })

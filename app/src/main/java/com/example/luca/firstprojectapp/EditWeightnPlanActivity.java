@@ -29,6 +29,8 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     private EditText pesoEditText;
     private Date date;
     private Boolean previouslySetted;
+    private final static double MIN_PESO = 30;
+    private final static double MAX_PESO = 150;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,40 +72,46 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             finish();
         }
 
-        /*
+
         String QueryPeso = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
                            + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "="
                            + getIntent().getLongExtra("Date",0));
 
-        databaseManager.syncQuerySelect(QueryPeso,this,1);  //NON funziona
+        Cursor cur = databaseManager.syncQuerySelect(QueryPeso,this,1);  //NON funziona
+        this.fillView(cur, 1);
 
-        */
+
 
         previouslySetted = true;
         if(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null){
             Toast.makeText(this,"Inserire nuovo Peso",Toast.LENGTH_SHORT).show();
             previouslySetted=false;
-            //remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
         }
     }
 
 
     private void salvaPeso(){
-        Intent intent = new Intent();
         if (!(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null)){
+            Intent intent = new Intent();
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(date.getTime());
             double peso = Double.parseDouble(pesoEditText.getText().toString());
-            if(previouslySetted){
-                databaseManager.updateWeightChange(cal, peso);
+            if ((peso>=MIN_PESO)&&(peso<=MAX_PESO)){
+                if(previouslySetted){
+                    databaseManager.updateWeightChange(cal, peso);
+                }else{
+                    databaseManager.insertWeightChange(cal, peso);
+                }
+                intent.putExtra("Date",date.getTime());
+                intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
+                setResult(RESULT_OK, intent);
+                finish();
             } else{
-                databaseManager.insertWeightChange(cal, peso);
+                Toast.makeText(this,"Peso inserito non valido.",Toast.LENGTH_SHORT);
             }
-            intent.putExtra("Date",date.getTime());
-            intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
+        } else{
+            Toast.makeText(this,"Nessun Peso è stato inserito.",Toast.LENGTH_SHORT);
         }
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
     private void rimuoviPeso(){
