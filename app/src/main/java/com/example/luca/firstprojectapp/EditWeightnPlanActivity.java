@@ -2,19 +2,22 @@ package com.example.luca.firstprojectapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.DatabaseManagement.SqlLiteHelper;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,48 +25,98 @@ import java.util.Date;
  */
 public class EditWeightnPlanActivity extends ActionBarActivity implements IOnActivityCallback, DatabaseManager.IOnCursorCallback {
 
-    private SharedPreferences pref;
     private DatabaseManager databaseManager;
     private EditText pesoEditText;
-    private Button Conferma;
     private Date date;
+    private Boolean previouslySetted;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editweight_layout);
 
-        pref = getSharedPreferences("com.example.luca.firstprojectapp", Context.MODE_PRIVATE);
+        databaseManager = new DatabaseManager(this);
+        try{
+            databaseManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("My Jogging Trainer");
 
         pesoEditText = (EditText) findViewById(R.id.editPeso);
-        Conferma = (Button) findViewById((R.id.confermaPeso));
-        Conferma.setOnClickListener(new View.OnClickListener() {
+
+        Button confirm = (Button) findViewById((R.id.confermaPeso));
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 salvaPeso();
             }
         });
 
+        Button remove = (Button) findViewById((R.id.rimuoviPeso));
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rimuoviPeso();
+            }
+        });
+
         date = new Date(getIntent().getLongExtra("Date", 0));
-        if(date == null){
+        if(getIntent().getLongExtra("Date", 0) == 0){
+            Toast.makeText(this,"data non valida",Toast.LENGTH_LONG).show();
             finish();
         }
 
-        if(getIntent().getIntExtra("Code",0)==2){ // la data era gia stata selezionata in precedenza.
-            // settare nei campi testuali le informazioni gia presenti nel database.
-            String Query = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
-                    + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "=" + getIntent().getLongExtra("Date",0));
-            //chiama query su db
+        /*
+        String QueryPeso = new String("select " + SqlLiteHelper.COLUMN_WEIGHT + " from "
+                           + SqlLiteHelper.TABLE_WEIGHT + " where " + SqlLiteHelper.COLUMN_ID + "="
+                           + getIntent().getLongExtra("Date",0));
+
+        databaseManager.syncQuerySelect(QueryPeso,this,1);  //NON funziona
+
+        */
+
+        previouslySetted = true;
+        if(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null){
+            Toast.makeText(this,"Inserire nuovo Peso",Toast.LENGTH_SHORT).show();
+            previouslySetted=false;
+            //remove.setActivated(false);   //disabilita il bottone remove se a questa data non era associato alcun peso.
         }
     }
 
 
     private void salvaPeso(){
-        //inserire nel database le nuove informazioni o quelle opportunamente modificate
-        // checkare che la data nel calendario resti selezionata. (effettuare in CalendarFragment)
         Intent intent = new Intent();
+        if (!(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null)){
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(date.getTime());
+            double peso = Double.parseDouble(pesoEditText.getText().toString());
+            if(previouslySetted){
+                databaseManager.updateWeightChange(cal, peso);
+            } else{
+                databaseManager.insertWeightChange(cal, peso);
+            }
+            intent.putExtra("Date",date.getTime());
+            intent.putExtra("Code",3); //un peso è stato effettivamente inizializzato.
+        }
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    private void rimuoviPeso(){
+        if (previouslySetted) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(date.getTime());
+            databaseManager.deleteWeightChange(cal);
+            Intent intent = new Intent();
+            intent.putExtra("Date", date.getTime());
+            intent.putExtra("Code", 4); //un peso è stato effettivamente tolto.
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
 
@@ -93,9 +146,12 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     @Override
     public void fillView(Cursor cur, int position) {
-        while(cur.moveToNext()){
-            pesoEditText.setText(cur.getLong(0)+"");
-            //setta allo stesso modo il commento.
+        switch(position){
+            case 1:
+                while(cur.moveToNext()){
+                    pesoEditText.setText(cur.getLong(0)+"");
+                }break;
+            default:break;
         }
     }
 }

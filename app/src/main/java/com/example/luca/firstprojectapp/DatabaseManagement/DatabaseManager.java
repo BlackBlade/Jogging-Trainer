@@ -44,6 +44,16 @@ public class DatabaseManager {
                 + ", " + weight + ");");
     }
 
+    public void deleteWeightChange(Calendar cal){
+        database.execSQL("delete from " + SqlLiteHelper.TABLE_WEIGHT + " where "
+        + SqlLiteHelper.COLUMN_ID + "=" + cal.getTimeInMillis() + ";");
+    }
+
+    public void updateWeightChange(Calendar cal, double weight){
+        database.execSQL("update " + SqlLiteHelper.TABLE_WEIGHT + " set " + SqlLiteHelper.COLUMN_WEIGHT +
+        "=" + weight + " where " + SqlLiteHelper.COLUMN_ID + "=" + cal.getTimeInMillis() + ";");
+    }
+
     public void insertStats(Calendar cal, double calories, long meters, long duration){
         database.execSQL("insert into " + SqlLiteHelper.TABLE_STATS
                 + "(" + SqlLiteHelper.COLUMN_ID + ", " + SqlLiteHelper.COLUMN_CALORIES + ", "
@@ -51,6 +61,17 @@ public class DatabaseManager {
                 + cal.getTimeInMillis() + ", " + calories + ", " + meters + ", " + duration + ");"
         );
 
+    }
+
+    public void insertPlan(Calendar cal){
+        database.execSQL("insert into " + SqlLiteHelper.TABLE_PLANNING + "(" + SqlLiteHelper.COLUMN_ID
+                 + ") values ("
+                + cal.getTimeInMillis() + ");");
+    }
+
+    public void deletePlan(Calendar cal){
+        database.execSQL("delete from " + SqlLiteHelper.TABLE_PLANNING + " where "
+                + SqlLiteHelper.COLUMN_ID + "=" + cal.getTimeInMillis() + ";");
     }
 
     public void querySelect(String query, IOnCursorCallback caller, int position){
