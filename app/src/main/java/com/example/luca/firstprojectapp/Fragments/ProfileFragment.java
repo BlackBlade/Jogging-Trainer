@@ -2,8 +2,6 @@ package com.example.luca.firstprojectapp.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,29 +23,26 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by Marina Londei on 17/05/2015.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment{
 
     private IOnActivityCallback listener;
-    CallbackManager callbackManager;
-    LoginButton loginButton;
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
     private TextView nameText;
     private TextView surnameText;
     private ImageView profilePic;
     private DownloadImageTask download;
+    private static LoginManager loginManager;
+    private View view;
 
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -69,13 +64,13 @@ public class ProfileFragment extends Fragment {
         }
     };
 
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-
         callbackManager = CallbackManager.Factory.create();
-
+        loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
@@ -83,7 +78,7 @@ public class ProfileFragment extends Fragment {
             }
         };
 
-        profileTracker = new ProfileTracker() {
+            profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
                 displayMessage(newProfile);
@@ -100,7 +95,9 @@ public class ProfileFragment extends Fragment {
         container.removeAllViews();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        View view = inflater.inflate(R.layout.profile_fragment_layout,container, false);
+
+
+        view = inflater.inflate(R.layout.profile_fragment_layout,container, false);
         Button edit = (Button) view.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +123,6 @@ public class ProfileFragment extends Fragment {
         loginButton.registerCallback(callbackManager, callback);
 
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -134,43 +130,14 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private Bitmap getImageBitmap(String url) {
-        Bitmap bm = null;
-        try {
-            URL aURL = new URL(url);
-            URLConnection conn = aURL.openConnection();
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-        } catch (IOException e) {
-
-        }
-        return bm;
-    }
 
     private void displayMessage(Profile profile){
         if(profile != null){
             nameText.setText(profile.getFirstName());
             surnameText.setText(profile.getLastName());
             download = new DownloadImageTask(profilePic,profile);
-            //String userId = profile.getId();
             download.execute(""+profile.getProfilePictureUri(100,100));
-           /* URL imgUrl = null;
-            try {
-                imgUrl = new URL("https://graph.facebook.com/" + userId + "/picture?type=large");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            InputStream in = null;
-            try {
-                in = (InputStream) imgUrl.getContent();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-           //Bitmap  bitmap = BitmapFactory.decodeStream(in);
+
         }
     }
 
@@ -179,6 +146,11 @@ public class ProfileFragment extends Fragment {
         super.onStop();
         accessTokenTracker.stopTracking();
         profileTracker.stopTracking();
+        nameText.setText("");
+        surnameText.setText("");
+        profilePic.setImageBitmap(null);
+
+
     }
 
     @Override
@@ -199,4 +171,6 @@ public class ProfileFragment extends Fragment {
                     "IOnActivityCallback");
         }
     }
+
+
 }

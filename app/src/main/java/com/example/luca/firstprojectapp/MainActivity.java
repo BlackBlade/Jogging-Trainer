@@ -150,7 +150,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
         switch (position){
 
-            case 0: //PROFILE
+            case 0:
                 if(manager.findFragmentByTag(getString(R.string.Profile))==null){
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer,new ProfileFragment(), getString(R.string.Profile));
@@ -158,8 +158,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 }
 
             case 1:
-                //altro esempio! questo metodo va implementato e modificato ad hoc durante l'aggiunta
-                //di fragment nuovi!
                 if(manager.findFragmentByTag(getString(R.string.Statistics)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new StatisticsFragment(), getString(R.string.Statistics));
@@ -167,7 +165,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 }
                 break;
             case 2:
-                //esempio!!
                 if(manager.findFragmentByTag(getString(R.string.ShowMessage)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new ShowMessageFragment(), getString(R.string.ShowMessage));
@@ -175,7 +172,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 }
                 break;
             case 3:
-                //esempio!!
                 if(manager.findFragmentByTag(getString(R.string.Calendar)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new CalendarFragment(), getString(R.string.Calendar));
