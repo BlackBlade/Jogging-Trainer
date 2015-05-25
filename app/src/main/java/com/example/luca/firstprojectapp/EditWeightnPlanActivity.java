@@ -86,6 +86,8 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         if(pesoEditText.getText().toString().isEmpty() || pesoEditText.getText().toString() == null){
             Toast.makeText(this,"Inserire nuovo Peso",Toast.LENGTH_SHORT).show();
             previouslySetted=false;
+        } else {
+            Toast.makeText(this,"Modificare Peso",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -107,7 +109,7 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
                 setResult(RESULT_OK, intent);
                 finish();
             } else{
-                Toast.makeText(this,"Peso inserito non valido.",Toast.LENGTH_SHORT);
+                Toast.makeText(this,"Peso inserito non valido. (Peso deve essere compreso fra 30 e 150)",Toast.LENGTH_SHORT);
             }
         } else{
             Toast.makeText(this,"Nessun Peso è stato inserito.",Toast.LENGTH_SHORT);

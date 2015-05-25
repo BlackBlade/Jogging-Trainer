@@ -159,7 +159,7 @@ public class CalendarFragment extends Fragment implements DatabaseManager.IOnCur
         Toast.makeText(listener.getContext(),selectedDates.toString(),Toast.LENGTH_LONG).show();  // just to check
         if(selectedDates!=null){
             for (Date date:selectedDates){
-                calendarView.selectDate(date);
+                calendarView.selectDate(date, true);
             }
         }
         Toast.makeText(listener.getContext(),highlitedDates.toString(),Toast.LENGTH_LONG).show();   //just to check
