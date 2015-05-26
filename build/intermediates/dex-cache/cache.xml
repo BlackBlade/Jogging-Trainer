@@ -2,39 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.github.asne/asne-core/0.3.3/libs/signpost-core-1.2.1.1.jar"
+        jar="C:\Users\Mary\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\1.7.2\112366d8158749e25532ebce162232c6e0fb20a5\gson-1.7.2.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/signpost-core-1.2.1.1-2836ebab7864f1ae84060dc7c7ec33d8cb4edfea.jar" />
-    </item>
-    <item
-        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.github.asne/asne-core/0.3.3/libs/signpost-commonshttp4-1.2.1.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/signpost-commonshttp4-1.2.1.1-e15c5ea3387f681c8e74ad3c36953aee7ee2d47a.jar" />
-    </item>
-    <item
-        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.github.asne/asne-facebook/0.3.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="6ff43b52f1ae802e5c16eb12e7215eedcf08fa51">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/classes-b8b4dce1d0552397e74a60b9cdcae83f86762646.jar" />
-    </item>
-    <item
-        jar="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/exploded-aar/com.github.asne/asne-core/0.3.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="e5d1cc975ceacc381f9e3d747132e0bccbd57765">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/classes-526255591d7dfd56678775b7a42899468d8354a2.jar" />
-    </item>
-    <item
-        jar="/home/luca/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="/home/luca/AndroidStudioProjects/Jogging-Trainer/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-3bf1007355f3833089d90a001bf42e80fae26507.jar" />
+        sha1="112366d8158749e25532ebce162232c6e0fb20a5">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\gson-1.7.2-00ae9f7c46addf2438e71f5c95658dee8a54caf6.jar" />
     </item>
 
 </items>

@@ -167,7 +167,7 @@ public class ProfileFragment extends Fragment{
         if(profile != null){
             nameText.setText(profile.getFirstName());
             surnameText.setText(profile.getLastName());
-            download = new DownloadImageTask(profilePic,profile);
+            download = new DownloadImageTask(profilePic);
             download.execute(""+profile.getProfilePictureUri(100,100));
 
         }
