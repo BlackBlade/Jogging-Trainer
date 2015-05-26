@@ -31,5 +31,4 @@ public interface IOnActivityCallback {
 
     public FragmentManager getMySupportFragmentManager();
 
-    public void manageUserProfile();
 }

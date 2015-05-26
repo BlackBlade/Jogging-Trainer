@@ -194,20 +194,11 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         return getSupportFragmentManager();
     }
 
-    @Override
-    public void manageUserProfile() {
 
-        Intent edit = new Intent(MainActivity.this,EditProfileActivity.class);
-        startActivityForResult(edit,EDIT_CODE);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data!=null && requestCode == EDIT_CODE){
-            //shared preferences
-            //setResult(code, intent)
-            //finish
-        }
+
     }
 }
