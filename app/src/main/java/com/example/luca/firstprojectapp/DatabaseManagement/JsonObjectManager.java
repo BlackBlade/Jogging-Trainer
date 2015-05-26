@@ -3,6 +3,8 @@ package com.example.luca.firstprojectapp.DatabaseManagement;
 import android.util.Log;
 
 import com.example.luca.firstprojectapp.Interfaces.IJsonObject;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,13 +20,14 @@ public class JsonObjectManager {
     private JsonObjectManager() {
     }
 
-    public static String toJsonList(List<IJsonObject> list) {
+    public static String toJsonList(List<LatLng> list) {
         JSONArray array = new JSONArray();
+        Gson gson = new Gson();
 
         if (list != null && list.size() > 0) {
-            for (IJsonObject obj : list) {
+            for (LatLng obj : list) {
                 try {
-                    array.put(obj.toJsonObject());
+                    array.put(gson.toJson(obj));
                 } catch (Exception e) {
                     Log.e("saveInstance", "Errore durante l'aggiunta all'array", e);
                 }
@@ -33,9 +36,10 @@ public class JsonObjectManager {
         return array.toString();
     }
 
-    public static List<IJsonObject> fromJson(String data) {
+    public static List<LatLng> fromJson(String data) {
 
-        List<IJsonObject> list = new LinkedList<>();
+        List<LatLng> list = new LinkedList<>();
+        Gson gson = new Gson();
 
         if (data != null && !data.isEmpty()) {
             try {
@@ -44,7 +48,7 @@ public class JsonObjectManager {
                     JSONObject json = array.optJSONObject(i);
                     if (json != null) {
                         try {
-                            //TODO add specific obj to convert
+                            list.add(gson.fromJson(json.toString(),LatLng.class));
                         } catch (Exception e) {
                             Log.e("loadInstance", "Errore durante il parse del json", e);
                         }
