@@ -102,6 +102,8 @@ public class ProfileFragment extends Fragment{
                     nameText.setText("");
                     surnameText.setText("");
                     profilePic.setImageBitmap(null);
+                    Toast.makeText(listener.getContext(), "You logged out.", Toast.LENGTH_LONG).show();
+
                 }
 
             }
