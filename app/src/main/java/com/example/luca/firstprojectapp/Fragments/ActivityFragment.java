@@ -68,7 +68,7 @@ public class ActivityFragment extends Fragment {
         MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(listener.getContext(),coordinates.size(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(listener.getContext(),coordinates.size()+"",Toast.LENGTH_SHORT).show();
             }
         });
 
