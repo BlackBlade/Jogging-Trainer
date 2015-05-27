@@ -2,8 +2,11 @@ package com.example.luca.firstprojectapp.Fragments;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
+import com.example.luca.firstprojectapp.Utilities.MyLocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -27,6 +32,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +45,7 @@ public class ActivityFragment extends Fragment {
     private IOnActivityCallback listener;
     private LatLng actualLatLng;
     private Chronometer chronometer;
+    private List<LatLng> coordinates = new ArrayList<>();
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,15 +68,21 @@ public class ActivityFragment extends Fragment {
         MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // DA FARE
+                Toast.makeText(listener.getContext(),coordinates.size(),Toast.LENGTH_SHORT).show();
             }
         });
+
         mappa.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 //setMarker(googleMap);
             }
         });
+
+        LocationManager locationManager = listener.getSystemService();
+        LocationListener locationListener = new MyLocationListener(coordinates);
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         return view;
     }

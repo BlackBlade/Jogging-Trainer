@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -202,6 +203,11 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     @Override
     public FragmentManager getMySupportFragmentManager(){
         return getSupportFragmentManager();
+    }
+
+    @Override
+    public LocationManager getSystemService(){
+        return (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
 
