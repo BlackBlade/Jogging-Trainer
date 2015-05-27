@@ -2,19 +2,24 @@ package com.example.luca.firstprojectapp.Fragments;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,7 +48,6 @@ import java.util.Locale;
 public class ActivityFragment extends Fragment {
 
     private IOnActivityCallback listener;
-    private LatLng actualLatLng;
     private Chronometer chronometer;
     private List<LatLng> coordinates = new ArrayList<>();
 
@@ -62,13 +66,50 @@ public class ActivityFragment extends Fragment {
         transaction_map.commit();
 
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
-        chronometer.start();
+
 
         TextView MusicPlayer = (TextView) view.findViewById(R.id.textView2);
         MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(listener.getContext(),coordinates.size()+"",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button buttonStop = (Button) view.findViewById(R.id.stopButton);
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        final Button buttonStartPause = (Button) view.findViewById(R.id.start_pauseButton);
+        buttonStartPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(buttonStartPause.getText().toString().equals("Start")){
+                    buttonStartPause.setText("Pause");
+                    int stoppedMilliseconds = 0;
+
+                    String chronoText = chronometer.getText().toString();
+                    String array[] = chronoText.split(":");
+                    if (array.length == 2) {
+                        stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000
+                                + Integer.parseInt(array[1]) * 1000;
+                    } else if (array.length == 3) {
+                        stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000
+                                + Integer.parseInt(array[1]) * 60 * 1000
+                                + Integer.parseInt(array[2]) * 1000;
+                    }
+
+                    chronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
+                    chronometer.start();
+                } else {
+
+                    chronometer.stop();
+                    buttonStartPause.setText("Start");
+                }
             }
         });
 
@@ -80,11 +121,38 @@ public class ActivityFragment extends Fragment {
         });
 
         LocationManager locationManager = listener.getSystemService();
+
+        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
+        }
+
+
         LocationListener locationListener = new MyLocationListener(coordinates);
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         return view;
+    }
+
+    /**
+     * Method used to request the user to activate the gps during the training
+     */
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(listener.getContext());
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
