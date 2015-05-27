@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,6 +25,7 @@ import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
 import com.example.luca.firstprojectapp.DatabaseManagement.DatabaseManager;
 import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
 import com.example.luca.firstprojectapp.Fragments.CalendarFragment;
+import com.example.luca.firstprojectapp.Fragments.HistoryFragment;
 import com.example.luca.firstprojectapp.Fragments.ProfileFragment;
 import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
@@ -53,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
         list.add(new NavItem("Calendar",R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
+        list.add(new NavItem("History",R.drawable.ic_launcher));
         ListView myList = (ListView) findViewById(R.id.navList);
         adapter = new SlideListAdapter(getContext(),list);
         myList.setAdapter(adapter);
@@ -156,6 +159,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     transaction.replace(R.id.fragmentContainer,new ProfileFragment(), getString(R.string.Profile));
                     transaction.commit();
                 }
+                break;
 
             case 1:
                 if(manager.findFragmentByTag(getString(R.string.Statistics)) == null) {
@@ -185,6 +189,13 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     transaction.commit();
                 }
                 break;
+            case 5:
+                if(manager.findFragmentByTag("pippo") == null){
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragmentContainer,new HistoryFragment(), "pippo");
+                    transaction.commit();
+                }
+                break;
 
         }
     }
@@ -192,6 +203,11 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     @Override
     public FragmentManager getMySupportFragmentManager(){
         return getSupportFragmentManager();
+    }
+
+    @Override
+    public LocationManager getSystemService(){
+        return (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
 
