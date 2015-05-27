@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
@@ -39,7 +41,7 @@ public class ActivityFragment extends Fragment {
     private Chronometer chronometer;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         container.removeAllViews();
 
@@ -51,9 +53,15 @@ public class ActivityFragment extends Fragment {
         transaction_map.commit();
 
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
-        chronometer.setBase(3850);
         chronometer.start();
 
+        TextView culo = (TextView) view.findViewById(R.id.textView2);
+        culo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(listener.getContext(),"culissimo",Toast.LENGTH_SHORT).show();
+            }
+        });
         mappa.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
