@@ -44,10 +44,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".EditProfileActivity"
-            android:label="@string/app_name">
-        </activity>
         <!-- Facebook Activity for login or share-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

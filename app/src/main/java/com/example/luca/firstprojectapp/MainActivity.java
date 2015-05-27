@@ -64,6 +64,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DrawerLayout layout = (DrawerLayout) findViewById(R.id.DrawerLayout);
                 layout.closeDrawers();
+                //layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); -->Remember: use this to lock it when the user logs out.
                 swapFragment(position);
 
 
