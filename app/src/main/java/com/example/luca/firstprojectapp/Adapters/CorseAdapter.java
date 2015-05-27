@@ -35,13 +35,13 @@ public class CorseAdapter extends ArrayAdapter<Corsa> {
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_corsa, parent, false);
             holder = new ViewHolder();
-            /*
-            holder.imageView = (ImageView) convertView.findViewById(R.id.user_image);
+
+            holder.imageView = (ImageView) convertView.findViewById(R.id.icona);
             holder.distanzaPercorsa = (TextView) convertView.findViewById(R.id.distanza);
-            holder.tempoImpiegato = (TextView) convertView.findViewById(R.id.tempo);
+            holder.tempoImpiegato = (TextView) convertView.findViewById(R.id.durata);
             holder.calorieConsumate = (TextView) convertView.findViewById(R.id.calorie);
             holder.orarioInizio = (TextView) convertView.findViewById(R.id.orario);
-            */
+
 
             convertView.setTag(holder);
         } else {
