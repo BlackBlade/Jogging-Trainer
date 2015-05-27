@@ -158,6 +158,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     transaction.replace(R.id.fragmentContainer,new ProfileFragment(), getString(R.string.Profile));
                     transaction.commit();
                 }
+                break;
 
             case 1:
                 if(manager.findFragmentByTag(getString(R.string.Statistics)) == null) {
@@ -186,6 +187,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     transaction.replace(R.id.fragmentContainer,new ActivityFragment(), "strange");
                     transaction.commit();
                 }
+                break;
             case 5:
                 if(manager.findFragmentByTag("pippo") == null){
                     FragmentTransaction transaction = manager.beginTransaction();
