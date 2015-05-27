@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DownloadImageTask;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
@@ -70,15 +71,37 @@ public class ProfileFragment extends Fragment{
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
+       /* loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });*/
+
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
+                if(newToken==null) {
+                    nameText.setText("");
+                    surnameText.setText("");
+                    profilePic.setImageBitmap(null);
+                }
 
             }
         };
 
-            profileTracker = new ProfileTracker() {
+        profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
                 displayMessage(newProfile);
@@ -95,8 +118,6 @@ public class ProfileFragment extends Fragment{
         container.removeAllViews();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
-
         view = inflater.inflate(R.layout.profile_fragment_layout,container, false);
         Button edit = (Button) view.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +129,21 @@ public class ProfileFragment extends Fragment{
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
         loginButton.setFragment(this);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(listener.getContext(), "Login succesful", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        });
+
         return view;
     }
 
@@ -118,16 +154,12 @@ public class ProfileFragment extends Fragment{
         nameText = (TextView) view.findViewById(R.id.name); //setting della textView
         surnameText = (TextView) view.findViewById(R.id.surname);
         profilePic = (ImageView) view.findViewById(R.id.imageView);
-        loginButton.setReadPermissions("user_friends");
-        loginButton.setFragment(this);
-        loginButton.registerCallback(callbackManager, callback);
 
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
+        callbackManager.onActivityResult(requestCode, resultCode, data);//forward del risultato
     }
 
 
@@ -146,17 +178,21 @@ public class ProfileFragment extends Fragment{
         super.onStop();
         accessTokenTracker.stopTracking();
         profileTracker.stopTracking();
-        nameText.setText("");
-        surnameText.setText("");
-        profilePic.setImageBitmap(null);
+    }
 
-
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Profile profile = Profile.getCurrentProfile();
+        //accessTokenTracker.startTracking();
+       // profileTracker.startTracking();
         displayMessage(profile);
     }
 
@@ -171,6 +207,7 @@ public class ProfileFragment extends Fragment{
                     "IOnActivityCallback");
         }
     }
+
 
 
 }
