@@ -43,7 +43,9 @@ public class ActivityFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        container.removeAllViews();
+        if (container != null) {
+            container.removeAllViews();
+        }
 
         final View view = inflater.inflate(R.layout.activity_layout, container, false);
 
@@ -55,11 +57,11 @@ public class ActivityFragment extends Fragment {
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
         chronometer.start();
 
-        TextView culo = (TextView) view.findViewById(R.id.textView2);
-        culo.setOnClickListener(new View.OnClickListener() {
+        TextView MusicPlayer = (TextView) view.findViewById(R.id.textView2);
+        MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(listener.getContext(),"culissimo",Toast.LENGTH_SHORT).show();
+                // DA FARE
             }
         });
         mappa.getMapAsync(new OnMapReadyCallback() {
