@@ -36,9 +36,10 @@
             android:text="Calorie"
             android:id="@+id/calorie"
             android:layout_alignBottom="@+id/durata"
-            android:layout_toLeftOf="@+id/distanza"
-            android:layout_toStartOf="@+id/distanza"
-            android:padding="7dp" />
+            android:layout_toStartOf="@+id/durata"
+            android:padding="7dp"
+            android:layout_below="@+id/distanza"
+            android:layout_toLeftOf="@+id/durata" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,14 +56,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/icona"
+            android:id="@+id/imageView3"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:padding="2dp"
             android:src="@drawable/ic_launcher"
             android:layout_alignBottom="@+id/calorie"
-            android:layout_toLeftOf="@+id/calorie"
-            android:layout_toStartOf="@+id/calorie" />
+            android:layout_toLeftOf="@+id/orario"
+            android:layout_toStartOf="@+id/orario" />
+
     </RelativeLayout>
 </LinearLayout>
