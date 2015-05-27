@@ -150,10 +150,6 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
         return null;
     }
 
-    @Override
-    public void manageUserProfile() {
-
-    }
 
     @Override
     public void fillView(Cursor cur, int position) {

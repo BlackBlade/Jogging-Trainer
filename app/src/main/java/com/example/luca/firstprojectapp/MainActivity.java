@@ -91,17 +91,17 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     }
 
     public void printHashKey(){
-        // Add code to print out the key hash
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.luca.firstprojectapp",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
+            // Add code to print out the key hash
+            try {
+                PackageInfo info = getPackageManager().getPackageInfo(
+                        "com.example.luca.firstprojectapp",
+                        PackageManager.GET_SIGNATURES);
+                for (Signature signature : info.signatures) {
+                    MessageDigest md = MessageDigest.getInstance("SHA");
+                    md.update(signature.toByteArray());
+                    Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                }
+            } catch (PackageManager.NameNotFoundException e) {
 
         } catch (NoSuchAlgorithmException e) {
 
@@ -194,20 +194,11 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         return getSupportFragmentManager();
     }
 
-    @Override
-    public void manageUserProfile() {
 
-        Intent edit = new Intent(MainActivity.this,EditProfileActivity.class);
-        startActivityForResult(edit,EDIT_CODE);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data!=null && requestCode == EDIT_CODE){
-            //shared preferences
-            //setResult(code, intent)
-            //finish
-        }
+
     }
 }
