@@ -3,6 +3,7 @@ package com.example.luca.firstprojectapp;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -147,6 +148,11 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
 
     @Override
     public FragmentManager getMySupportFragmentManager() {
+        return null;
+    }
+
+    @Override
+    public LocationManager getSystemService(){
         return null;
     }
 
