@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
@@ -35,6 +36,7 @@ public class ActivityFragment extends Fragment {
 
     private IOnActivityCallback listener;
     private LatLng actualLatLng;
+    private Chronometer chronometer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +49,10 @@ public class ActivityFragment extends Fragment {
         FragmentTransaction transaction_map = getChildFragmentManager().beginTransaction();
         transaction_map.replace(R.id.mapContainer, mappa, "fragmentMap");
         transaction_map.commit();
+
+        chronometer = (Chronometer) view.findViewById(R.id.chronometer);
+        chronometer.setBase(3850);
+        chronometer.start();
 
         mappa.getMapAsync(new OnMapReadyCallback() {
             @Override
