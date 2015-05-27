@@ -1,5 +1,6 @@
 package com.example.luca.firstprojectapp.Interfaces;
 
+import android.location.LocationManager;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 
@@ -29,7 +30,11 @@ public interface IOnActivityCallback {
      */
     public void swapFragment(int position);
 
+    /*
+
+     */
+    public LocationManager getSystemService();
+
     public FragmentManager getMySupportFragmentManager();
 
-    public void manageUserProfile();
 }

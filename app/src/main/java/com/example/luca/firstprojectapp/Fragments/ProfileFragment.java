@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,11 +21,15 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
 
 /**
  * Created by Marina Londei on 17/05/2015.
@@ -44,6 +47,9 @@ public class ProfileFragment extends Fragment{
     private DownloadImageTask download;
     private static LoginManager loginManager;
     private View view;
+    private AccessToken myToken;
+
+
 
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -118,21 +124,14 @@ public class ProfileFragment extends Fragment{
         container.removeAllViews();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        view = inflater.inflate(R.layout.profile_fragment_layout,container, false);
-        Button edit = (Button) view.findViewById(R.id.editButton);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.manageUserProfile();
-            }
-        });
+        view = inflater.inflate(R.layout.profile_fragment_layout, container, false);
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(listener.getContext(), "Login succesful", Toast.LENGTH_LONG).show();
+                Toast.makeText(listener.getContext(), "Login successful", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -165,10 +164,26 @@ public class ProfileFragment extends Fragment{
 
     private void displayMessage(Profile profile){
         if(profile != null){
+            myToken = AccessToken.getCurrentAccessToken();
+
+            GraphRequest request = GraphRequest.newMeRequest(myToken,new GraphRequest.GraphJSONObjectCallback() {
+                @Override
+                public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+
+                }
+            });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields","name");
+            request.setParameters(parameters);
+            request.executeAsync();
+
             nameText.setText(profile.getFirstName());
             surnameText.setText(profile.getLastName());
-            download = new DownloadImageTask(profilePic,profile);
+            download = new DownloadImageTask(profilePic);
             download.execute(""+profile.getProfilePictureUri(100,100));
+
+
+
 
         }
     }
