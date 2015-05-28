@@ -44,6 +44,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <!-- Facebook Activity for login or share-->
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

@@ -1,7 +1,9 @@
 package com.example.luca.firstprojectapp.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,15 +23,11 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONObject;
 
 /**
  * Created by Marina Londei on 17/05/2015.
@@ -48,6 +46,7 @@ public class ProfileFragment extends Fragment{
     private static LoginManager loginManager;
     private View view;
     private AccessToken myToken;
+    private SharedPreferences myPreferences;
 
 
 
@@ -76,6 +75,7 @@ public class ProfileFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        myPreferences = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         callbackManager = CallbackManager.Factory.create();
        /* loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -103,6 +103,10 @@ public class ProfileFragment extends Fragment{
                     surnameText.setText("");
                     profilePic.setImageBitmap(null);
                     Toast.makeText(listener.getContext(), "You logged out.", Toast.LENGTH_LONG).show();
+                    SharedPreferences.Editor editor = myPreferences.edit();
+                    editor.putBoolean("logged",false);
+                    editor.apply();
+
 
                 }
 
@@ -134,6 +138,9 @@ public class ProfileFragment extends Fragment{
                 @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(listener.getContext(), "Login successful", Toast.LENGTH_LONG).show();
+                    SharedPreferences.Editor editor = myPreferences.edit();
+                    editor.putBoolean("logged",true);
+                    editor.apply();
             }
 
             @Override
@@ -166,7 +173,7 @@ public class ProfileFragment extends Fragment{
 
     private void displayMessage(Profile profile){
         if(profile != null){
-            myToken = AccessToken.getCurrentAccessToken();
+           /* myToken = AccessToken.getCurrentAccessToken();
 
             GraphRequest request = GraphRequest.newMeRequest(myToken,new GraphRequest.GraphJSONObjectCallback() {
                 @Override
@@ -177,16 +184,12 @@ public class ProfileFragment extends Fragment{
             Bundle parameters = new Bundle();
             parameters.putString("fields","name");
             request.setParameters(parameters);
-            request.executeAsync();
+            request.executeAsync();*/
 
             nameText.setText(profile.getFirstName());
             surnameText.setText(profile.getLastName());
             download = new DownloadImageTask(profilePic);
             download.execute(""+profile.getProfilePictureUri(100,100));
-
-
-
-
         }
     }
 

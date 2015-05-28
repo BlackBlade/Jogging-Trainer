@@ -2,6 +2,7 @@ package com.example.luca.firstprojectapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -38,11 +39,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements IOnActivityCallback {
 
-    private int EDIT_CODE = 1;
     private DatabaseManager databaseManager;
     private Toolbar toolbar;
     private SlideListAdapter adapter; //the adapter for the listview
     private ArrayList<NavItem> list = new ArrayList<>();
+    private SharedPreferences myPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,15 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         printHashKey();
+        myPreferences = getSharedPreferences("pref",Context.MODE_PRIVATE);
+        /*if (!myPreferences.getBoolean("logged",false)){
+            Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+        }*/
+
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
