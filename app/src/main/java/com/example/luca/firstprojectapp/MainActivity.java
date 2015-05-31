@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         setContentView(R.layout.activity_main);
         printHashKey();
         myPreferences = getSharedPreferences("pref",Context.MODE_PRIVATE);
-        /*if (!myPreferences.getBoolean("logged",false)){
+       /* if (!myPreferences.getBoolean("logged",false)){
             Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

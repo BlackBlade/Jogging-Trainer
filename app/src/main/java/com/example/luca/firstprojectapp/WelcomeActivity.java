@@ -35,11 +35,20 @@ public class WelcomeActivity extends ActionBarActivity {
     private LoginButton loginButton;
 
 
+
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
             AccessToken accessToken = loginResult.getAccessToken();
             Profile profile = Profile.getCurrentProfile();
+            Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+            Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor editor = myPreferences.edit();
+            editor.putBoolean("logged",true);
+            editor.apply();
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
+            startActivity(intent);
         }
 
         @Override
@@ -57,14 +66,47 @@ public class WelcomeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
         setContentView(R.layout.welcome_activity_layout);
+        loginButton = (LoginButton) findViewById(R.id.first_login_button);
+          loginButton.setReadPermissions("user_friends");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                callback.onSuccess(loginResult);
+                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putBoolean("logged", true);
+                editor.apply();
+                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+                Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        });
+
         myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
 
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
+
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+                Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putBoolean("logged",true);
+                editor.apply();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(intent);
 
             }
@@ -73,9 +115,12 @@ public class WelcomeActivity extends ActionBarActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+                /*Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putBoolean("logged",true);
+                editor.apply();
+                startActivity(intent);*/
             }
         };
 
@@ -87,6 +132,28 @@ public class WelcomeActivity extends ActionBarActivity {
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+       /* loginButton = (LoginButton) findViewById(R.id.login_button);
+//        loginButton.setReadPermissions("user_friends");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putBoolean("logged",true);
+                editor.apply();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        });*/
+
         return super.onCreateView(parent, name, context, attrs);
 
     }
@@ -109,6 +176,12 @@ public class WelcomeActivity extends ActionBarActivity {
             }
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);//forward del risultato
     }
 
 }

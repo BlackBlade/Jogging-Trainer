@@ -106,6 +106,11 @@ public class ProfileFragment extends Fragment{
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putBoolean("logged",false);
                     editor.apply();
+                    //Intent intent = new Intent(listener.getContext(), WelcomeActivity.class);
+                   /* intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);*/
 
 
                 }
@@ -116,7 +121,10 @@ public class ProfileFragment extends Fragment{
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                displayMessage(newProfile);
+                if (myPreferences.getBoolean("logged",false)){
+                    displayMessage(newProfile);
+                }
+                //displayMessage(newProfile);
             }
         };
 
@@ -131,6 +139,7 @@ public class ProfileFragment extends Fragment{
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         view = inflater.inflate(R.layout.profile_fragment_layout, container, false);
+
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
         loginButton.setFragment(this);
