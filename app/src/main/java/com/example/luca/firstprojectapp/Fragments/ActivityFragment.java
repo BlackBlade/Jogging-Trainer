@@ -76,10 +76,16 @@ public class ActivityFragment extends Fragment {
             }
         });
 
-        Button buttonStop = (Button) view.findViewById(R.id.stopButton);
+        final Button buttonStop = (Button) view.findViewById(R.id.stopButton);
         buttonStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //DB operation
+
+                buttonStop.setClickable(false);
+
+                //Azzerare a view
 
             }
         });
@@ -88,6 +94,9 @@ public class ActivityFragment extends Fragment {
         buttonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                buttonStop.setClickable(true);
+
                 if(buttonStartPause.getText().toString().equals("Start")){
                     buttonStartPause.setText("Pause");
                     int stoppedMilliseconds = 0;
@@ -110,6 +119,24 @@ public class ActivityFragment extends Fragment {
                     chronometer.stop();
                     buttonStartPause.setText("Start");
                 }
+            }
+        });
+
+        view.findViewById(R.id.lockButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View b = view.findViewById(R.id.frameLayout);
+                b.setClickable(true);
+                b.setVisibility(View.VISIBLE);
+            }
+        });
+
+        view.findViewById(R.id.lockButton1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View b = view.findViewById(R.id.frameLayout);
+                b.setClickable(false);
+                b.setVisibility(View.INVISIBLE);
             }
         });
 
