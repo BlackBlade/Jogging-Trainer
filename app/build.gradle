@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'JoggingTrainer'
+            keyPassword 'lucamattemary'
+            storeFile file('C:/Users/Mary/Keystore/key.jks')
+            storePassword 'lucamattemary'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "com.example.luca.firstprojectapp"
         minSdkVersion 15
@@ -11,13 +18,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
-
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -29,7 +34,6 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.jjoe64:graphview:4.0.1'

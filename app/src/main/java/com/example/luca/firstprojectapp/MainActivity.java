@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.Adapters.NavItem;
 import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
@@ -114,6 +115,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     MessageDigest md = MessageDigest.getInstance("SHA");
                     md.update(signature.toByteArray());
                     Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                    Toast.makeText(this,Base64.encodeToString(md.digest(), Base64.DEFAULT),Toast.LENGTH_LONG).show();
                 }
             } catch (PackageManager.NameNotFoundException e) {
 
