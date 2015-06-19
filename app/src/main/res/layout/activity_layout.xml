@@ -82,4 +82,20 @@
         android:layout_toEndOf="@+id/textView2"
         android:background="@color/currTab"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        
+        <at.markushi.ui.CircleButton
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            app:cb_color="#99CC00"
+            app:cb_pressedRingWidth="8dip"
+            android:layout_gravity="center">
+            </at.markushi.ui.CircleButton>
+
+    </FrameLayout>
+
 </RelativeLayout>
