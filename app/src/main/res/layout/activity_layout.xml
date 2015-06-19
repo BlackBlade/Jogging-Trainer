@@ -87,7 +87,7 @@
         android:layout_height="match_parent"
         android:visibility="invisible">
 
-        
+
         <at.markushi.ui.CircleButton
             android:layout_width="64dip"
             android:layout_height="64dip"
