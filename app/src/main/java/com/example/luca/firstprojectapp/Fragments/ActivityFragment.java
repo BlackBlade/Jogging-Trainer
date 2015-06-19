@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationListener;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -49,7 +51,11 @@ public class ActivityFragment extends Fragment {
 
     private IOnActivityCallback listener;
     private Chronometer chronometer;
-    private List<LatLng> coordinates = new ArrayList<>();
+    private PolylineOptions coordinates = new PolylineOptions();
+    private boolean firstStart = true;
+    private LocationManager locationManager;
+    private  LocationListener locationListener;
+    private SupportMapFragment mappa;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +66,9 @@ public class ActivityFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.activity_layout, container, false);
 
-        SupportMapFragment mappa = new SupportMapFragment();
+        coordinates.width(5);
+        coordinates.color(Color.BLUE);
+        mappa = new SupportMapFragment();
         FragmentTransaction transaction_map = getChildFragmentManager().beginTransaction();
         transaction_map.replace(R.id.mapContainer, mappa, "fragmentMap");
         transaction_map.commit();
@@ -72,7 +80,7 @@ public class ActivityFragment extends Fragment {
         MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(listener.getContext(),coordinates.size()+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(listener.getContext(),coordinates.getPoints().size()+"",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -97,8 +105,28 @@ public class ActivityFragment extends Fragment {
 
                 buttonStop.setClickable(true);
 
+
+
                 if(buttonStartPause.getText().toString().equals("Start")){
                     buttonStartPause.setText("Pause");
+                    if(firstStart){
+                        firstStart = false;
+                        locationManager = listener.getSystemService();
+
+                        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+                            buildAlertMessageNoGps();
+                        }
+
+
+                        locationListener = new MyLocationListener(coordinates,ActivityFragment.this);
+                        locationManager.requestLocationUpdates(
+                                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+
+                    }else{
+                        locationManager.requestLocationUpdates(
+                                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+                    }
+
                     int stoppedMilliseconds = 0;
 
                     String chronoText = chronometer.getText().toString();
@@ -117,6 +145,8 @@ public class ActivityFragment extends Fragment {
                 } else {
 
                     chronometer.stop();
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,9999999,
+                            9999999,locationListener);
                     buttonStartPause.setText("Start");
                 }
             }
@@ -146,17 +176,6 @@ public class ActivityFragment extends Fragment {
                 //setMarker(googleMap);
             }
         });
-
-        LocationManager locationManager = listener.getSystemService();
-
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            buildAlertMessageNoGps();
-        }
-
-
-        LocationListener locationListener = new MyLocationListener(coordinates);
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         return view;
     }
@@ -192,6 +211,11 @@ public class ActivityFragment extends Fragment {
             throw new UnsupportedOperationException("Wrong container, activity must implement" +
                     "IOnActivityCallback");
         }
+    }
+
+    public void buildPath(){
+        mappa.getMap().addPolyline(coordinates);
+
     }
 
     /*

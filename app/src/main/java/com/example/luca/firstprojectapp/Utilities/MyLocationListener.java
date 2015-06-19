@@ -4,7 +4,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 
+import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
 
@@ -14,16 +16,20 @@ import java.util.List;
  */
 /*---------- Listener class to get coordinates ------------- */
 public class MyLocationListener implements LocationListener {
-    private List<LatLng> coordinates;
+    private PolylineOptions coordinates;
+    private ActivityFragment builder;
 
-    public MyLocationListener(List<LatLng> coordinates) {
+    public MyLocationListener(PolylineOptions coordinates,ActivityFragment frag) {
         this.coordinates = coordinates;
+        this.builder = frag;
     }
 
     @Override
     public void onLocationChanged(Location loc) {
 
         coordinates.add(new LatLng(loc.getLatitude(),loc.getLongitude()));
+        builder.buildPath();
+
 
 
         /*------- To get city name from coordinates -------- */
