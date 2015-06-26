@@ -45,7 +45,8 @@ public class RunsCursorAdapter extends CursorAdapter {
             distanza.setText(((double) cursor.getLong(2))/1000+" KM");
 
 
-            cal.setTimeInMillis(cursor.getLong(3));
-            durata.setText(cal.get(Calendar.HOUR_OF_DAY)+" H "+cal.get(Calendar.MINUTE)+" M "+cal.get(Calendar.SECOND)+" S");
+            long timeInMillis = cursor.getLong(3);
+            //cal.setTimeInMillis(cursor.getLong(3));
+            durata.setText(timeInMillis/(1000*60*60)+" H "+timeInMillis/(1000*60)+" M "+timeInMillis/1000+" S");
     }
 }

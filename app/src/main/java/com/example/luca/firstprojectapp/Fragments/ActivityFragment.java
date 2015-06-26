@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -54,11 +55,13 @@ public class ActivityFragment extends Fragment {
     private PolylineOptions coordinates = new PolylineOptions();
     private boolean firstStart = true;
     private LocationManager locationManager;
-    private  LocationListener locationListener;
-    private SupportMapFragment mappa;
+    private  MyLocationListener locationListener;
+    private GoogleMap map;
+
+    private Calendar startTraining;
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (container != null) {
             container.removeAllViews();
@@ -68,7 +71,7 @@ public class ActivityFragment extends Fragment {
 
         coordinates.width(5);
         coordinates.color(Color.BLUE);
-        mappa = new SupportMapFragment();
+        SupportMapFragment mappa = new SupportMapFragment();
         FragmentTransaction transaction_map = getChildFragmentManager().beginTransaction();
         transaction_map.replace(R.id.mapContainer, mappa, "fragmentMap");
         transaction_map.commit();
@@ -89,11 +92,18 @@ public class ActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //DB operation
+                long distance = locationListener.getTotalDistance();
+                //compute calories(assuming that the first factor is the average weight)
+                double calories = 156*0.63*(distance/1000*1.60934);
 
-                buttonStop.setClickable(false);
+                //operazioni sul db!
+                listener.getDatabaseManager().insertStats(startTraining,calories
+                        ,distance,Calendar.getInstance().getTimeInMillis() - startTraining.getTimeInMillis());
 
-                //Azzerare a view
+                listener.swapFragment(5); // cosi quando ha startato l'activity per i dettagli
+                                          //si ritrova gia nella sezione corrispondente
+
+                //startare una activity per visualizzare il risultato!
 
             }
         });
@@ -112,6 +122,7 @@ public class ActivityFragment extends Fragment {
                     if(firstStart){
                         firstStart = false;
                         locationManager = listener.getSystemService();
+                        startTraining = Calendar.getInstance(); //inizio dell'allenamento
 
                         if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
                             buildAlertMessageNoGps();
@@ -120,11 +131,11 @@ public class ActivityFragment extends Fragment {
 
                         locationListener = new MyLocationListener(coordinates,ActivityFragment.this);
                         locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+                                LocationManager.GPS_PROVIDER, 50, 5, locationListener);
 
                     }else{
                         locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+                                LocationManager.GPS_PROVIDER, 50, 5, locationListener);
                     }
 
                     int stoppedMilliseconds = 0;
@@ -173,7 +184,7 @@ public class ActivityFragment extends Fragment {
         mappa.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                //setMarker(googleMap);
+                map = googleMap;
             }
         });
 
@@ -213,8 +224,17 @@ public class ActivityFragment extends Fragment {
         }
     }
 
-    public void buildPath(){
-        mappa.getMap().addPolyline(coordinates);
+    public void buildPath(LatLng lastPosition){
+        map.clear();
+        if(lastPosition != null) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(lastPosition);
+            map.addMarker(markerOptions);
+
+            map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(lastPosition,
+                    15, 0, 0)));
+            map.addPolyline(coordinates);
+        }
 
     }
 
