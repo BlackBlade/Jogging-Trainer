@@ -47,6 +47,6 @@ public class RunsCursorAdapter extends CursorAdapter {
 
             long timeInMillis = cursor.getLong(3);
             //cal.setTimeInMillis(cursor.getLong(3));
-            durata.setText(timeInMillis/(1000*60*60)+" H "+timeInMillis/(1000*60)+" M "+timeInMillis/1000+" S");
+            durata.setText((timeInMillis/(1000*60*60))%60+" H "+(timeInMillis/(1000*60))%60+" M "+(timeInMillis/1000)%60+" S");
     }
 }
