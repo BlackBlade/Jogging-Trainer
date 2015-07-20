@@ -152,6 +152,11 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     }
 
     @Override
+    public void endActivity() {
+
+    }
+
+    @Override
     public LocationManager getSystemService(){
         return null;
     }

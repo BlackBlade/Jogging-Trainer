@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.example.luca.firstprojectapp.DownloadImageTask;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
-import com.example.luca.firstprojectapp.WelcomeActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -95,10 +94,12 @@ public class ProfileFragment extends Fragment{
             }
         });//commenta
 
+
+
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-                if(newToken==null) {
+                if(newToken==null) { //se sono uscito dal profilo
                     nameText.setText("");
                     surnameText.setText("");
                     profilePic.setImageBitmap(null);
@@ -106,12 +107,12 @@ public class ProfileFragment extends Fragment{
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putBoolean("logged",false);
                     editor.apply();
-                    Intent intent = new Intent(listener.getContext(), WelcomeActivity.class);
+                    /*Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent); //commentata
-                    getActivity().finish();
+                    startActivity(intent); //commentata*/
+                    listener.endActivity();
 
                 }
 
@@ -124,7 +125,7 @@ public class ProfileFragment extends Fragment{
                 if (myPreferences.getBoolean("logged",false)){
                     displayMessage(newProfile);
                 }
-                //displayMessage(newProfile);
+
             }
         };
 
@@ -208,8 +209,8 @@ public class ProfileFragment extends Fragment{
     public void onResume() {
         super.onResume();
         Profile profile = Profile.getCurrentProfile();
-        //accessTokenTracker.startTracking();
-       // profileTracker.startTracking();
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
         displayMessage(profile);
     }
 

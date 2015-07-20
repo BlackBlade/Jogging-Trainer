@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         printHashKey();
         myPreferences = getSharedPreferences("pref",Context.MODE_PRIVATE);
         Toast.makeText(getApplicationContext(), ""+myPreferences.getBoolean("logged",false), Toast.LENGTH_LONG).show();
+        //if no one is logged
         if (!myPreferences.getBoolean("logged",false)){
 
             Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
@@ -87,7 +88,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         setTitle("My Jogging Trainer");
         //getSupportActionBar().setTitle("My Jogging Trainer");
 
-//a caso
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
@@ -216,6 +216,21 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     @Override
     public FragmentManager getMySupportFragmentManager(){
         return getSupportFragmentManager();
+    }
+
+    @Override
+    public void endActivity() {
+
+        if (!myPreferences.getBoolean("logged",false)){
+
+            Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     @Override
