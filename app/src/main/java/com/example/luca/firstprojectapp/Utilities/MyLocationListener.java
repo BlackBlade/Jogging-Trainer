@@ -18,17 +18,29 @@ import java.util.List;
 public class MyLocationListener implements LocationListener {
     private PolylineOptions coordinates;
     private ActivityFragment builder;
+    private Location previousLocation;
+    private long distance;
 
     public MyLocationListener(PolylineOptions coordinates,ActivityFragment frag) {
         this.coordinates = coordinates;
         this.builder = frag;
+        distance = 0;
+    }
+
+    public long getTotalDistance(){
+        return this.distance;
     }
 
     @Override
     public void onLocationChanged(Location loc) {
+        if(previousLocation != null){
+            distance += (long)loc.distanceTo(previousLocation);
+        }
+        previousLocation = loc;
 
-        coordinates.add(new LatLng(loc.getLatitude(),loc.getLongitude()));
-        builder.buildPath();
+        LatLng lastPosition = new LatLng(loc.getLatitude(),loc.getLongitude());
+        coordinates.add(lastPosition);
+        builder.buildPath(lastPosition);
 
 
 
