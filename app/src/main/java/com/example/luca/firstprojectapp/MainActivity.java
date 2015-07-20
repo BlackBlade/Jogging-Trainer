@@ -60,6 +60,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
+           // finish();
         }
 
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
@@ -221,7 +222,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     @Override
     public void endActivity() {
 
-        if (!myPreferences.getBoolean("logged",false)){
+
 
             Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -229,7 +230,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
             finish();
-        }
+
 
     }
 
@@ -244,5 +245,19 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!myPreferences.getBoolean("logged",false)){
+
+        Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+          //  finish();
+    }
     }
 }

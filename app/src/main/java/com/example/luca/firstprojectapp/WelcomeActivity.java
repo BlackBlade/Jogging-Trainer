@@ -44,7 +44,7 @@ public class WelcomeActivity extends ActionBarActivity {
                     Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
                     Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
                     SharedPreferences.Editor editor = myPreferences.edit();
-                    editor.putBoolean("logged",true);
+                    editor.putBoolean("logged", true);
                     editor.apply();
                     startActivity(intent);
                     finish();
@@ -68,8 +68,9 @@ public class WelcomeActivity extends ActionBarActivity {
         callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.welcome_activity_layout);
+
         loginButton = (LoginButton) findViewById(R.id.first_login_button);
-          loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -78,8 +79,9 @@ public class WelcomeActivity extends ActionBarActivity {
                 editor.putBoolean("logged", true);
                 editor.apply();
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                finish();
                 startActivity(intent);
+                finish();
+
             }
 
             @Override
@@ -93,17 +95,25 @@ public class WelcomeActivity extends ActionBarActivity {
 
         myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
 
+        if (myPreferences.getBoolean("logged",false))//se sono loggato
+        {
+            Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
 
-                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putBoolean("logged",true);
-                editor.apply();
-                finish();
-                startActivity(intent);
+                if(newToken != null) {
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    SharedPreferences.Editor editor = myPreferences.edit();
+                    editor.putBoolean("logged", true);
+                    editor.apply();
+                    startActivity(intent);
+                   // finish();
 
+                }
 
             }
         };
@@ -111,14 +121,15 @@ public class WelcomeActivity extends ActionBarActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putBoolean("logged",true);
-                editor.apply();
-                startActivity(intent);//era commentata
-                finish();
-
+                if (newProfile != null) {
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    SharedPreferences.Editor editor = myPreferences.edit();
+                    editor.putBoolean("logged", true);
+                    editor.apply();
+                    startActivity(intent);//era commentata
+                    //  finish();
+                }
 
             }
         };
