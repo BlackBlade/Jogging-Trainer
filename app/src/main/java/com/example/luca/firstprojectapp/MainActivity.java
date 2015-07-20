@@ -114,7 +114,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                 for (Signature signature : info.signatures) {
                     MessageDigest md = MessageDigest.getInstance("SHA");
                     md.update(signature.toByteArray());
-                    Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                    //Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
                     Toast.makeText(this,Base64.encodeToString(md.digest(), Base64.DEFAULT),Toast.LENGTH_LONG).show();
                 }
             } catch (PackageManager.NameNotFoundException e) {
