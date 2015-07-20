@@ -13,8 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,13 +51,15 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         setContentView(R.layout.activity_main);
         printHashKey();
         myPreferences = getSharedPreferences("pref",Context.MODE_PRIVATE);
-       /* if (!myPreferences.getBoolean("logged",false)){
+        Toast.makeText(getApplicationContext(), ""+myPreferences.getBoolean("logged",false), Toast.LENGTH_LONG).show();
+        if (!myPreferences.getBoolean("logged",false)){
+
             Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
-        }*/
+        }
 
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     MessageDigest md = MessageDigest.getInstance("SHA");
                     md.update(signature.toByteArray());
                     //Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-                    Toast.makeText(this,Base64.encodeToString(md.digest(), Base64.DEFAULT),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this,Base64.encodeToString(md.digest(), Base64.DEFAULT),Toast.LENGTH_LONG).show();
                 }
             } catch (PackageManager.NameNotFoundException e) {
 

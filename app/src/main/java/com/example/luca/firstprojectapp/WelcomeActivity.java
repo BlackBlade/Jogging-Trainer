@@ -46,9 +46,9 @@ public class WelcomeActivity extends ActionBarActivity {
             SharedPreferences.Editor editor = myPreferences.edit();
             editor.putBoolean("logged",true);
             editor.apply();
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
             startActivity(intent);
+            finish();
+
         }
 
         @Override
@@ -74,13 +74,10 @@ public class WelcomeActivity extends ActionBarActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 callback.onSuccess(loginResult);
-                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged", true);
                 editor.apply();
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
                 startActivity(intent);
             }
@@ -101,13 +98,12 @@ public class WelcomeActivity extends ActionBarActivity {
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
 
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged",true);
                 editor.apply();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish();
                 startActivity(intent);
+
 
             }
         };
@@ -115,12 +111,14 @@ public class WelcomeActivity extends ActionBarActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                /*Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged",true);
                 editor.apply();
-                startActivity(intent);*/
+                finish();
+                startActivity(intent);//era commentata
+
             }
         };
 
@@ -134,9 +132,9 @@ public class WelcomeActivity extends ActionBarActivity {
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-       /* loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
 //        loginButton.setReadPermissions("user_friends");
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+     /*   loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
@@ -152,7 +150,7 @@ public class WelcomeActivity extends ActionBarActivity {
             @Override
             public void onError(FacebookException e) {
             }
-        });*/
+        });*///era commentata
 
         return super.onCreateView(parent, name, context, attrs);
 

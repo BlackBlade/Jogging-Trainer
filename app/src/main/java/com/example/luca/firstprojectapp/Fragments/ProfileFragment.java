@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DownloadImageTask;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
+import com.example.luca.firstprojectapp.WelcomeActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -77,7 +77,7 @@ public class ProfileFragment extends Fragment{
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         myPreferences = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         callbackManager = CallbackManager.Factory.create();
-       /* loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
+        loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -93,7 +93,7 @@ public class ProfileFragment extends Fragment{
             public void onError(FacebookException e) {
 
             }
-        });*/
+        });//commenta
 
         accessTokenTracker= new AccessTokenTracker() {
             @Override
@@ -102,16 +102,16 @@ public class ProfileFragment extends Fragment{
                     nameText.setText("");
                     surnameText.setText("");
                     profilePic.setImageBitmap(null);
-                    Toast.makeText(listener.getContext(), "You logged out.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(listener.getContext(), "You logged out.", Toast.LENGTH_LONG).show();
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putBoolean("logged",false);
                     editor.apply();
-                    //Intent intent = new Intent(listener.getContext(), WelcomeActivity.class);
-                   /* intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Intent intent = new Intent(listener.getContext(), WelcomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);*/
-
+                    startActivity(intent); //commentata
+                    getActivity().finish();
 
                 }
 
@@ -146,11 +146,11 @@ public class ProfileFragment extends Fragment{
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(listener.getContext(), "Login successful", Toast.LENGTH_LONG).show();
-                    SharedPreferences.Editor editor = myPreferences.edit();
-                    editor.putBoolean("logged",true);
-                    editor.apply();
-            }
+                //Toast.makeText(listener.getContext(), "Login successful", Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor editor = myPreferences.edit();
+            editor.putBoolean("logged",true);
+            editor.apply();
+        }
 
             @Override
             public void onCancel() {
@@ -182,18 +182,6 @@ public class ProfileFragment extends Fragment{
 
     private void displayMessage(Profile profile){
         if(profile != null){
-           /* myToken = AccessToken.getCurrentAccessToken();
-
-            GraphRequest request = GraphRequest.newMeRequest(myToken,new GraphRequest.GraphJSONObjectCallback() {
-                @Override
-                public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-
-                }
-            });
-            Bundle parameters = new Bundle();
-            parameters.putString("fields","name");
-            request.setParameters(parameters);
-            request.executeAsync();*/
 
             nameText.setText(profile.getFirstName());
             surnameText.setText(profile.getLastName());
