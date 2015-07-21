@@ -36,45 +36,19 @@ public class WelcomeActivity extends ActionBarActivity {
 
 
 
-    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                    AccessToken accessToken = loginResult.getAccessToken();
-                    Profile profile = Profile.getCurrentProfile();
-                    Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                    Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
-                    SharedPreferences.Editor editor = myPreferences.edit();
-                    editor.putBoolean("logged", true);
-                    editor.apply();
-                    startActivity(intent);
-                    finish();
-
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
         setContentView(R.layout.welcome_activity_layout);
-
+        myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         loginButton = (LoginButton) findViewById(R.id.first_login_button);
         loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                callback.onSuccess(loginResult);
+              //  callback.onSuccess(loginResult);
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged", true);
                 editor.apply();
@@ -93,14 +67,6 @@ public class WelcomeActivity extends ActionBarActivity {
             }
         });
 
-        myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
-
-        if (myPreferences.getBoolean("logged",false))//se sono loggato
-        {
-            Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
@@ -127,8 +93,7 @@ public class WelcomeActivity extends ActionBarActivity {
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putBoolean("logged", true);
                     editor.apply();
-                    startActivity(intent);//era commentata
-                    //  finish();
+                    startActivity(intent);
                 }
 
             }
@@ -144,25 +109,6 @@ public class WelcomeActivity extends ActionBarActivity {
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.first_login_button);
-//        loginButton.setReadPermissions("user_friends");
-     /*   loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
-                SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putBoolean("logged",true);
-                editor.apply();
-            }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-            }
-        });*///era commentata
 
         return super.onCreateView(parent, name, context, attrs);
 

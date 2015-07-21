@@ -24,7 +24,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -36,82 +35,57 @@ public class ProfileFragment extends Fragment{
     private IOnActivityCallback listener;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
-    private AccessTokenTracker accessTokenTracker;
+    private AccessTokenTracker accessTokenTracker; //per tenere traccia del profilo e ottenere informazioni
     private ProfileTracker profileTracker;
     private TextView nameText;
     private TextView surnameText;
     private ImageView profilePic;
     private DownloadImageTask download;
-    private static LoginManager loginManager;
     private View view;
-    private AccessToken myToken;
     private SharedPreferences myPreferences;
 
 
 
-
-    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-            AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-            displayMessage(profile);
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-        }
-    };
-
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        container.removeAllViews();
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        myPreferences = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         callbackManager = CallbackManager.Factory.create();
-        loginManager = LoginManager.getInstance(); //instance for the facebook login manager.
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
+        view = inflater.inflate(R.layout.profile_fragment_layout, container, false);
+        myPreferences = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        nameText = (TextView) view.findViewById(R.id.name); //setting della textView
+        surnameText = (TextView) view.findViewById(R.id.surname);
+        profilePic = (ImageView) view.findViewById(R.id.imageView);
+
+        loginButton = (LoginButton) view.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("user_friends");
+        loginButton.setFragment(this);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
             public void onSuccess(LoginResult loginResult) {
 
-            }
+        }
 
             @Override
             public void onCancel() {
-
             }
 
             @Override
             public void onError(FacebookException e) {
-
             }
-        });//commenta
-
-
+        });
 
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-                if(newToken==null) { //se sono uscito dal profilo
+                if(newToken==null) {
                     nameText.setText("");
                     surnameText.setText("");
                     profilePic.setImageBitmap(null);
-                    //Toast.makeText(listener.getContext(), "You logged out.", Toast.LENGTH_LONG).show();
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putBoolean("logged",false);
                     editor.apply();
-                    /*Intent intent = new Intent(getActivity(), WelcomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent); //commentata*/
                     listener.endActivity();
 
                 }
@@ -131,36 +105,6 @@ public class ProfileFragment extends Fragment{
 
         accessTokenTracker.startTracking();
         profileTracker.startTracking();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        container.removeAllViews();
-        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        view = inflater.inflate(R.layout.profile_fragment_layout, container, false);
-
-        loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
-        loginButton.setFragment(this);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                @Override
-            public void onSuccess(LoginResult loginResult) {
-                //Toast.makeText(listener.getContext(), "Login successful", Toast.LENGTH_LONG).show();
-            SharedPreferences.Editor editor = myPreferences.edit();
-            editor.putBoolean("logged",true);
-            editor.apply();
-        }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-            }
-        });
 
         return view;
     }
@@ -168,16 +112,12 @@ public class ProfileFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        nameText = (TextView) view.findViewById(R.id.name); //setting della textView
-        surnameText = (TextView) view.findViewById(R.id.surname);
-        profilePic = (ImageView) view.findViewById(R.id.imageView);
-
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);//forward del risultato
+        callbackManager.onActivityResult(requestCode, resultCode, data);//forward del risultato al login manager.
     }
 
 

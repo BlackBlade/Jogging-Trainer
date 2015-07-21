@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.Adapters.NavItem;
 import com.example.luca.firstprojectapp.Adapters.SlideListAdapter;
@@ -51,7 +50,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         setContentView(R.layout.activity_main);
         printHashKey();
         myPreferences = getSharedPreferences("pref",Context.MODE_PRIVATE);
-        Toast.makeText(getApplicationContext(), ""+myPreferences.getBoolean("logged",false), Toast.LENGTH_LONG).show();
         //if no one is logged
         if (!myPreferences.getBoolean("logged",false)){
 
@@ -60,7 +58,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
-           // finish();
         }
 
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
@@ -87,7 +84,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("My Jogging Trainer");
-        //getSupportActionBar().setTitle("My Jogging Trainer");
 
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getSupportFragmentManager();
@@ -257,7 +253,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-          //  finish();
     }
     }
 }
