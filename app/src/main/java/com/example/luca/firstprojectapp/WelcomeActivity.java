@@ -87,14 +87,14 @@ public class WelcomeActivity extends ActionBarActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                if (newProfile != null) {
-                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    SharedPreferences.Editor editor = myPreferences.edit();
-                    editor.putBoolean("logged", true);
-                    editor.apply();
-                    startActivity(intent);
-                }
+                    if (newProfile != null) {
+                        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        SharedPreferences.Editor editor = myPreferences.edit();
+                        editor.putBoolean("logged", true);
+                        editor.apply();
+                        startActivity(intent);
+                    }
 
             }
         };

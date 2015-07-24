@@ -85,6 +85,8 @@ public class ProfileFragment extends Fragment{
                     profilePic.setImageBitmap(null);
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putBoolean("logged",false);
+                    editor.putString("Name","");
+                    editor.putString("Surname","");
                     editor.apply();
                     listener.endActivity();
 
@@ -128,6 +130,12 @@ public class ProfileFragment extends Fragment{
             surnameText.setText(profile.getLastName());
             download = new DownloadImageTask(profilePic);
             download.execute(""+profile.getProfilePictureUri(100,100));
+            SharedPreferences.Editor editor = myPreferences.edit();
+            editor.putString("Name",profile.getFirstName());
+            editor.putString("Surname",profile.getLastName());
+            editor.apply();
+            TextView description = (TextView) getActivity().findViewById(R.id.desc);
+            description.setText(""+myPreferences.getString("Name","")+ " " + myPreferences.getString("Surname",""));
         }
     }
 

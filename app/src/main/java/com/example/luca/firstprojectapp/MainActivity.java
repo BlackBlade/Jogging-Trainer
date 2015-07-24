@@ -60,6 +60,9 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             startActivity(intent);
         }
 
+
+
+
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
@@ -84,7 +87,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("My Jogging Trainer");
-
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
@@ -136,7 +138,13 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id ==R.id.action_profile) {
+            swapFragment(0);
+            return true;
+        }
+        else if (id == R.id.action_credits){
+            Intent credits = new Intent(MainActivity.this, CreditsActivity.class);
+            startActivity(credits);
             return true;
         }
 
@@ -217,8 +225,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
     @Override
     public void endActivity() {
-
-
 
             Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
