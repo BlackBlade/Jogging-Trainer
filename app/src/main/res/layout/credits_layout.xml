@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Londei Marina"
-            android:textColor="#000000"
+            android:textColor="#00CC00"
             android:id="@+id/textView8"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.01"/>
@@ -52,7 +52,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Longobardi Luca"
             android:id="@+id/textView9"
-            android:textColor="#000000"
+            android:textColor="#00CC00"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.01"/>
 
@@ -62,7 +62,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Orzes Matteo"
             android:id="@+id/textView10"
-            android:textColor="#000000"
+            android:textColor="#00CC00"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.01"/>
 
@@ -70,9 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Giacovelli Francesca as graphic designer"
+            android:text="Giacovelli Francesca (graphic designer)"
             android:id="@+id/textView11"
-            android:textColor="#000000"
+            android:textColor="#00CC00"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.01"/>
     </LinearLayout>
