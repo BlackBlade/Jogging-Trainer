@@ -9,5 +9,7 @@
     <string name="Profile">profile</string>
     <string name="Calendar">calendar</string>
     <string name="facebook_app_id">1653608934858178</string>
+    <string name="Activity">activityFragment</string>
+    <string name="History">historyFragment</string>
 
 </resources>

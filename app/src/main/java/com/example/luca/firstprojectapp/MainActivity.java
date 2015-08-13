@@ -26,7 +26,6 @@ import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
 import com.example.luca.firstprojectapp.Fragments.CalendarFragment;
 import com.example.luca.firstprojectapp.Fragments.HistoryFragment;
 import com.example.luca.firstprojectapp.Fragments.ProfileFragment;
-import com.example.luca.firstprojectapp.Fragments.ShowMessageFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 
@@ -186,31 +185,31 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
                     transaction.commit();
                 }
                 break;
-            case 2:
+           /* case 3:
                 if(manager.findFragmentByTag(getString(R.string.ShowMessage)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new ShowMessageFragment(), getString(R.string.ShowMessage));
                     transaction.commit();
                 }
-                break;
-            case 3:
+                break;*/
+            case 2:
                 if(manager.findFragmentByTag(getString(R.string.Calendar)) == null) {
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragmentContainer, new CalendarFragment(), getString(R.string.Calendar));
                     transaction.commit();
                 }
                 break;
-            case 4:
-                if(manager.findFragmentByTag("strange") == null){
+            case 3:
+                if(manager.findFragmentByTag(getString(R.string.Activity)) == null){
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragmentContainer,new ActivityFragment(), "strange");
+                    transaction.replace(R.id.fragmentContainer,new ActivityFragment(), getString(R.string.Activity));
                     transaction.commit();
                 }
                 break;
-            case 5:
-                if(manager.findFragmentByTag("pippo") == null){
+            case 4:
+                if(manager.findFragmentByTag(getString(R.string.History)) == null){
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragmentContainer,new HistoryFragment(), "pippo");
+                    transaction.replace(R.id.fragmentContainer,new HistoryFragment(), getString(R.string.History));
                     transaction.commit();
                 }
                 break;

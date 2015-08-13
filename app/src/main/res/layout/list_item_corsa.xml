@@ -16,7 +16,8 @@
             android:id="@+id/distanza"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:padding="7dp" />
+            android:padding="7dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +28,8 @@
             android:layout_below="@+id/distanza"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:padding="7dp" />
+            android:padding="7dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +41,8 @@
             android:layout_toStartOf="@+id/durata"
             android:padding="7dp"
             android:layout_below="@+id/distanza"
-            android:layout_toLeftOf="@+id/durata" />
+            android:layout_toLeftOf="@+id/durata"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,7 +54,8 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/distanza"
             android:layout_toStartOf="@+id/distanza"
-            android:padding="7dp" />
+            android:padding="7dp"
+            android:textColor="#000000"/>
 
         <ImageView
             android:layout_width="wrap_content"
