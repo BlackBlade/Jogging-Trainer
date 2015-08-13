@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
 
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
-        list.add(new NavItem("Activity",R.drawable.ic_launcher));
+        //list.add(new NavItem("Activity",R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
         list.add(new NavItem("Calendar",R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));
@@ -174,7 +174,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             case 0:
                 if(manager.findFragmentByTag(getString(R.string.Profile))==null){
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragmentContainer,new ProfileFragment(), getString(R.string.Profile));
+                    transaction.replace(R.id.fragmentContainer,new ProfileFragment(),getString(R.string.Profile));
                     transaction.commit();
                 }
                 break;
@@ -232,8 +232,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
             finish();
-
-
     }
 
     @Override

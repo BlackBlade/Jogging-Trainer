@@ -67,7 +67,6 @@ public class ActivityFragment extends Fragment {
 
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
 
-
         TextView MusicPlayer = (TextView) view.findViewById(R.id.textView2);
         MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
