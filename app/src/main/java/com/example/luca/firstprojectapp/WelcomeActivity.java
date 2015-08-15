@@ -18,6 +18,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -33,6 +34,7 @@ public class WelcomeActivity extends ActionBarActivity {
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
     private LoginButton loginButton;
+    private LoginManager manager;
 
 
 
@@ -49,9 +51,12 @@ public class WelcomeActivity extends ActionBarActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
               //  callback.onSuccess(loginResult);
+               // loginButton.clearPermissions();
+               // loginButton.setPublishPermissions("publish_actions"); //--> to review
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged", true);
                 editor.apply();
+                //publishImage();
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -77,7 +82,7 @@ public class WelcomeActivity extends ActionBarActivity {
                     editor.putBoolean("logged", true);
                     editor.apply();
                     startActivity(intent);
-                   // finish();
+
 
                 }
 
@@ -133,6 +138,7 @@ public class WelcomeActivity extends ActionBarActivity {
 
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

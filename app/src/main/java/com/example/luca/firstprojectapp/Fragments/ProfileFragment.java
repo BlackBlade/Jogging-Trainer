@@ -46,6 +46,7 @@ public class ProfileFragment extends Fragment{
 
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class ProfileFragment extends Fragment{
         profilePic = (ImageView) view.findViewById(R.id.imageView);
 
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("user_friends","publish_actions"); //in review
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override

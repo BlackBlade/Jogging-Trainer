@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,14 @@ import android.widget.Toast;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
 import com.example.luca.firstprojectapp.R;
 import com.example.luca.firstprojectapp.Utilities.MyLocationListener;
+import com.example.luca.firstprojectapp.Utilities.PhotoManager;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.ShareApi;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,7 +42,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.sromku.simple.fb.Permission;
+import com.sromku.simple.fb.SimpleFacebook;
+import com.sromku.simple.fb.SimpleFacebookConfiguration;
+import com.sromku.simple.fb.listeners.OnPublishListener;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 /**
@@ -46,6 +63,12 @@ public class ActivityFragment extends Fragment {
     private LocationManager locationManager;
     private  MyLocationListener locationListener;
     private GoogleMap map;
+    private CallbackManager callbackManager;
+    private String photoPath = null;
+    private SimpleFacebook mSimpleFacebook;
+    private ShareDialog shareDialog;
+    private  File f;
+    private boolean ok = false;
 
     private Calendar startTraining;
 
@@ -56,7 +79,34 @@ public class ActivityFragment extends Fragment {
             container.removeAllViews();
         }
 
+
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
         final View view = inflater.inflate(R.layout.activity_layout, container, false);
+        mSimpleFacebook = SimpleFacebook.getInstance(getActivity());
+
+        final OnPublishListener onPublishListener = new OnPublishListener() {
+            @Override
+            public void onComplete(String id) {
+                Log.i("Tag","Succesfully published");
+            }
+
+        };
+
+        Permission[] permissions = new Permission[] {
+                Permission.USER_PHOTOS,
+                Permission.EMAIL,
+                Permission.PUBLISH_ACTION
+        };
+
+        SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
+                .setAppId("1653608934858178")
+                .setNamespace("My Jogging Trainer")
+                .setPermissions(permissions)
+                .build();
+
+        SimpleFacebook.setConfiguration(configuration);
 
         coordinates.width(5);
         coordinates.color(Color.BLUE);
@@ -67,7 +117,7 @@ public class ActivityFragment extends Fragment {
 
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
 
-        TextView MusicPlayer = (TextView) view.findViewById(R.id.textView2);
+        TextView MusicPlayer = (TextView) view.findViewById(R.id.takePhotoButton);
         MusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +200,52 @@ public class ActivityFragment extends Fragment {
                 }
             }
         });
+        final ShareButton takePhoto = (ShareButton) view.findViewById(R.id.takePhotoButton);
+        takePhoto.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (PhotoManager.getInstance().isIntentAvaliable(getActivity(), MediaStore.ACTION_IMAGE_CAPTURE)){
+                            try {
+                                f = PhotoManager.getInstance().createImageFile();
+                                photoPath = f.getAbsolutePath();
+                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                                startActivityForResult(takePictureIntent,1);
+                                ok=true;
+                            }catch(IOException e){
+                                e.printStackTrace();
+
+                            }
+                            if (ok) {
+                                new AlertDialog.Builder(getActivity())
+                                        .setTitle("Publish photo")
+                                        .setMessage("Do you want to publish this photo on Facebook?")
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                SharePhoto photo = new SharePhoto.Builder()
+                                                        .setImageUrl(Uri.fromFile(f))
+                                                        .setCaption("Hey! Look where I'm at!")
+                                                        .build();
+                                                SharePhotoContent content = new SharePhotoContent.Builder()
+                                                        .addPhoto(photo)
+                                                        .build();
+                                                ShareApi.share(content, null);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        })
+                                        .show();
+                            }
+
+                        }
+
+                }
+            }
+        );
+
 
         view.findViewById(R.id.lockButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +274,8 @@ public class ActivityFragment extends Fragment {
 
         return view;
     }
+
+
 
     /**
      * Method used to request the user to activate the gps during the training
@@ -226,6 +324,19 @@ public class ActivityFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        mSimpleFacebook = SimpleFacebook.getInstance(getActivity());
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);//forward del risultato al login manager.
+    }
     /*
     public void setMarker(GoogleMap marker) {
         this.map = marker;

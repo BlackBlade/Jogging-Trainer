@@ -28,6 +28,7 @@ import com.example.luca.firstprojectapp.Fragments.HistoryFragment;
 import com.example.luca.firstprojectapp.Fragments.ProfileFragment;
 import com.example.luca.firstprojectapp.Fragments.StatisticsFragment;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+import com.sromku.simple.fb.SimpleFacebook;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -41,6 +42,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
     private SlideListAdapter adapter; //the adapter for the listview
     private ArrayList<NavItem> list = new ArrayList<>();
     private SharedPreferences myPreferences;
+    private SimpleFacebook mSimpleFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,6 +244,7 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //mSimpleFacebook.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
     }

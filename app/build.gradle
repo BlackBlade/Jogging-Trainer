@@ -47,4 +47,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:1.7.2'
     compile 'com.github.markushi:circlebutton:1.1'
+    compile 'com.sromku:simple-fb:4.0.6'
 }
