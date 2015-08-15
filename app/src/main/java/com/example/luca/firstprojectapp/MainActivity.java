@@ -65,7 +65,6 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
 
 
         list.add(new NavItem("Profile", R.drawable.ic_launcher));
-        //list.add(new NavItem("Activity",R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
         list.add(new NavItem("Calendar",R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));

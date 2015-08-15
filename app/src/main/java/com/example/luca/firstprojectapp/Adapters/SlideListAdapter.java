@@ -13,7 +13,7 @@ import com.example.luca.firstprojectapp.R;
 import java.util.ArrayList;
 
 /**
- * Created by Mary on 15/05/2015.
+ * Created by Marina Londei on 15/05/2015.
  */
 public class SlideListAdapter extends BaseAdapter {
 

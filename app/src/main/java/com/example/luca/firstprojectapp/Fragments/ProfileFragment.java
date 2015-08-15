@@ -28,7 +28,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 /**
- * Created by Marina Londei on 17/05/2015.
+ * Created by Marina Londei.
+ * This fragment manages the user profile, setting name, surname and Facebook profile picture.
+ * This fragment allows to sign out from FB profile and to go back to the welcome screen of the app.
  */
 public class ProfileFragment extends Fragment{
 
@@ -124,6 +126,10 @@ public class ProfileFragment extends Fragment{
     }
 
 
+    /**
+     * Set name, surname and profile picture of the user.
+     * @param profile the user profile.
+     */
     private void displayMessage(Profile profile){
         if(profile != null){
 

@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Mary on 14/08/2015.
+ * Created by Marina Londei.
+ * Singleton for creating an image file for storing pictures in the phone.
  */
 public class PhotoManager {
 

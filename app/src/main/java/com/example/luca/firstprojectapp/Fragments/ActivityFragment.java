@@ -200,6 +200,12 @@ public class ActivityFragment extends Fragment {
                 }
             }
         });
+
+        /**
+         * Created by Marina Londei.
+         * After checking if the Camera is available, it creates an image file using PhotoManager methods.
+         * The picture can be then posted on Facebook (posting done using facebook graph api).
+         */
         final ShareButton takePhoto = (ShareButton) view.findViewById(R.id.takePhotoButton);
         takePhoto.setOnClickListener(new View.OnClickListener(){
                 @Override

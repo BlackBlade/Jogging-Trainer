@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 /**
- * Created by Mary on 24/07/2015.
+ * Created by Marina Londei.
+ * Activity showing app credits.
  */
 public class CreditsActivity extends ActionBarActivity {
 

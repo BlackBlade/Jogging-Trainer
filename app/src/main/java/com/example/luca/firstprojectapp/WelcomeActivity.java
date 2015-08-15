@@ -18,13 +18,14 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 
 /**
- * Created by Mary on 28/05/2015.
+ * Created by Marina Londei.
+ * Activity that welcomes the user to the app.
+ * Only facebook login is permitted.
  */
 public class WelcomeActivity extends ActionBarActivity {
 
@@ -34,7 +35,7 @@ public class WelcomeActivity extends ActionBarActivity {
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
     private LoginButton loginButton;
-    private LoginManager manager;
+    
 
 
 
@@ -50,9 +51,9 @@ public class WelcomeActivity extends ActionBarActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-              //  callback.onSuccess(loginResult);
-               // loginButton.clearPermissions();
-               // loginButton.setPublishPermissions("publish_actions"); //--> to review
+                //callback.onSuccess(loginResult);
+              loginButton.clearPermissions();
+                loginButton.setPublishPermissions("publish_actions"); //--> to review
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged", true);
                 editor.apply();
