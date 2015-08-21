@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DownloadImageTask;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
@@ -111,6 +112,14 @@ public class ProfileFragment extends Fragment{
         accessTokenTracker.startTracking();
         profileTracker.startTracking();
 
+        double peso = (double)myPreferences.getFloat("weight",0);
+        if(peso != 0)
+        {
+            TextView weight = (TextView) getActivity().findViewById(R.id.weight);
+            weight.setText(""+peso);
+        }
+
+
         return view;
     }
 
@@ -141,7 +150,14 @@ public class ProfileFragment extends Fragment{
             editor.putString("Name",profile.getFirstName());
             editor.putString("Surname",profile.getLastName());
             editor.apply();
-            TextView description = (TextView) getActivity().findViewById(R.id.desc);
+            double peso = (double)myPreferences.getFloat("weight",0);
+            if(peso!=0)
+            {
+                Toast.makeText(getActivity().getApplicationContext(),"Peso in shared" + peso, Toast.LENGTH_LONG);
+                TextView weight = (TextView) getActivity().findViewById(R.id.weight);
+                weight.setText(""+peso);
+            }
+            TextView description = (TextView) getActivity().findViewById(R.id.desc);//update description in slide bar
             description.setText(""+myPreferences.getString("Name","")+ " " + myPreferences.getString("Surname",""));
         }
     }

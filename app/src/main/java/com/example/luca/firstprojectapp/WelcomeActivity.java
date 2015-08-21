@@ -35,7 +35,7 @@ public class WelcomeActivity extends ActionBarActivity {
     private AccessTokenTracker accessTokenTracker;
     private ProfileTracker profileTracker;
     private LoginButton loginButton;
-    
+
 
 
 

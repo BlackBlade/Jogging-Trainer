@@ -2,6 +2,7 @@ package com.example.luca.firstprojectapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -32,12 +33,13 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
     private Boolean previouslySetted;
     private final static double MIN_PESO = 30;
     private final static double MAX_PESO = 150;
+    private SharedPreferences myPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editweight_layout);
-
+        myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         databaseManager = new DatabaseManager(this);
         try{
             databaseManager.open();
@@ -109,6 +111,9 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
                 }
                 intent.putExtra("Date",date.getTime());
                 setResult(RESULT_OK, intent);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putFloat("weight",(float)peso);
+                editor.apply();
                 finish();
             } else{
                 Toast.makeText(this,"Peso inserito non valido. (Peso deve essere compreso fra 30 e 150)",Toast.LENGTH_SHORT).show();
