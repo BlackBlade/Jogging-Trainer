@@ -112,12 +112,7 @@ public class ProfileFragment extends Fragment{
         accessTokenTracker.startTracking();
         profileTracker.startTracking();
 
-        double peso = (double)myPreferences.getFloat("weight",0);
-        if(peso != 0)
-        {
-            TextView weight = (TextView) getActivity().findViewById(R.id.weight);
-            weight.setText(""+peso);
-        }
+
 
 
         return view;
@@ -126,6 +121,12 @@ public class ProfileFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        double peso = (double)myPreferences.getFloat("weight",0);
+        if(peso != 0)
+        {
+            TextView weight = (TextView) getActivity().findViewById(R.id.weight);
+            weight.setText(""+peso);
+        }
     }
 
     @Override
