@@ -177,4 +177,5 @@ public class EditWeightnPlanActivity extends ActionBarActivity implements IOnAct
             default:break;
         }
     }
+
 }

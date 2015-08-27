@@ -33,7 +33,8 @@
                 android:text="Inserisci peso"
                 android:id="@+id/peso"
                 android:padding="10dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                 />
 
             <EditText
                 android:layout_width="0dp"
@@ -41,7 +42,8 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/editPeso"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
@@ -65,14 +67,16 @@
                 android:id="@+id/confermaPeso"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
-                android:elevation="2dp" />
+                android:elevation="2dp"
+                android:textColor="#000000"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rimuovi Peso"
                 android:id="@+id/rimuoviPeso"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
@@ -83,16 +87,16 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/linearLayout"
         android:layout_above="@+id/linearLayout1"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imageView2"
-            android:layout_gravity="center"
             android:contentDescription="ApplicationIcon"
-            android:src="@drawable/ic_launcher"
-            android:layout_weight="0.75" />
+            android:src="@drawable/weighticon"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 

@@ -2,6 +2,7 @@
     <string name="app_name">My Jogging Trainer</string>
     <string name="action_profile">Profile</string>
     <string name="action_credits">Credits</string>
+    <string name="action_language">Language</string>
 
     <!-- those strings specify fragment names -->
     <string name="ShowMessage">showMessageFragment</string>

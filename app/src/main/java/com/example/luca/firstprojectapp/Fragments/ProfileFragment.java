@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.DownloadImageTask;
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
@@ -154,7 +153,6 @@ public class ProfileFragment extends Fragment{
             double peso = (double)myPreferences.getFloat("weight",0);
             if(peso!=0)
             {
-                Toast.makeText(getActivity().getApplicationContext(),"Peso in shared" + peso, Toast.LENGTH_LONG);
                 TextView weight = (TextView) getActivity().findViewById(R.id.weight);
                 weight.setText(""+peso);
             }
