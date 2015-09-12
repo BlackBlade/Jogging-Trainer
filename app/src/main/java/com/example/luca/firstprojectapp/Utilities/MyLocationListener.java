@@ -5,6 +5,7 @@ import android.location.LocationListener;
 import android.os.Bundle;
 
 import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
+import com.example.luca.firstprojectapp.MyRunService;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class MyLocationListener implements LocationListener {
     private PolylineOptions coordinates;
     private ActivityFragment builder;
+    MyRunService service;
     private Location previousLocation;
     private long distance;
 
