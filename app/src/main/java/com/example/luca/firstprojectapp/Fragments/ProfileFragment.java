@@ -146,6 +146,7 @@ public class ProfileFragment extends Fragment{
             surnameText.setText(profile.getLastName());
             download = new DownloadImageTask(profilePic);
             download.execute(""+profile.getProfilePictureUri(100,100));
+
             SharedPreferences.Editor editor = myPreferences.edit();
             editor.putString("Name",profile.getFirstName());
             editor.putString("Surname",profile.getLastName());

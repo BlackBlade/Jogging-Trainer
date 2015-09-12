@@ -53,7 +53,7 @@ public class WelcomeActivity extends ActionBarActivity {
             public void onSuccess(LoginResult loginResult) {
                 //callback.onSuccess(loginResult);
               loginButton.clearPermissions();
-                loginButton.setPublishPermissions("publish_actions"); //--> to review
+                loginButton.setPublishPermissions("publish_actions"); //--> in review
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged", true);
                 editor.apply();
