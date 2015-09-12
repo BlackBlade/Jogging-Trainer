@@ -60,6 +60,7 @@ public class WelcomeActivity extends ActionBarActivity {
                 //publishImage();
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
                 startActivity(intent);
+
                 finish();
 
             }
