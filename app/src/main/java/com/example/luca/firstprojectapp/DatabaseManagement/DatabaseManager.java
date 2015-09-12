@@ -114,7 +114,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Interface must be implemented to acces database.
+     * Interface must be implemented to access database.
      */
     public interface IOnCursorCallback {
 

@@ -1,7 +1,7 @@
 package com.example.luca.firstprojectapp.Adapters;
 
 /**
- * Created by Mary on 15/05/2015.
+ * Created by Marina Londei on 15/05/2015.
  */
 public class NavItem {
 

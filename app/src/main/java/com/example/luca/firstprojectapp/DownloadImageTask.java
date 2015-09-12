@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import java.io.InputStream;
 
 /**
- * Created by Mary on 24/05/2015.
+ * Created by Marina Londei.
+ * Task for downloading the image from the web (used for retrieving profile picture).
  */
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -47,11 +48,13 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         return mIcon11;
     }
 
+    /**
+     * Method launched after the download of the image.
+     * Sets the bitmap image to the result given as input parameter.
+     * @param result resulting bitmap image from the download
+     */
     protected void onPostExecute(Bitmap result) {
-        //set image of your imageview
         bmImage.setImageBitmap(result);
-        //close
-       // mDialog.dismiss();
     }
 
     private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {

@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">My personal trainer</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">My Jogging Trainer</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_credits">Credits</string>
+    <string name="action_language">Language</string>
 
     <!-- those strings specify fragment names -->
     <string name="ShowMessage">showMessageFragment</string>
@@ -8,5 +10,7 @@
     <string name="Profile">profile</string>
     <string name="Calendar">calendar</string>
     <string name="facebook_app_id">1653608934858178</string>
+    <string name="Activity">activityFragment</string>
+    <string name="History">historyFragment</string>
 
 </resources>

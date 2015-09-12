@@ -23,7 +23,9 @@ import com.facebook.login.widget.LoginButton;
 
 
 /**
- * Created by Mary on 28/05/2015.
+ * Created by Marina Londei.
+ * Activity that welcomes the user to the app.
+ * Only facebook login is permitted.
  */
 public class WelcomeActivity extends ActionBarActivity {
 
@@ -36,53 +38,30 @@ public class WelcomeActivity extends ActionBarActivity {
 
 
 
-    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-            AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-            Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-            Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
-            SharedPreferences.Editor editor = myPreferences.edit();
-            editor.putBoolean("logged",true);
-            editor.apply();
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
-            startActivity(intent);
-        }
 
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
         setContentView(R.layout.welcome_activity_layout);
+        myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
         loginButton = (LoginButton) findViewById(R.id.first_login_button);
-          loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                callback.onSuccess(loginResult);
-                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
+                //callback.onSuccess(loginResult);
+              loginButton.clearPermissions();
+                loginButton.setPublishPermissions("publish_actions"); //--> to review
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putBoolean("logged", true);
                 editor.apply();
+                //publishImage();
                 Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                finish();
                 startActivity(intent);
+                finish();
+
             }
 
             @Override
@@ -94,20 +73,19 @@ public class WelcomeActivity extends ActionBarActivity {
             }
         });
 
-        myPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE);
-
         accessTokenTracker= new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
 
-                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                Toast.makeText(getApplicationContext(), "You logged in.", Toast.LENGTH_LONG).show();
-                SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putBoolean("logged",true);
-                editor.apply();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                finish();
-                startActivity(intent);
+                if(newToken != null) {
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    SharedPreferences.Editor editor = myPreferences.edit();
+                    editor.putBoolean("logged", true);
+                    editor.apply();
+                    startActivity(intent);
+
+
+                }
 
             }
         };
@@ -115,12 +93,15 @@ public class WelcomeActivity extends ActionBarActivity {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                /*Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putBoolean("logged",true);
-                editor.apply();
-                startActivity(intent);*/
+                    if (newProfile != null) {
+                        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        SharedPreferences.Editor editor = myPreferences.edit();
+                        editor.putBoolean("logged", true);
+                        editor.apply();
+                        startActivity(intent);
+                    }
+
             }
         };
 
@@ -134,25 +115,6 @@ public class WelcomeActivity extends ActionBarActivity {
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-       /* loginButton = (LoginButton) findViewById(R.id.login_button);
-//        loginButton.setReadPermissions("user_friends");
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
-                SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putBoolean("logged",true);
-                editor.apply();
-            }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-            }
-        });*/
 
         return super.onCreateView(parent, name, context, attrs);
 
@@ -177,6 +139,7 @@ public class WelcomeActivity extends ActionBarActivity {
 
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
