@@ -2,123 +2,39 @@
 <items version="2" >
 
     <item
-        jar="D:\Users\MatteoOrzes\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.1\support-annotations-22.1.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.1-5490bcc0141f0989b33b1a91f21ddedd9cd19030.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.asne\asne-facebook\0.3.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="6ff43b52f1ae802e5c16eb12e7215eedcf08fa51">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-71e73935a23789aebef0de7cc7db9274d92a8ffd.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.asne\asne-core\0.3.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="e5d1cc975ceacc381f9e3d747132e0bccbd57765">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-bcf3f48d444bc4c8e97251c41e2be53b83d23dba.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.asne\asne-core\0.3.3\libs\signpost-commonshttp4-1.2.1.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\signpost-commonshttp4-1.2.1.1-6513dda5557fc2ae0361efae8bc669e62996b6af.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-779b309d16ab4cf898120dd09f96c7f29584a669.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-cbd6db8069251805071530eab70d87e7981298e5.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.3.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="54732a25e1d3eb1a88dfc4f969eff4f3d4476f2c">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-58d172ec8a6ee265a53eb1e0dee529aaa0606f06.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="37bf8de5b4f9e7e93006db783b9b3168e32e38e9">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-197a25d4bab7cd1cf6e16ad335ff749a4e2958dc.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\1.7.2\112366d8158749e25532ebce162232c6e0fb20a5\gson-1.7.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="112366d8158749e25532ebce162232c6e0fb20a5">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\gson-1.7.2-bdd7f057577617ed0384ca0c95a7fd890851b91a.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.squareup\android-times-square\1.5.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="49a161d665861cd093b0b0ba2bfcfe791f1330ef">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-cdf350fbb076d66d287294c52f92834fe9073a1e.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-8421e054171348812dcabb5761c0c2e3bee6cb25.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="ebe3b1f14fa79ba3cd1588acda4e6517ee9fe611">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-3e2a71e411d08a19ea5f8b1242fffe5b95e4ded7.jar" />
-    </item>
-    <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.sromku\simple-fb\4.0.6\classes.jar"
+        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.sromku\simple-fb\4.0.6\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="bc8850996b8b260c2db97e61ab0e8540a7f18b17">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-9277e4604658e055cb1a1bf17ab0ad8e43127a82.jar" />
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-3aecd45376566e74bf98a4131185564502080161.jar" />
     </item>
     <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-e241ccc63bc0814e82264101c93743ac923fdbe0.jar" />
+        sha1="eeebabdfd8203f6ab639ccea4ffa1f20e1adee3a">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-f974fe344f3961ccecb8553a18653bd2769ee6af.jar" />
     </item>
     <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.github.asne\asne-core\0.3.3\libs\signpost-core-1.2.1.1.jar"
+        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\libs\internal_impl-22.1.0.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\signpost-core-1.2.1.1-7a3bf2be8d41b472e4a93ad16e51d02d36fd3e8a.jar" />
+        sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\internal_impl-22.1.0-7fadc4341c49a7f5e7e4de8d682f16a8d4d85a5a.jar" />
     </item>
     <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\libs\internal_impl-22.1.1.jar"
+        jar="C:\Users\Mary\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.0\support-annotations-22.1.0.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\internal_impl-22.1.1-f93bc47fcdbafdee8a78cf8b3e9eee518e76b7f1.jar" />
+        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.0-50d043a792247948e0b6caeb7502eb7ece0a08dc.jar" />
     </item>
     <item
-        jar="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.3.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="C:\Users\MatteoOrzes\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-4a9e89bd1e20517360c5f4ecfc7191f9b1951387.jar" />
+        sha1="54732a25e1d3eb1a88dfc4f969eff4f3d4476f2c">
+        <dex dex="C:\Users\Mary\AndroidStudioProjects\Jogging-Trainer\app\build\intermediates\pre-dexed\debug\classes-138c27335ba8c052a03b45a5c860f58dbe73aca5.jar" />
     </item>
 
 </items>
