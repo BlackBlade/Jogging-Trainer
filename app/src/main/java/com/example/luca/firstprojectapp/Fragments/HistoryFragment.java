@@ -88,7 +88,7 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
         first.set(Calendar.MINUTE, 0);
         first.set(Calendar.MILLISECOND,0);
 
-        listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_WEIGHT
+        listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_STATS
                 + " where " + SqlLiteHelper.COLUMN_ID + " between " + first.getTimeInMillis()
                 + " and " + cal.getTimeInMillis()
                 ,this,1);
