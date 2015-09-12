@@ -260,7 +260,8 @@ public class ActivityFragment extends Fragment {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 SharePhoto photo = new SharePhoto.Builder()
                                                         .setImageUrl(Uri.fromFile(f))
-                                                        .setCaption("Hey! Look where I'm at!")
+                                                        .setCaption("Hey! Look where I'm at! " +
+                                                        "Running with My Jogging Trainer")
                                                         .build();
                                                 SharePhotoContent content = new SharePhotoContent.Builder()
                                                         .addPhoto(photo)

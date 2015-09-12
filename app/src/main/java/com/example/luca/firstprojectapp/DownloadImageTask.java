@@ -1,5 +1,6 @@
 package com.example.luca.firstprojectapp;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -21,6 +22,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
    // private ProgressDialog mDialog;
     private ImageView bmImage;
+    private SharedPreferences myPreferences;
 
 
     public DownloadImageTask(ImageView bmImage) {
@@ -43,7 +45,12 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             e.printStackTrace();
         }
 
-      mIcon11 = getRoundedCornerBitmap(mIcon11);
+
+        try {        mIcon11 = getRoundedCornerBitmap(mIcon11);
+        } catch (Exception e) {
+
+
+        }
 
         return mIcon11;
     }
@@ -59,7 +66,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
         final int color = 0xff424242;
