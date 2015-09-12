@@ -40,6 +40,7 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
         final View view = inflater.inflate(R.layout.history_layout,container,false);
 
         calendar = (Calendar) Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
 
         listView = (ListView) view.findViewById(R.id.corse_listview);
 
@@ -55,7 +56,7 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
             @Override
             public void onSwipeLeft() {
                 if (calendar.get(Calendar.MONTH) != 0) {
-                    calendar.add(Calendar.MONTH, -1);
+                    calendar.add(Calendar.MONTH, +1);
                     calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                     selectStatement(calendar);
                     textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
@@ -64,7 +65,8 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
             @Override
             public void onSwipeRight() {
                 if (calendar.get(Calendar.MONTH) != 0) {
-                    calendar.add(Calendar.MONTH, +1);
+                    calendar.add(Calendar.MONTH, -
+                            1);
                     calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                     selectStatement(calendar);
                     textView.setText((calendar.get(Calendar.MONTH)-1) + " - " + calendar.get(Calendar.YEAR));
