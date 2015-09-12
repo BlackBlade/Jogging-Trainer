@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'JoggingTrainer'
             keyPassword 'lucamattemary'
-            storeFile file('C:/Users/Mary/Keystore/key.jks')
+            storeFile file('/home/luca/Keystores/key.jks')
             storePassword 'lucamattemary'
         }
     }

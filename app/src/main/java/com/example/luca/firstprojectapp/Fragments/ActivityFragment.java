@@ -3,12 +3,17 @@ package com.example.luca.firstprojectapp.Fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -24,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
+import com.example.luca.firstprojectapp.MyRunService;
 import com.example.luca.firstprojectapp.R;
 import com.example.luca.firstprojectapp.Utilities.MyLocationListener;
 import com.example.luca.firstprojectapp.Utilities.PhotoManager;
@@ -69,6 +75,29 @@ public class ActivityFragment extends Fragment {
     private ShareDialog shareDialog;
     private  File f;
     private boolean ok = false;
+    private Button buttonStartPause;
+
+    private MyRunService mService;
+
+    private final ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mService = ((MyRunService.LocalBinder) service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+
+        }
+    };
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //TODO implement on receive
+        }
+    };
 
     private Calendar startTraining;
 
@@ -138,7 +167,8 @@ public class ActivityFragment extends Fragment {
                 listener.getDatabaseManager().insertStats(startTraining,calories
                         ,distance,Calendar.getInstance().getTimeInMillis() - startTraining.getTimeInMillis());
 
-                listener.swapFragment(5); // cosi quando ha startato l'activity per i dettagli
+                listener.swapFragment(4
+                ); // cosi quando ha startato l'activity per i dettagli
                                           //si ritrova gia nella sezione corrispondente
 
                 //startare una activity per visualizzare il risultato!
@@ -146,7 +176,7 @@ public class ActivityFragment extends Fragment {
             }
         });
 
-        final Button buttonStartPause = (Button) view.findViewById(R.id.start_pauseButton);
+        buttonStartPause = (Button) view.findViewById(R.id.start_pauseButton);
         buttonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -281,6 +311,12 @@ public class ActivityFragment extends Fragment {
         return view;
     }
 
+    private void initialize(){
+        Intent i = new Intent(getActivity(),MyRunService.class);
+        getActivity().startService(i);
+        getActivity().bindService(i,mConnection,Context.BIND_AUTO_CREATE);
+    }
+
 
 
     /**
@@ -335,6 +371,11 @@ public class ActivityFragment extends Fragment {
     {
         super.onResume();
         mSimpleFacebook = SimpleFacebook.getInstance(getActivity());
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
     }
 
 
