@@ -7,9 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.example.luca.firstprojectapp.Adapters.RunsCursorAdapter;
@@ -31,11 +29,10 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
     private TextView textView;
     private Calendar calendar;
     private RunsCursorAdapter adapter;
-    //private final static String[] columnNames = new String[]{SqlLiteHelper.COLUMN_ID,SqlLiteHelper.COLUMN_CALORIES,SqlLiteHelper.COLUMN_DISTANCE,SqlLiteHelper.COLUMN_TIME};
-    //private final static int[] viewsId = new int[]{R.id.orario,R.id.calorie,R.id.distanza, R.id.durata};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         container.removeAllViews();
         final View view = inflater.inflate(R.layout.history_layout,container,false);
 
@@ -48,8 +45,6 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
         textView.setText(""+(calendar.get(Calendar.MONTH)+1)+" / "+calendar.get(Calendar.YEAR));
 
         selectStatement(calendar);
-
-        //listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_STATS + "where " + , this, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         view.setOnTouchListener(new OnSwipeTouchListener(listener.getContext()){
             @Override
