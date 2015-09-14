@@ -1,15 +1,12 @@
-package com.example.luca.firstprojectapp;
+package com.example.luca.firstprojectapp.Services;
 
 import android.app.Service;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.IBinder;
-import android.widget.Chronometer;
 
-import com.example.luca.firstprojectapp.Fragments.ActivityFragment;
 import com.example.luca.firstprojectapp.Utilities.MyLocationListener;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 public class MyRunService extends Service {
 
