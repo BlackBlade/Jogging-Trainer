@@ -29,11 +29,13 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
     private TextView textView;
     private Calendar calendar;
     private RunsCursorAdapter adapter;
+    private OnSwipeTouchListener swipeListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         container.removeAllViews();
+
         final View view = inflater.inflate(R.layout.history_layout,container,false);
 
         calendar = (Calendar) Calendar.getInstance();
@@ -46,34 +48,37 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
 
         selectStatement(calendar);
 
-        view.setOnTouchListener(new OnSwipeTouchListener(listener.getContext()){
+        swipeListener = new OnSwipeTouchListener(listener.getContext()){
             @Override
             public void onSwipeLeft() {
                 calendar.add(Calendar.MONTH, +1);
-                    if (calendar.get(Calendar.MONTH) == 12) {
-                        calendar.add(Calendar.MONTH, -12);
-                        calendar.add(Calendar.YEAR, +1);
-                    }
-                    calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                    selectStatement(calendar);
-                    textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+                if (calendar.get(Calendar.MONTH) == 12) {
+                    calendar.add(Calendar.MONTH, -12);
+                    calendar.add(Calendar.YEAR, +1);
+                }
+                calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                selectStatement(calendar);
+                textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
             }
             @Override
             public void onSwipeRight() {
-                    calendar.add(Calendar.MONTH, -1);
-                    if (calendar.get(Calendar.MONTH) == -1) {
-                        calendar.add(Calendar.MONTH, +12);
-                        calendar.add(Calendar.YEAR, -1);
-                    }
-                    calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                    selectStatement(calendar);
-                    textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+                calendar.add(Calendar.MONTH, -1);
+                if (calendar.get(Calendar.MONTH) == -1) {
+                    calendar.add(Calendar.MONTH, +12);
+                    calendar.add(Calendar.YEAR, -1);
+                }
+                calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                selectStatement(calendar);
+                textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
             }
-        });
+        };
+
+        view.setOnTouchListener(swipeListener);
+
+        listView.setOnTouchListener(swipeListener);
 
         return view;
     }
-
 
     private void selectStatement(Calendar cal){
 
