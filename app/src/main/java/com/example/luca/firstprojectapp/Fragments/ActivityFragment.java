@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -29,10 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luca.firstprojectapp.Interfaces.IOnActivityCallback;
-import com.example.luca.firstprojectapp.MyRunService;
+import com.example.luca.firstprojectapp.Services.MyRunService;
 import com.example.luca.firstprojectapp.R;
-import com.example.luca.firstprojectapp.Utilities.MyLocationListener;
 import com.example.luca.firstprojectapp.Utilities.PhotoManager;
+import com.example.luca.firstprojectapp.Utilities.PolylineManager;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.share.ShareApi;
@@ -64,10 +65,7 @@ public class ActivityFragment extends Fragment {
 
     private IOnActivityCallback listener;
     private Chronometer chronometer;
-    private PolylineOptions coordinates = new PolylineOptions();
     private boolean firstStart = true;
-    private LocationManager locationManager;
-    private  MyLocationListener locationListener;
     private GoogleMap map;
     private CallbackManager callbackManager;
     private String photoPath = null;
@@ -95,7 +93,11 @@ public class ActivityFragment extends Fragment {
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //TODO implement on receive
+            if(intent.hasExtra("Latitude") && intent.hasExtra("Longitude")){
+                double latitude = intent.getDoubleExtra("Latitude",0);
+                double longitude = intent.getDoubleExtra("Longitude",0);
+                buildPath(new LatLng(latitude,longitude));
+            }
         }
     };
 
@@ -137,8 +139,6 @@ public class ActivityFragment extends Fragment {
 
         SimpleFacebook.setConfiguration(configuration);
 
-        coordinates.width(5);
-        coordinates.color(Color.BLUE);
         SupportMapFragment mappa = new SupportMapFragment();
         FragmentTransaction transaction_map = getChildFragmentManager().beginTransaction();
         transaction_map.replace(R.id.mapContainer, mappa, "fragmentMap");
@@ -146,20 +146,12 @@ public class ActivityFragment extends Fragment {
 
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
 
-        TextView MusicPlayer = (TextView) view.findViewById(R.id.takePhotoButton);
-        MusicPlayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(listener.getContext(),coordinates.getPoints().size()+"",Toast.LENGTH_SHORT).show();
-            }
-        });
-
         final Button buttonStop = (Button) view.findViewById(R.id.stopButton);
         buttonStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                long distance = locationListener.getTotalDistance();
+                long distance = PolylineManager.getInstance().getDistance(); // service.getdistance
                 //compute calories(assuming that the first factor is the average weight)
                 double calories = 156*0.63*(distance/1000*1.60934);
 
@@ -169,9 +161,7 @@ public class ActivityFragment extends Fragment {
 
                 listener.swapFragment(4
                 ); // cosi quando ha startato l'activity per i dettagli
-                                          //si ritrova gia nella sezione corrispondente
-
-                //startare una activity per visualizzare il risultato!
+                //si ritrova gia nella sezione corrispondente
 
             }
         });
@@ -189,21 +179,12 @@ public class ActivityFragment extends Fragment {
                     buttonStartPause.setText("Pause");
                     if(firstStart){
                         firstStart = false;
-                        locationManager = listener.getSystemService();
-                        startTraining = Calendar.getInstance(); //inizio dell'allenamento
 
-                        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+                        startTraining = Calendar.getInstance(); //inizio dell'allenamento
+                        if ( !mService.isProviderEnabled(LocationManager.GPS_PROVIDER) ) {
                             buildAlertMessageNoGps();
                         }
 
-
-                        locationListener = new MyLocationListener(coordinates,ActivityFragment.this);
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER, 50, 5, locationListener);
-
-                    }else{
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER, 50, 5, locationListener);
                     }
 
                     int stoppedMilliseconds = 0;
@@ -224,8 +205,6 @@ public class ActivityFragment extends Fragment {
                 } else {
 
                     chronometer.stop();
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,9999999,
-                            9999999,locationListener);
                     buttonStartPause.setText("Start");
                 }
             }
@@ -238,49 +217,49 @@ public class ActivityFragment extends Fragment {
          */
         final ShareButton takePhoto = (ShareButton) view.findViewById(R.id.takePhotoButton);
         takePhoto.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (PhotoManager.getInstance().isIntentAvaliable(getActivity(), MediaStore.ACTION_IMAGE_CAPTURE)){
-                            try {
-                                f = PhotoManager.getInstance().createImageFile();
-                                photoPath = f.getAbsolutePath();
-                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                                startActivityForResult(takePictureIntent,1);
-                                ok=true;
-                            }catch(IOException e){
-                                e.printStackTrace();
+                                         @Override
+                                         public void onClick(View v){
+                                             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                             if (PhotoManager.getInstance().isIntentAvaliable(getActivity(), MediaStore.ACTION_IMAGE_CAPTURE)){
+                                                 try {
+                                                     f = PhotoManager.getInstance().createImageFile();
+                                                     photoPath = f.getAbsolutePath();
+                                                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                                                     startActivityForResult(takePictureIntent,1);
+                                                     ok=true;
+                                                 }catch(IOException e){
+                                                     e.printStackTrace();
 
-                            }
-                            if (ok) {
-                                new AlertDialog.Builder(getActivity())
-                                        .setTitle("Publish photo")
-                                        .setMessage("Do you want to publish this photo on Facebook?")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                SharePhoto photo = new SharePhoto.Builder()
-                                                        .setImageUrl(Uri.fromFile(f))
-                                                        .setCaption("Hey! Look where I'm at! " +
-                                                        "Running with My Jogging Trainer")
-                                                        .build();
-                                                SharePhotoContent content = new SharePhotoContent.Builder()
-                                                        .addPhoto(photo)
-                                                        .build();
-                                                ShareApi.share(content, null);
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
+                                                 }
+                                                 if (ok) {
+                                                     new AlertDialog.Builder(getActivity())
+                                                             .setTitle("Publish photo")
+                                                             .setMessage("Do you want to publish this photo on Facebook?")
+                                                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                                 public void onClick(DialogInterface dialog, int which) {
+                                                                     SharePhoto photo = new SharePhoto.Builder()
+                                                                             .setImageUrl(Uri.fromFile(f))
+                                                                             .setCaption("Hey! Look where I'm at! " +
+                                                                                     "Running with My Jogging Trainer")
+                                                                             .build();
+                                                                     SharePhotoContent content = new SharePhotoContent.Builder()
+                                                                             .addPhoto(photo)
+                                                                             .build();
+                                                                     ShareApi.share(content, null);
+                                                                 }
+                                                             })
+                                                             .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                                                 public void onClick(DialogInterface dialog, int which) {
 
-                                            }
-                                        })
-                                        .show();
-                            }
+                                                                 }
+                                                             })
+                                                             .show();
+                                                 }
 
-                        }
+                                             }
 
-                }
-            }
+                                         }
+                                     }
         );
 
 
@@ -309,13 +288,25 @@ public class ActivityFragment extends Fragment {
             }
         });
 
+
+        initialize();
+
         return view;
     }
+
+
+    private static IntentFilter makeRunIntentFilter() {
+
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(MyRunService.BROADCAST_ACTION);
+        return intentFilter;
+    }
+
 
     private void initialize(){
         Intent i = new Intent(getActivity(),MyRunService.class);
         getActivity().startService(i);
-        getActivity().bindService(i,mConnection,Context.BIND_AUTO_CREATE);
+        getActivity().bindService(i, mConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -362,7 +353,7 @@ public class ActivityFragment extends Fragment {
 
             map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(lastPosition,
                     15, 0, 0)));
-            map.addPolyline(coordinates);
+            map.addPolyline(PolylineManager.getInstance().getPolyline());
         }
 
     }
@@ -372,72 +363,31 @@ public class ActivityFragment extends Fragment {
     {
         super.onResume();
         mSimpleFacebook = SimpleFacebook.getInstance(getActivity());
+        getActivity().registerReceiver(mReceiver,makeRunIntentFilter());
     }
 
     @Override
     public void onPause(){
         super.onPause();
+        getActivity().unregisterReceiver(mReceiver);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        /**
+         * Stopping service and clearing map resources
+         */
+
+        getActivity().unbindService(mConnection);
+        mService.stopService();
+        PolylineManager.getInstance().clear();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);//forward del risultato al login manager.
     }
-    /*
-    public void setMarker(GoogleMap marker) {
-        this.map = marker;
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                actualLatLng = latLng;
-            }
-        });
-
-        new GetPersonaLocation().execute();
-
-    }
-
-
-    protected class GetPersonaLocation extends AsyncTask<Void, Void, Address> {
-
-        @Override
-        protected Address doInBackground(Void... params) {
-            List<Address> addresses = null;
-            try {
-                Geocoder geocoder = new Geocoder(listener.getContext(), Locale.getDefault());
-                if(listener.getCoordinates() != null){
-                    addresses = new LinkedList<>();
-                    Locale loc = Locale.getDefault();
-                    Address add = new Address(loc);
-                    add.setLatitude(listener.getCoordinates().latitude);
-                    add.setLongitude(listener.getCoordinates().longitude);
-                    addresses.add(add);
-                }else {
-                    addresses = geocoder.getFromLocationName("Via Busseto 15, Riccione", 1);
-                }
-
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-
-            return addresses != null && addresses.size() > 0 ? addresses.get(0) : null;
-        }
-
-        @Override
-        protected void onPostExecute(Address address) {
-            super.onPostExecute(address);
-            if (address != null && map != null) {
-                LatLng pos = new LatLng(address.getLatitude(), address.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(pos);
-                map.addMarker(markerOptions);
-
-                map.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(pos,
-                        15, 0, 0)));
-            }
-        }
-    }
-    */
 }

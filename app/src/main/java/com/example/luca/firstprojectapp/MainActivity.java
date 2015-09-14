@@ -90,8 +90,8 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
         //adding slide fragment and main fragment to layout
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
-        StatisticsFragment frag = new StatisticsFragment();
-        trans.add(R.id.fragmentContainer,frag,getString(R.string.Statistics)); //TODO change fragment tags!!!
+        ActivityFragment frag = new ActivityFragment();
+        trans.add(R.id.fragmentContainer,frag,getString(R.string.Activity));
         trans.commit();
 
         //init manager
