@@ -68,7 +68,7 @@
             android:exported="true" />
 
         <service
-            android:name=".MyRunService"
+            android:name=".Services.MyRunService"
             android:enabled="true"
             android:exported="true" >
         </service>

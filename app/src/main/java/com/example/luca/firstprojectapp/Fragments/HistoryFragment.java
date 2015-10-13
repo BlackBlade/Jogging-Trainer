@@ -7,9 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.example.luca.firstprojectapp.Adapters.RunsCursorAdapter;
@@ -31,12 +29,13 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
     private TextView textView;
     private Calendar calendar;
     private RunsCursorAdapter adapter;
-    //private final static String[] columnNames = new String[]{SqlLiteHelper.COLUMN_ID,SqlLiteHelper.COLUMN_CALORIES,SqlLiteHelper.COLUMN_DISTANCE,SqlLiteHelper.COLUMN_TIME};
-    //private final static int[] viewsId = new int[]{R.id.orario,R.id.calorie,R.id.distanza, R.id.durata};
+    private OnSwipeTouchListener swipeListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         container.removeAllViews();
+
         final View view = inflater.inflate(R.layout.history_layout,container,false);
 
         calendar = (Calendar) Calendar.getInstance();
@@ -49,36 +48,37 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
 
         selectStatement(calendar);
 
-        //listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_STATS + "where " + , this, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-
-        view.setOnTouchListener(new OnSwipeTouchListener(listener.getContext()){
+        swipeListener = new OnSwipeTouchListener(listener.getContext()){
             @Override
             public void onSwipeLeft() {
                 calendar.add(Calendar.MONTH, +1);
-                    if (calendar.get(Calendar.MONTH) == 12) {
-                        calendar.add(Calendar.MONTH, -12);
-                        calendar.add(Calendar.YEAR, +1);
-                    }
-                    calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                    selectStatement(calendar);
-                    textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+                if (calendar.get(Calendar.MONTH) == 12) {
+                    calendar.add(Calendar.MONTH, -12);
+                    calendar.add(Calendar.YEAR, +1);
+                }
+                calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                selectStatement(calendar);
+                textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
             }
             @Override
             public void onSwipeRight() {
-                    calendar.add(Calendar.MONTH, -1);
-                    if (calendar.get(Calendar.MONTH) == -1) {
-                        calendar.add(Calendar.MONTH, +12);
-                        calendar.add(Calendar.YEAR, -1);
-                    }
-                    calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                    selectStatement(calendar);
-                    textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
+                calendar.add(Calendar.MONTH, -1);
+                if (calendar.get(Calendar.MONTH) == -1) {
+                    calendar.add(Calendar.MONTH, +12);
+                    calendar.add(Calendar.YEAR, -1);
+                }
+                calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                selectStatement(calendar);
+                textView.setText((calendar.get(Calendar.MONTH)+1) + " - " + calendar.get(Calendar.YEAR));
             }
-        });
+        };
+
+        view.setOnTouchListener(swipeListener);
+
+        listView.setOnTouchListener(swipeListener);
 
         return view;
     }
-
 
     private void selectStatement(Calendar cal){
 
@@ -88,7 +88,7 @@ public class HistoryFragment extends Fragment implements DatabaseManager.IOnCurs
         first.set(Calendar.MINUTE, 0);
         first.set(Calendar.MILLISECOND,0);
 
-        listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_WEIGHT
+        listener.getDatabaseManager().querySelect("select * from " + SqlLiteHelper.TABLE_STATS
                 + " where " + SqlLiteHelper.COLUMN_ID + " between " + first.getTimeInMillis()
                 + " and " + cal.getTimeInMillis()
                 ,this,1);
