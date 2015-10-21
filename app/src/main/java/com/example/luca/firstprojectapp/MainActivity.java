@@ -57,14 +57,14 @@ public class MainActivity extends ActionBarActivity implements IOnActivityCallba
             Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-        }
+            intent.addFlags(Intent.        FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
 
 
 
 
-        list.add(new NavItem("Profile", R.drawable.ic_launcher));
+    list.add(new NavItem("Profile", R.drawable.ic_launcher));
         list.add(new NavItem("Statistics",R.drawable.ic_launcher));
         list.add(new NavItem("Calendar",R.drawable.ic_launcher));
         list.add(new NavItem("Activity",R.drawable.ic_launcher));

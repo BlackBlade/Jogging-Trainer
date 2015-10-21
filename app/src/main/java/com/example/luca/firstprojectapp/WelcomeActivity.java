@@ -71,6 +71,7 @@ public class WelcomeActivity extends ActionBarActivity {
 
             @Override
             public void onError(FacebookException e) {
+                Toast.makeText(getApplicationContext(),"Error in login",Toast.LENGTH_SHORT).show();
             }
         });
 

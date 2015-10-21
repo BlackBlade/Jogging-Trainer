@@ -20,7 +20,7 @@ import com.example.luca.firstprojectapp.Utilities.PolylineManager;
 public class MyRunService extends Service
 {
     public static final String BROADCAST_ACTION = "Notify Status Change";
-    private static final int TIME = 1000 * 30;
+    private static final int TIME = 30;
     private final IBinder mBinder = new LocalBinder();
     public LocationManager locationManager;
     public MyLocationListener listener;
